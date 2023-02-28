@@ -64,3 +64,6 @@ def execute_script(saveToFile = True):
 
     df = pd.DataFrame(rows, columns=columns)
     df.to_csv('layoff_fyi')
+
+
+execute_script()
