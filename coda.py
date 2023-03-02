@@ -25,14 +25,14 @@ def execute_script(url):
     html = driver.find_element(By.TAG_NAME, 'html')
 
 
-    times_scroll_down = 30
-    i=0
-    while i< times_scroll_down:
-        driver.execute_script('document.querySelector(\'div[data-scroll-id="canvasScrollContainer"]\').scrollTo(0, '+str(i*500)+')')
-        time.sleep(0.5)
-        i+=1
+    # times_scroll_down = 30
+    # i=0
+    # while i< times_scroll_down:
+    #     driver.execute_script('document.querySelector(\'div[data-scroll-id="canvasScrollContainer"]\').scrollTo(0, '+str(i*500)+')')
+    #     time.sleep(0.5)
+    #     i+=1
     
-    time.sleep(10)
+    # time.sleep(10)
     file = open('test','w', encoding="utf-8")
     file.write(driver.page_source)
     file.close()
@@ -155,5 +155,5 @@ def process_row(rows, parent, column_header = None):
     return rows
 # execute_script('https://coda.io/@alumni/zoom-alumni-list')
 # execute_script('https://coda.io/@kenny/coda-alumni-list')
-execute_script('https://coda.io/@daanyal-kamaal/goto-alumni-list')
-# execute_script('https://coda.io/d/Talent-Board_dN7cqX2rCM4/Candidates_suM29#_luRyI')
+# execute_script('https://coda.io/@daanyal-kamaal/goto-alumni-list')
+execute_script('https://coda.io/d/Talent-Board_dN7cqX2rCM4/Candidates_suM29#_luRyI')
