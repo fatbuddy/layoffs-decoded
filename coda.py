@@ -81,50 +81,60 @@ def execute_script(url):
     #     file.write(response.text)
     #     file.close()
 
-    # times_scroll_down = 30
-    # i=0
-    # while i< times_scroll_down:
-    #     driver.execute_script('document.querySelector(\'div[data-scroll-id="canvasScrollContainer"]\').scrollTo(0, '+str(i*500)+')')
-    #     time.sleep(0.5)
-    #     i+=1
-    
-    # time.sleep(10)
-    file = open('test','w', encoding="utf-8")
-    file.write(driver.page_source)
-    file.close()
-    filename = 'test'
-    file = open(filename,'r', encoding="utf-8");
-    html_soup = BeautifulSoup(file.read(), 'html.parser')
-    columns_headers = html_soup.find_all('div', class_ = 'columnHeaderRoot')
-    num_columns_headers = len(columns_headers)
-    i = 0
-    print(len(columns_headers))
-    for container in columns_headers:
-        target = container.find('div', class_ = 'kr-text-input-view-measurement')
-        columns.append(target.text)
-        print(target.text)
-        i+=1
-        if i == num_columns_headers / 2:
+    times_scroll_down = 30
+    scroll_time=0
+    previous_result = []
+    while scroll_time < times_scroll_down:
+        driver.execute_script('document.querySelector(\'div[data-scroll-id="canvasScrollContainer"]\').scrollTo(0, '+str(scroll_time*500)+')')
+        scroll_time += 1
+        time.sleep(5)
+        file = open('test','w', encoding="utf-8")
+        file.write(driver.page_source)
+        file.close()
+        filename = 'test'
+        file = open(filename,'r', encoding="utf-8");
+        html_soup = BeautifulSoup(file.read(), 'html.parser')
+        columns_headers = html_soup.find_all('div', class_ = 'columnHeaderRoot')
+        num_columns_headers = len(columns_headers)
+        i = 0
+        if len(columns) == 0:
+            for container in columns_headers:
+                target = container.find('div', class_ = 'kr-text-input-view-measurement')
+                columns.append(target.text)
+                print(target.text)
+                i+=1
+                if i == num_columns_headers / 2:
+                    break
+
+        # check if the page contain vertical group, that means there are merged cells that need to handle
+        vertical_groups = html_soup.select('div[data-coda-ui-id*="pivotVerticalGroup"]')
+        if len(vertical_groups) > 0:
+            for vertical_group in vertical_groups:
+                column_header = vertical_group.select('div[role="columnheader"] .kr-cell')[0].text
+                rows, appended_row = process_row(rows, vertical_group, column_header=column_header)
+        else:
+            # this is for the case which does not contain vertical group such as https://coda.io/@daanyal-kamaal/goto-alumni-list
+            
+            rows, appended_row = process_row(rows, html_soup)            
+        if previous_result == appended_row:
             break
-
-    # check if the page contain vertical group, that means there are merged cells that need to handle
-    vertical_groups = html_soup.select('div[data-coda-ui-id*="pivotVerticalGroup"]')
-    if len(vertical_groups) > 0:
-        for vertical_group in vertical_groups:
-            column_header = vertical_group.select('div[role="columnheader"] .kr-cell')[0].text
-            rows = process_row(rows, vertical_group, column_header=column_header)
-    else:
-        # this is for the case which does not contain vertical group such as https://coda.io/@daanyal-kamaal/goto-alumni-list
-        rows = process_row(rows, html_soup)            
-
+        previous_result = appended_row
 
 
     df = pd.DataFrame(rows, columns=columns)
+    # df_non_list = df.select_dtypes(exclude=['list'])
+
+    # # Drop duplicates from the non-list columns
+    # df_non_list = df_non_list.drop_duplicates()
+    # # Merge the non-list columns back into the original DataFrame
+    # df_clean = pd.merge(df_non_list, df[df.columns.difference(df_non_list.columns)], left_index=True, right_index=True)
+
     df.to_csv(filename+'.csv')
 
 def process_row(rows, parent, column_header = None):
     row_containers = parent.select('div[data-reference-type="row"]')
     print("total rows: "+str(len(row_containers)))
+    appended_rows = []
     for row_container in row_containers:
         cells = row_container.select('div[data-reference-type="cell"]')
         if column_header is not None:
@@ -153,7 +163,8 @@ def process_row(rows, parent, column_header = None):
         print(entry)
         print('----------------')
         rows.append(entry)
-    return rows
+        appended_rows.append(entry)
+    return rows, appended_rows
 
 # first case: base cases
 # execute_script('https://coda.io/@daanyal-kamaal/goto-alumni-list')
@@ -162,11 +173,11 @@ def process_row(rows, parent, column_header = None):
 # execute_script('https://coda.io/@alumni/zoom-alumni-list')
 
 # third case: javascript driven loading the data
-# execute_script('https://coda.io/@kenny/coda-alumni-list')
+execute_script('https://coda.io/@kenny/coda-alumni-list')
 
 
 # cases not working yet
 # the rows change when scrolling
 # also have addition links for scraping
-execute_script('https://coda.io/d/Talent-Board_dN7cqX2rCM4/Candidates_suM29#_luRyI')
+# execute_script('https://coda.io/d/Talent-Board_dN7cqX2rCM4/Candidates_suM29#_luRyI')
 
