@@ -12,16 +12,14 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.action_chains import ActionChains
+from urllib.parse import urlparse, urlunparse
 import time
-def execute_script(url):
+def execute_script(url, filename = 'test'):
     chrome_options = Options()
     # chrome_options.add_argument('--headless')
     driver = webdriver.Chrome(ChromeDriverManager().install(), options=chrome_options)
 
-    driver.get(url)
     
-    wait = WebDriverWait(driver, 10)
-    element = wait.until(EC.presence_of_element_located((By.CLASS_NAME, 'columnHeaderRoot')))
 
 
 
@@ -80,46 +78,79 @@ def execute_script(url):
     #     file = open(filename,'w', encoding="utf-8")
     #     file.write(response.text)
     #     file.close()
-
+    
     times_scroll_down = 30
-    scroll_time=0
-    previous_result = []
-    while scroll_time < times_scroll_down:
-        driver.execute_script('document.querySelector(\'div[data-scroll-id="canvasScrollContainer"]\').scrollTo(0, '+str(scroll_time*500)+')')
-        scroll_time += 1
-        time.sleep(5)
-        file = open('test','w', encoding="utf-8")
-        file.write(driver.page_source)
-        file.close()
-        filename = 'test'
-        file = open(filename,'r', encoding="utf-8");
-        html_soup = BeautifulSoup(file.read(), 'html.parser')
-        columns_headers = html_soup.find_all('div', class_ = 'columnHeaderRoot')
-        num_columns_headers = len(columns_headers)
-        i = 0
-        if len(columns) == 0:
-            for container in columns_headers:
-                target = container.find('div', class_ = 'kr-text-input-view-measurement')
-                columns.append(target.text)
-                print(target.text)
-                i+=1
-                if i == num_columns_headers / 2:
+    unvisited_link = [url]
+    page_visit = []
+    parsed_url = urlparse(url)
+    current_page = parsed_url.path
+    while len(unvisited_link) > 0:
+        url = unvisited_link.pop()
+        print("Current URL: " + current_page)
+        page_visit.append(url)
+        driver.get(url)
+        wait = WebDriverWait(driver, 10)
+        try:
+            element = wait.until(EC.presence_of_element_located((By.CLASS_NAME, 'columnHeaderRoot')))
+            scroll_time=0
+            previous_result = []
+            while scroll_time < times_scroll_down:
+                driver.execute_script('document.querySelector(\'div[data-scroll-id="canvasScrollContainer"]\').scrollTo(0, '+str(scroll_time*500)+')')
+                scroll_time += 1
+                time.sleep(5)
+                file = open('test','w', encoding="utf-8")
+                file.write(driver.page_source)
+                file.close()
+                
+                file = open(filename,'r', encoding="utf-8");
+                html_soup = BeautifulSoup(file.read(), 'html.parser')
+                columns_headers = html_soup.find_all('div', class_ = 'columnHeaderRoot')
+                num_columns_headers = len(columns_headers)
+                i = 0
+                if len(columns) == 0:
+                    for container in columns_headers:
+                        target = container.find('div', class_ = 'kr-text-input-view-measurement')
+                        columns.append(target.text)
+                        print(target.text)
+                        i+=1
+                        if i == num_columns_headers / 2:
+                            break
+
+                # check if the page contain vertical group, that means there are merged cells that need to handle
+                vertical_groups = html_soup.select('div[data-coda-ui-id*="pivotVerticalGroup"]')
+                if len(vertical_groups) > 0:
+                    for vertical_group in vertical_groups:
+                        column_header = vertical_group.select('div[role="columnheader"] .kr-cell')[0].text
+                        rows, appended_row = process_row(rows, vertical_group, column_header=column_header)
+                else:
+                    # this is for the case which does not contain vertical group such as https://coda.io/@daanyal-kamaal/goto-alumni-list
+                    
+                    rows, appended_row = process_row(rows, html_soup)            
+                if previous_result == appended_row:
                     break
-
-        # check if the page contain vertical group, that means there are merged cells that need to handle
-        vertical_groups = html_soup.select('div[data-coda-ui-id*="pivotVerticalGroup"]')
-        if len(vertical_groups) > 0:
-            for vertical_group in vertical_groups:
-                column_header = vertical_group.select('div[role="columnheader"] .kr-cell')[0].text
-                rows, appended_row = process_row(rows, vertical_group, column_header=column_header)
-        else:
-            # this is for the case which does not contain vertical group such as https://coda.io/@daanyal-kamaal/goto-alumni-list
+                previous_result = appended_row
+        except:
+            html_soup = BeautifulSoup(driver.page_source, 'html.parser')
+            anchors = html_soup.find_all("a", href=True)
+            for anchor in anchors:
+                href = anchor.get('href')
+                if href == current_page:
+                    continue
+                if href in page_visit:
+                    continue
+                if current_page in href:
+                    target_page = urlunparse(parsed_url._replace(path=href))
+                    unvisited_link.append(target_page)
+            print(unvisited_link)
             
-            rows, appended_row = process_row(rows, html_soup)            
-        if previous_result == appended_row:
-            break
-        previous_result = appended_row
-
+        # if len(unvisited_link) > 0:
+        #     num = 0
+        #     for link in unvisited_link:
+        #         target_page = urlunparse(parsed_url._replace(path=link))
+        #         print("link found: "+link)
+        #         print("going to: "+target_page)
+        #         execute_script(target_page, filename+str(num))
+        #         num+=1
 
     df = pd.DataFrame(rows, columns=columns)
     # df_non_list = df.select_dtypes(exclude=['list'])
@@ -160,8 +191,8 @@ def process_row(rows, parent, column_header = None):
                     # print(label_container)
                 else:
                     entry.append(cell.text)
-        print(entry)
-        print('----------------')
+        # print(entry)
+        # print('----------------')
         rows.append(entry)
         appended_rows.append(entry)
     return rows, appended_rows
@@ -173,8 +204,10 @@ def process_row(rows, parent, column_header = None):
 # execute_script('https://coda.io/@alumni/zoom-alumni-list')
 
 # third case: javascript driven loading the data
-execute_script('https://coda.io/@kenny/coda-alumni-list')
+# execute_script('https://coda.io/@kenny/coda-alumni-list')
 
+# forth case: additional link
+execute_script('https://coda.io/@opendoorosn/opendoor-os-national-talent-board')
 
 # cases not working yet
 # the rows change when scrolling
