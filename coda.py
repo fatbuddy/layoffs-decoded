@@ -22,20 +22,10 @@ def execute_script(url):
     
     wait = WebDriverWait(driver, 10)
     element = wait.until(EC.presence_of_element_located((By.CLASS_NAME, 'columnHeaderRoot')))
-    html = driver.find_element(By.TAG_NAME, 'html')
 
 
-    # times_scroll_down = 30
-    # i=0
-    # while i< times_scroll_down:
-    #     driver.execute_script('document.querySelector(\'div[data-scroll-id="canvasScrollContainer"]\').scrollTo(0, '+str(i*500)+')')
-    #     time.sleep(0.5)
-    #     i+=1
+
     
-    # time.sleep(10)
-    file = open('test','w', encoding="utf-8")
-    file.write(driver.page_source)
-    file.close()
 
 
     # columns = []
@@ -91,6 +81,17 @@ def execute_script(url):
     #     file.write(response.text)
     #     file.close()
 
+    # times_scroll_down = 30
+    # i=0
+    # while i< times_scroll_down:
+    #     driver.execute_script('document.querySelector(\'div[data-scroll-id="canvasScrollContainer"]\').scrollTo(0, '+str(i*500)+')')
+    #     time.sleep(0.5)
+    #     i+=1
+    
+    # time.sleep(10)
+    file = open('test','w', encoding="utf-8")
+    file.write(driver.page_source)
+    file.close()
     filename = 'test'
     file = open(filename,'r', encoding="utf-8");
     html_soup = BeautifulSoup(file.read(), 'html.parser')
