@@ -153,7 +153,19 @@ def process_row(rows, parent, column_header = None):
         print('----------------')
         rows.append(entry)
     return rows
-# execute_script('https://coda.io/@alumni/zoom-alumni-list')
-# execute_script('https://coda.io/@kenny/coda-alumni-list')
+
+# first case: base cases
 # execute_script('https://coda.io/@daanyal-kamaal/goto-alumni-list')
+
+# second case: merged cells on the 1st column
+# execute_script('https://coda.io/@alumni/zoom-alumni-list')
+
+# third case: javascript driven loading the data
+# execute_script('https://coda.io/@kenny/coda-alumni-list')
+
+
+# cases not working yet
+# the rows change when scrolling
+# also have addition links for scraping
 execute_script('https://coda.io/d/Talent-Board_dN7cqX2rCM4/Candidates_suM29#_luRyI')
+
