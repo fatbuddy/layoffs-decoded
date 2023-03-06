@@ -7,8 +7,7 @@ from airflow.providers.amazon.aws.hooks.s3 import S3Hook
 from airflow.operators.bash import BashOperator
 
 from data_preparation.scraping import laid_off_employee_list
-from data_preparation.scraping import scrape_employee_gsheet
-
+from data_preparation.scraping import scrape_employee
 
 @dag(
     schedule=None,
@@ -26,15 +25,15 @@ def scrape_layoff_employee_profiles():
         Extract a list of spreadsheets of laid-off employees from the main airtable sheet
         """
         employee_sheet_list = laid_off_employee_list.execute_script(saveToFile=False)
-        return employee_sheet_list[:5]
+        return employee_sheet_list
 
     @task
     def extract_employee_profiles(spreadsheet_link, output_dir):
         """
-        Extrack profiles of employee from a spreadsheet link
+        Extract profiles of employee from a spread sheet link
         """
         print(f"{spreadsheet_link[1]} => {spreadsheet_link[4]}")
-        return scrape_employee_gsheet.download_gsheet_csv(
+        return scrape_employee.download_employee_csv(
             list_name=spreadsheet_link[1],
             url=spreadsheet_link[4],
             output_dir=output_dir
@@ -42,6 +41,9 @@ def scrape_layoff_employee_profiles():
     
     @task
     def upload_employee_csv_s3(local_file_path, s3_bucket):
+        """
+        Upload output CSV to S3 bucket
+        """
         s3_hook = S3Hook()
         file_name = local_file_path.split('/')[-1]
         s3_hook.load_file(local_file_path, f"employees/{file_name}", s3_bucket, replace=True)
@@ -60,7 +62,6 @@ def scrape_layoff_employee_profiles():
     remove_tmp_dir = BashOperator(
         task_id="remove_tmp_dir",
         bash_command="rm -rf {{ ti.xcom_pull(task_ids='create_tmp_dir') }}"
-        
     )
     upload_res >> remove_tmp_dir
 

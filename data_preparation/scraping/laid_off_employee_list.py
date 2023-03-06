@@ -19,7 +19,7 @@ def execute_script(saveToFile=True):
         'Content-Type': 'application/json'
     }
 
-    out_dir = f"{os.path.realpath(os.path.dirname(__file__))}/out"
+    out_dir = f"{os.path.realpath(os.path.dirname(__file__))}"
 
     response = requests.get(url, headers=headers)
     data = json.loads(response.text)
