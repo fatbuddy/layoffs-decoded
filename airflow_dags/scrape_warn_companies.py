@@ -42,7 +42,7 @@ def scrape_warn_companies():
             "https://docs.google.com/spreadsheets/d/1GWMWe33pWRUxCmdXLrl7X2-BvG5ePKOovNQXBqgGC14/edit#gid=0",
             output_dir
         )
-        company_data_df = pd.read_csv(warn_csv_path)
+        company_data_df = pd.read_csv(warn_csv_path, encoding='utf-8')
         company_data_df.fillna('', inplace=True)
         company_data = company_data_df.to_records(index=False).tolist()
         # return [company_data[:20]]

@@ -26,7 +26,7 @@ def download_gsheet_csv(list_name, url, output_dir):
     if resp.status_code != 200:
         print(f"csv url: {resp.status_code}, manual scraping needed")
         return scrape_gsheet_manual(list_name, url, output_dir, isExportUrl=False)
-    with open(f'{output_dir}/{list_name}.csv', 'w') as f:
+    with open(f'{output_dir}/{list_name}.csv', 'w', encoding='utf-8') as f:
         writer = csv.writer(f)
         reader = csv.reader(resp.content.decode('utf-8').splitlines())
         count = 0
