@@ -1,6 +1,7 @@
 import json
 
 import pendulum
+import datetime
 
 from airflow.decorators import dag, task
 from airflow.providers.amazon.aws.hooks.s3 import S3Hook
@@ -27,7 +28,10 @@ def scrape_layoff_employee_profiles():
         employee_sheet_list = laid_off_employee_list.execute_script(saveToFile=False)
         return employee_sheet_list
 
-    @task
+    @task(
+        retries=2,
+        execution_timeout=datetime.timedelta(minutes=10),
+    )
     def extract_employee_profiles(spreadsheet_link, output_dir):
         """
         Extract profiles of employee from a spread sheet link
