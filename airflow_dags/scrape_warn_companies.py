@@ -60,7 +60,10 @@ def scrape_warn_companies():
         print(start_idx)
         companies_with_symbol = []
         company_data_df = pd.read_csv(f"{output_dir}/warn.csv", encoding='utf-8')
-        company_batch = company_data_df.iloc[start_idx:(start_idx+batch_size)].to_records(index=False).tolist()
+        end_idx = start_idx+batch_size
+        if company_data_df.shape[0] < end_idx:
+            end_idx = company_data_df.shape[0]
+        company_batch = company_data_df.iloc[start_idx:end_idx].to_records(index=False).tolist()
         # company_names = company_data_df.iloc[start_idx:(start_idx+batch_size)]['Company'].tolist()
         # columns = WARN_COLUMNS + ['Symbol']
         # print(start_idx)
@@ -69,6 +72,7 @@ def scrape_warn_companies():
             c_arr = list(c)
             s = scrape_warn.getSymbol(c_arr[1], api_key)
             if s is not None:
+                print(f"{c_arr[1]} = {s}")
                 c_arr.append(s)
                 companies_with_symbol.append(c_arr)
             # company_symbols.append(scrape_warn.getSymbol(c[1], api_key))

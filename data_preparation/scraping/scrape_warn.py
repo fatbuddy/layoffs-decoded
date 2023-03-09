@@ -4,19 +4,29 @@ import time
 import re
 
 API_KEY = "DEO388ZM3UEZ34M8"
+ALPHA_VANTAGE_URL="https://www.alphavantage.co/query"
+USER_AGENT="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36"
 
 def getSymbol(company_name, apikey):
-    url = "https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=" + company_name + "&apikey=" + apikey
-    user_agent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36'
-
-    res = requests.get(url=url, headers={'User-Agent': user_agent})
+    res = requests.get(
+        url=ALPHA_VANTAGE_URL, 
+        params={
+            'function': 'SYMBOL_SEARCH',
+            'keywords': company_name,
+            'apikey': apikey
+        },
+        headers={'User-Agent': USER_AGENT}
+    )
     try :
         data = res.json()
     except:
         return None
         
     if 'bestMatches' in data and len(data['bestMatches']) > 0:
-        return data['bestMatches'][0]['1. symbol']
+        us_equity = list(filter(lambda d: d['4. region'] == 'United States', data['bestMatches']))
+        if len(us_equity) > 0:
+            return us_equity[0]['1. symbol']
+        return None
     else:
         return None
 
