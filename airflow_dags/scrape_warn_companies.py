@@ -46,8 +46,8 @@ def scrape_warn_companies():
         company_names = company_data_df['Company'].tolist()
         # company_data_df.fillna('', inplace=True)
         # company_data = company_data_df.to_records(index=False).tolist()
-        # return [company_data[:20]]
-        return list(chunks(company_names, 100))
+        return [company_names[:20]]
+        # return list(chunks(company_names, 100))
     
     @task
     def retrieve_company_symbol(company_batch, api_key, output_dir):
