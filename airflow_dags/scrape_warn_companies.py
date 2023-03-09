@@ -3,6 +3,7 @@ import json
 import pendulum
 import pandas as pd
 import uuid
+import datetime
 
 from airflow.decorators import dag, task
 from airflow.providers.amazon.aws.hooks.s3 import S3Hook
@@ -55,7 +56,10 @@ def scrape_warn_companies():
         # return [company_names[:20], company_names[20:40]]
         # return list(chunks(company_names, 100))
     
-    @task
+    @task(
+        retries=2,
+        execution_timeout=datetime.timedelta(minutes=10),
+    )
     def retrieve_company_symbol(start_idx, batch_size, api_key, output_dir):
         print(start_idx)
         companies_with_symbol = []
