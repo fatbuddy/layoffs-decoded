@@ -15,6 +15,7 @@ ALPHA_VANTAGE_API_KEY='DEO388ZM3UEZ34M8'
 WARN_COLUMNS = ['State', 'Company', 'City', 'Number of Workers', 'WARN Received Date',
        'Effective Date', 'Closure/Layoff', 'Temporary/Permanent', 'Union',
        'Region', 'County', 'Industry', 'Notes']
+SYMBOL_BATCH_SIZE=1000
 
 @dag(
     schedule=None,
@@ -43,27 +44,42 @@ def scrape_warn_companies():
             output_dir
         )
         company_data_df = pd.read_csv(warn_csv_path, encoding='utf-8')
-        company_names = company_data_df['Company'].tolist()
+        company_count = company_data_df.shape[0]
+        idx_range = list(range(0, company_count, SYMBOL_BATCH_SIZE))
+        return idx_range
+        # return [0]
+        # company_names = company_data_df['Company'].tolist()
         # company_data_df.fillna('', inplace=True)
         # company_data = company_data_df.to_records(index=False).tolist()
-        return [company_names[:20]]
+        # print(company_names)
+        # return [company_names[:20], company_names[20:40]]
         # return list(chunks(company_names, 100))
     
     @task
-    def retrieve_company_symbol(company_batch, api_key, output_dir):
-        # companies_with_symbol = []
+    def retrieve_company_symbol(start_idx, batch_size, api_key, output_dir):
+        print(start_idx)
+        companies_with_symbol = []
+        company_data_df = pd.read_csv(f"{output_dir}/warn.csv", encoding='utf-8')
+        company_batch = company_data_df.iloc[start_idx:(start_idx+batch_size)].to_records(index=False).tolist()
+        # company_names = company_data_df.iloc[start_idx:(start_idx+batch_size)]['Company'].tolist()
         # columns = WARN_COLUMNS + ['Symbol']
-        company_symbols = []
-        for c_name in company_batch:
-            company_symbols.append(scrape_warn.getSymbol(c_name, api_key))
-        companies_with_symbol = list(filter(
-            lambda cs: cs[1] is not None, 
-            zip(company_batch, company_symbols)
-        ))
+        # print(start_idx)
+        # company_symbols = []
+        for c in company_batch:
+            c_arr = list(c)
+            s = scrape_warn.getSymbol(c_arr[1], api_key)
+            if s is not None:
+                c_arr.append(s)
+                companies_with_symbol.append(c_arr)
+            # company_symbols.append(scrape_warn.getSymbol(c[1], api_key))
+        # companies_with_symbol = list(filter(
+        #     lambda cs: cs[1] is not None, 
+        #     zip(company_batch, company_symbols)
+        # ))
         if len(companies_with_symbol) > 0:
             path = f"{output_dir}/company_symbol_{''.join(str(uuid.uuid4()).split('-'))}.csv"
             pd.DataFrame\
-                .from_records(companies_with_symbol, columns=['company_name', 'symbol'])\
+                .from_records(companies_with_symbol, columns=(WARN_COLUMNS+['Symbol']))\
                 .to_csv(path, header=True, index=False)
             return path
         return None
@@ -75,10 +91,11 @@ def scrape_warn_companies():
     company_name_res = download_company_list_csv(output_dir=create_tmp_dir.output)
     get_symbol_res = retrieve_company_symbol\
         .partial(
+            batch_size=SYMBOL_BATCH_SIZE,
             api_key=ALPHA_VANTAGE_API_KEY, 
             output_dir=create_tmp_dir.output
         )\
-        .expand(company_batch=company_name_res)
+        .expand(start_idx=company_name_res)
     # remove_tmp_dir = BashOperator(
     #     task_id="remove_tmp_dir",
     #     bash_command="rm -rf {{ ti.xcom_pull(task_ids='create_tmp_dir') }}"
