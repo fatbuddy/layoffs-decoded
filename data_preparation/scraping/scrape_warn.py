@@ -20,9 +20,9 @@ def getSymbol(company_name, apikey):
     else:
         return None
 
-def warn_company_data(warn_csv_path):
-    df = pd.read_csv(warn_csv_path)
-    return df.to_records().tolist()
+# def read_warn_company_names(warn_csv_path):
+#     df = pd.read_csv()
+#     return df['Company'].tolist()
 
 
 # result = getSymbol(re.sub(r'[^\w]', ' ', "Microsoft"), API_KEY)

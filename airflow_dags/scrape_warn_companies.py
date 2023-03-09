@@ -43,26 +43,28 @@ def scrape_warn_companies():
             output_dir
         )
         company_data_df = pd.read_csv(warn_csv_path, encoding='utf-8')
-        company_data_df.fillna('', inplace=True)
-        company_data = company_data_df.to_records(index=False).tolist()
+        company_names = company_data_df['Company'].tolist()
+        # company_data_df.fillna('', inplace=True)
+        # company_data = company_data_df.to_records(index=False).tolist()
         # return [company_data[:20]]
-        return list(chunks(company_data, 100))
+        return list(chunks(company_names, 100))
     
     @task
     def retrieve_company_symbol(company_batch, api_key, output_dir):
-        companies_with_symbol = []
-        columns = WARN_COLUMNS + ['Symbol']
-        for c in company_batch:
-            c_arr = list(c)
-            s = scrape_warn.getSymbol(c_arr[1], api_key)
-            if s is not None:
-                c_arr.append(s)
-                companies_with_symbol.append(c_arr)
+        # companies_with_symbol = []
+        # columns = WARN_COLUMNS + ['Symbol']
+        company_symbols = []
+        for c_name in company_batch:
+            company_symbols.append(scrape_warn.getSymbol(c_name, api_key))
+        companies_with_symbol = list(filter(
+            lambda cs: cs[1] is not None, 
+            zip(company_batch, company_symbols)
+        ))
         if len(companies_with_symbol) > 0:
             path = f"{output_dir}/company_symbol_{''.join(str(uuid.uuid4()).split('-'))}.csv"
             pd.DataFrame\
-                .from_records(companies_with_symbol, columns=columns)\
-                .to_csv(path, header=True, index=True)
+                .from_records(companies_with_symbol, columns=['company_name', 'symbol'])\
+                .to_csv(path, header=True, index=False)
             return path
         return None
     
