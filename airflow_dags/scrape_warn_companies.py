@@ -18,7 +18,7 @@ ALPHA_VANTAGE_API_KEY='DEO388ZM3UEZ34M8'
 WARN_COLUMNS = ['State', 'Company', 'City', 'Number of Workers', 'WARN Received Date',
        'Effective Date', 'Closure/Layoff', 'Temporary/Permanent', 'Union',
        'Region', 'County', 'Industry', 'Notes']
-SYMBOL_BATCH_SIZE=100
+SYMBOL_BATCH_SIZE=500
 
 @dag(
     schedule=None,
