@@ -18,6 +18,8 @@ def getSymbol(company_name, apikey):
         },
         headers={'User-Agent': USER_AGENT}
     )
+    if res.status_code != 200:
+        raise ValueError(f"Response status: {res.status_code}. {res.text}")
     try :
         data = res.json()
     except:
@@ -45,7 +47,9 @@ def getSymbolYahoo(company_name, apikey=""):
         },
         headers={'User-Agent': USER_AGENT}
     )
-    try :
+    if res.status_code != 200:
+        raise ValueError(f"Response status: {res.status_code}. {res.text}")
+    try:
         data = res.json()
     except:
         return None
