@@ -23,10 +23,11 @@ def getSymbol(company_name, apikey):
         return None
         
     if 'bestMatches' in data and len(data['bestMatches']) > 0:
-        us_equity = list(filter(lambda d: d['4. region'] == 'United States', data['bestMatches']))
-        if len(us_equity) > 0:
-            return us_equity[0]['1. symbol']
-        return None
+        return data['bestMatches'][0]['1. symbol']
+        # us_equity = list(filter(lambda d: d['4. region'] == 'United States', data['bestMatches']))
+        # if len(us_equity) > 0:
+        #     return us_equity[0]['1. symbol']
+        # return None
     else:
         return None
 

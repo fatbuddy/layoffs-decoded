@@ -25,6 +25,8 @@ SYMBOL_BATCH_SIZE=100
     start_date=pendulum.datetime(2023, 1, 1, tz="UTC"),
     catchup=False,
     tags=["scraping"],
+    concurrency=10,
+    max_active_runs=1
 )
 def scrape_warn_companies():
     """
