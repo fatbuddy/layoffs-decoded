@@ -5,6 +5,7 @@ import re
 
 API_KEY = ""
 ALPHA_VANTAGE_URL="https://www.alphavantage.co/query"
+YAHOO_FINANCE_URL="https://query2.finance.yahoo.com/v1/finance/search"
 USER_AGENT="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36"
 
 def getSymbol(company_name, apikey):
@@ -28,6 +29,29 @@ def getSymbol(company_name, apikey):
         # if len(us_equity) > 0:
         #     return us_equity[0]['1. symbol']
         # return None
+    else:
+        return None
+
+def getSymbolYahoo(company_name, apikey=""):
+    res = requests.get(
+        url=YAHOO_FINANCE_URL, 
+        params={
+            'q': company_name,
+            'lang': 'en-US',
+            'region': 'US',
+            'quotesCount': '5',
+            'newsCount': '0',
+            'listsCount': '0'
+        },
+        headers={'User-Agent': USER_AGENT}
+    )
+    try :
+        data = res.json()
+    except:
+        return None
+    
+    if 'quotes' in data and len(data['quotes']) > 0:
+        return data['quotes'][0]['symbol']
     else:
         return None
 

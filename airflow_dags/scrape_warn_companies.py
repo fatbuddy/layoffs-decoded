@@ -14,11 +14,9 @@ from airflow.operators.bash import BashOperator
 from data_preparation.scraping import scrape_warn
 from data_preparation.scraping import scrape_employee_gsheet
 
-ALPHA_VANTAGE_API_KEY='DEO388ZM3UEZ34M8'
 WARN_COLUMNS = ['State', 'Company', 'City', 'Number of Workers', 'WARN Received Date',
        'Effective Date', 'Closure/Layoff', 'Temporary/Permanent', 'Union',
        'Region', 'County', 'Industry', 'Notes']
-SYMBOL_BATCH_SIZE=500
 
 @dag(
     schedule=None,
@@ -26,14 +24,19 @@ SYMBOL_BATCH_SIZE=500
     catchup=False,
     tags=["scraping"],
     concurrency=10,
-    max_active_runs=1
+    max_active_runs=1,
+    params={
+        'useYahoo': False,
+        'batchSize': 500,
+        'alpha_vantage_api_key': "",
+    }
 )
 def scrape_warn_companies():
     """
     Scrape company data from WARN at https://layoffdata.com/data/
     """
     @task
-    def download_company_list_csv(output_dir):
+    def download_company_list_csv(output_dir, **ctx):
         """
         Extract a list of companies from WARN spreadsheet
         https://docs.google.com/spreadsheets/d/1GWMWe33pWRUxCmdXLrl7X2-BvG5ePKOovNQXBqgGC14/edit#gid=0
@@ -45,25 +48,28 @@ def scrape_warn_companies():
         )
         company_data_df = pd.read_csv(warn_csv_path, encoding='utf-8')
         company_count = company_data_df.shape[0]
-        idx_range = list(range(0, company_count, SYMBOL_BATCH_SIZE))
+        idx_range = list(range(0, company_count, ctx['params']['batchSize']))
         return idx_range
-        # return [0, 50]
+        # return [0]
     
     @task(
         retries=2,
         execution_timeout=datetime.timedelta(minutes=10),
     )
-    def retrieve_company_symbol(start_idx, batch_size, api_key, output_dir):
+    def retrieve_company_symbol(start_idx, output_dir, **ctx):
         print(start_idx)
         companies_with_symbol = []
         company_data_df = pd.read_csv(f"{output_dir}/warn.csv", encoding='utf-8')
-        end_idx = start_idx+batch_size
+        end_idx = start_idx+ctx['params']['batchSize']
         if company_data_df.shape[0] < end_idx:
             end_idx = company_data_df.shape[0]
         company_batch = company_data_df.iloc[start_idx:end_idx].to_records(index=False).tolist()
         for c in company_batch:
             c_arr = list(c)
-            s = scrape_warn.getSymbol(c_arr[1], api_key)
+            if ctx['params']['useYahoo']:
+                s = scrape_warn.getSymbolYahoo(c_arr[1])
+            else:
+                s = scrape_warn.getSymbol(c_arr[1], ctx['params']['alpha_vantage_api_key'])
             if s is not None:
                 print(f"{c_arr[1]} = {s}")
                 c_arr.append(s)
@@ -86,6 +92,7 @@ def scrape_warn_companies():
             else:
                 next_df = pd.read_csv(csv_path)
                 df = pd.concat([df, next_df], axis=0, ignore_index=True)
+        print(f"final df.shape {df.shape}")
         df.to_csv(final_csv_path, header=True, index=False)
         return final_csv_path
     
@@ -95,11 +102,7 @@ def scrape_warn_companies():
     )
     company_name_res = download_company_list_csv(output_dir=create_tmp_dir.output)
     get_symbol_res = retrieve_company_symbol\
-        .partial(
-            batch_size=SYMBOL_BATCH_SIZE,
-            api_key=ALPHA_VANTAGE_API_KEY, 
-            output_dir=create_tmp_dir.output
-        )\
+        .partial(output_dir=create_tmp_dir.output)\
         .expand(start_idx=company_name_res)
     merge_res = merge_company_symbol_csv(
         csv_list=get_symbol_res, 
