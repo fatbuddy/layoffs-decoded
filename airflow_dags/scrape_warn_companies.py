@@ -4,9 +4,11 @@ import pendulum
 import pandas as pd
 import uuid
 import datetime
+import time
 
 from airflow.decorators import dag, task
 from airflow.providers.amazon.aws.hooks.s3 import S3Hook
+from airflow.providers.amazon.aws.transfers.local_to_s3 import LocalFilesystemToS3Operator
 from airflow.operators.bash import BashOperator
 
 from data_preparation.scraping import scrape_warn
@@ -16,7 +18,7 @@ ALPHA_VANTAGE_API_KEY='DEO388ZM3UEZ34M8'
 WARN_COLUMNS = ['State', 'Company', 'City', 'Number of Workers', 'WARN Received Date',
        'Effective Date', 'Closure/Layoff', 'Temporary/Permanent', 'Union',
        'Region', 'County', 'Industry', 'Notes']
-SYMBOL_BATCH_SIZE=1000
+SYMBOL_BATCH_SIZE=100
 
 @dag(
     schedule=None,
@@ -25,11 +27,6 @@ SYMBOL_BATCH_SIZE=1000
     tags=["scraping"],
 )
 def scrape_warn_companies():
-    def chunks(l, n):
-        """Yield n number of striped chunks from l."""
-        for i in range(0, n):
-            yield l[i::n]
-
     """
     Scrape company data from WARN at https://layoffdata.com/data/
     """
@@ -48,13 +45,7 @@ def scrape_warn_companies():
         company_count = company_data_df.shape[0]
         idx_range = list(range(0, company_count, SYMBOL_BATCH_SIZE))
         return idx_range
-        # return [0]
-        # company_names = company_data_df['Company'].tolist()
-        # company_data_df.fillna('', inplace=True)
-        # company_data = company_data_df.to_records(index=False).tolist()
-        # print(company_names)
-        # return [company_names[:20], company_names[20:40]]
-        # return list(chunks(company_names, 100))
+        # return [0, 50]
     
     @task(
         retries=2,
@@ -68,10 +59,6 @@ def scrape_warn_companies():
         if company_data_df.shape[0] < end_idx:
             end_idx = company_data_df.shape[0]
         company_batch = company_data_df.iloc[start_idx:end_idx].to_records(index=False).tolist()
-        # company_names = company_data_df.iloc[start_idx:(start_idx+batch_size)]['Company'].tolist()
-        # columns = WARN_COLUMNS + ['Symbol']
-        # print(start_idx)
-        # company_symbols = []
         for c in company_batch:
             c_arr = list(c)
             s = scrape_warn.getSymbol(c_arr[1], api_key)
@@ -79,11 +66,6 @@ def scrape_warn_companies():
                 print(f"{c_arr[1]} = {s}")
                 c_arr.append(s)
                 companies_with_symbol.append(c_arr)
-            # company_symbols.append(scrape_warn.getSymbol(c[1], api_key))
-        # companies_with_symbol = list(filter(
-        #     lambda cs: cs[1] is not None, 
-        #     zip(company_batch, company_symbols)
-        # ))
         if len(companies_with_symbol) > 0:
             path = f"{output_dir}/company_symbol_{''.join(str(uuid.uuid4()).split('-'))}.csv"
             pd.DataFrame\
@@ -91,6 +73,19 @@ def scrape_warn_companies():
                 .to_csv(path, header=True, index=False)
             return path
         return None
+    
+    @task
+    def merge_company_symbol_csv(csv_list, output_dir):
+        df = None
+        final_csv_path = f"{output_dir}/warn_symbol.csv"
+        for csv_path in csv_list:
+            if df is None:
+                df = pd.read_csv(csv_path)
+            else:
+                next_df = pd.read_csv(csv_path)
+                df = pd.concat([df, next_df], axis=0, ignore_index=True)
+        df.to_csv(final_csv_path, header=True, index=False)
+        return final_csv_path
     
     create_tmp_dir = BashOperator(
         task_id="create_tmp_dir",
@@ -104,49 +99,20 @@ def scrape_warn_companies():
             output_dir=create_tmp_dir.output
         )\
         .expand(start_idx=company_name_res)
-    # remove_tmp_dir = BashOperator(
-    #     task_id="remove_tmp_dir",
-    #     bash_command="rm -rf {{ ti.xcom_pull(task_ids='create_tmp_dir') }}"
-    # )
-    # get_symbol_res >> remove_tmp_dir
+    merge_res = merge_company_symbol_csv(
+        csv_list=get_symbol_res, 
+        output_dir=create_tmp_dir.output)
+    upload_res = LocalFilesystemToS3Operator(
+        task_id="upload_company_symbol_csv",
+        filename=merge_res,
+        dest_key=f"warn_symbol_{int(time.time())}.csv",
+        dest_bucket="layoffs-decoded-master",
+        replace=True
+    )
+    remove_tmp_dir = BashOperator(
+        task_id="remove_tmp_dir",
+        bash_command="rm -rf {{ ti.xcom_pull(task_ids='create_tmp_dir') }}"
+    )
+    upload_res >> remove_tmp_dir
     
 scrape_warn_companies()
-    # @task
-    # def extract_employee_profiles(spreadsheet_link, output_dir):
-    #     """
-    #     Extract profiles of employee from a spread sheet link
-    #     """
-    #     print(f"{spreadsheet_link[1]} => {spreadsheet_link[4]}")
-    #     return scrape_employee.download_employee_csv(
-    #         list_name=spreadsheet_link[1],
-    #         url=spreadsheet_link[4],
-    #         output_dir=output_dir
-    #     )
-    
-    # @task
-    # def upload_employee_csv_s3(local_file_path, s3_bucket):
-    #     """
-    #     Upload output CSV to S3 bucket
-    #     """
-    #     s3_hook = S3Hook()
-    #     file_name = local_file_path.split('/')[-1]
-    #     s3_hook.load_file(local_file_path, f"employees/{file_name}", s3_bucket, replace=True)
-
-    # employee_spreadsheets = extract_layoff_links()
-    # create_tmp_dir = BashOperator(
-    #     task_id="create_tmp_dir",
-    #     bash_command="mktemp -d 2>/dev/null"
-    # )
-    # downloaded_csv_paths = extract_employee_profiles\
-    #     .partial(output_dir=create_tmp_dir.output)\
-    #     .expand(spreadsheet_link=employee_spreadsheets)
-    # upload_res = upload_employee_csv_s3\
-    #     .partial(s3_bucket='layoffs-decoded-master')\
-    #     .expand(local_file_path=downloaded_csv_paths)
-    # remove_tmp_dir = BashOperator(
-    #     task_id="remove_tmp_dir",
-    #     bash_command="rm -rf {{ ti.xcom_pull(task_ids='create_tmp_dir') }}"
-    # )
-    # upload_res >> remove_tmp_dir
-
-# scrape_layoff_employee_profiles()

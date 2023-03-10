@@ -2,6 +2,7 @@ import json
 
 import pendulum
 import datetime
+import time
 
 from airflow.decorators import dag, task
 from airflow.providers.amazon.aws.hooks.s3 import S3Hook
@@ -44,13 +45,13 @@ def scrape_layoff_employee_profiles():
         )
     
     @task
-    def upload_employee_csv_s3(local_file_path, s3_bucket):
+    def upload_employee_csv_s3(local_file_path, s3_bucket, prefix):
         """
         Upload output CSV to S3 bucket
         """
         s3_hook = S3Hook()
         file_name = local_file_path.split('/')[-1]
-        s3_hook.load_file(local_file_path, f"employees/{file_name}", s3_bucket, replace=True)
+        s3_hook.load_file(local_file_path, f"employee_csv_{prefix}/{file_name}", s3_bucket, replace=True)
 
     employee_spreadsheets = extract_layoff_links()
     create_tmp_dir = BashOperator(
@@ -61,7 +62,7 @@ def scrape_layoff_employee_profiles():
         .partial(output_dir=create_tmp_dir.output)\
         .expand(spreadsheet_link=employee_spreadsheets)
     upload_res = upload_employee_csv_s3\
-        .partial(s3_bucket='layoffs-decoded-master')\
+        .partial(s3_bucket='layoffs-decoded-master', prefix=int(time.time()))\
         .expand(local_file_path=downloaded_csv_paths)
     remove_tmp_dir = BashOperator(
         task_id="remove_tmp_dir",
