@@ -8,12 +8,16 @@ ALPHA_VANTAGE_URL="https://www.alphavantage.co/query"
 YAHOO_FINANCE_URL="https://query2.finance.yahoo.com/v1/finance/search"
 USER_AGENT="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36"
 
+def clean_company_name(company_name):
+    company_name_lower = company_name.lower()
+    return re.sub(r',?\s*(llc|inc|co)\.?$', '', company_name_lower)
+
 def getSymbol(company_name, apikey):
     res = requests.get(
         url=ALPHA_VANTAGE_URL, 
         params={
             'function': 'SYMBOL_SEARCH',
-            'keywords': company_name,
+            'keywords': clean_company_name(company_name),
             'apikey': apikey
         },
         headers={'User-Agent': USER_AGENT}
@@ -38,7 +42,7 @@ def getSymbolYahoo(company_name, apikey=""):
     res = requests.get(
         url=YAHOO_FINANCE_URL, 
         params={
-            'q': company_name,
+            'q': clean_company_name(company_name),
             'lang': 'en-US',
             'region': 'US',
             'quotesCount': '5',
