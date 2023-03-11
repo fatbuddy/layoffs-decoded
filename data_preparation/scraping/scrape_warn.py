@@ -10,7 +10,7 @@ USER_AGENT="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML,
 
 def clean_company_name(company_name):
     company_name_lower = company_name.lower()
-    return re.sub(r',?\s*(llc|inc|co)\.?$', '', company_name_lower)
+    return re.sub(r',?\s*(llc|inc|incorporated|co|corporation|corp)\.?$', '', company_name_lower)
 
 def getSymbol(company_name, apikey):
     res = requests.get(
