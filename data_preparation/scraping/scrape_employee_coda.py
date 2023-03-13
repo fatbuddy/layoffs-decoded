@@ -153,7 +153,7 @@ def download_coda_csv(list_name, url, output_dir):
 # execute_script('https://coda.io/@daanyal-kamaal/goto-alumni-list')
 
 # second case: merged cells on the 1st column
-execute_script('https://coda.io/@alumni/zoom-alumni-list')
+# execute_script('https://coda.io/@alumni/zoom-alumni-list')
 
 # third case: javascript driven loading the data
 # execute_script('https://coda.io/@kenny/coda-alumni-list')
