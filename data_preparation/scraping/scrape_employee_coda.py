@@ -42,12 +42,13 @@ def execute_script(url, filename='test'):
                 driver.execute_script('document.querySelector(\'div[data-scroll-id="canvasScrollContainer"]\').scrollTo(0, '+str(scroll_time*1000)+')')
                 scroll_time += 1
                 time.sleep(5)
-                file = open('test','w', encoding="utf-8")
-                file.write(driver.page_source)
-                file.close()
+                # file = open('test','w', encoding="utf-8")
+                # file.write()
+                # file.close()
                 
-                file = open(filename,'r', encoding="utf-8");
-                html_soup = BeautifulSoup(file.read(), 'html.parser')
+                # file = open(filename,'r', encoding="utf-8");
+                html_code = driver.page_source
+                html_soup = BeautifulSoup(html_code, 'html.parser')
                 columns_headers = html_soup.find_all('div', class_ = 'columnHeaderRoot')
                 num_columns_headers = len(columns_headers)
                 i = 0
