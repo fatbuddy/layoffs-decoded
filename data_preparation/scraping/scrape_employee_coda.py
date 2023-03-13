@@ -16,12 +16,12 @@ import time
 
 def execute_script(url, filename='test'):
     chrome_options = Options()
-    chrome_options.add_argument('--headless')
+    # chrome_options.add_argument('--headless')
     driver = webdriver.Chrome(options=chrome_options)
     columns = []
     rows = []
     
-    times_scroll_down = 30
+    times_scroll_down = 50
     unvisited_link = [url]
     page_visit = []
     parsed_url = urlparse(url)
@@ -37,7 +37,7 @@ def execute_script(url, filename='test'):
             scroll_time=0
             previous_result = []
             while scroll_time < times_scroll_down:
-                driver.execute_script('document.querySelector(\'div[data-scroll-id="canvasScrollContainer"]\').scrollTo(0, '+str(scroll_time*500)+')')
+                driver.execute_script('document.querySelector(\'div[data-scroll-id="canvasScrollContainer"]\').scrollTo(0, '+str(scroll_time*1000)+')')
                 scroll_time += 1
                 time.sleep(5)
                 file = open('test','w', encoding="utf-8")
@@ -61,16 +61,21 @@ def execute_script(url, filename='test'):
                 # check if the page contain vertical group, that means there are merged cells that need to handle
                 vertical_groups = html_soup.select('div[data-coda-ui-id*="pivotVerticalGroup"]')
                 if len(vertical_groups) > 0:
+                    last_appended_row = []
                     for vertical_group in vertical_groups:
-                        column_header = vertical_group.select('div[role="columnheader"] .kr-cell')[0].text
-                        rows, appended_row = process_row(rows, vertical_group, column_header=column_header)
+                        if len(vertical_group.select('div[role="columnheader"] .kr-cell')) > 0:
+                            column_header = vertical_group.select('div[role="columnheader"] .kr-cell')[0].text
+                            rows, appended_row = process_row(rows, vertical_group, column_header=column_header)
+                            last_appended_row += appended_row
+                    if previous_result == last_appended_row:
+                        break
+                    previous_result = last_appended_row
                 else:
-                    # this is for the case which does not contain vertical group such as https://coda.io/@daanyal-kamaal/goto-alumni-list
-                    
+                    # this is for the case which does not contain vertical group such as https://coda.io/@daanyal-kamaal/goto-alumni-list 
                     rows, appended_row = process_row(rows, html_soup)            
-                if previous_result == appended_row:
-                    break
-                previous_result = appended_row
+                    if previous_result == appended_row:
+                        break
+                    previous_result = appended_row
         except:
             html_soup = BeautifulSoup(driver.page_source, 'html.parser')
             anchors = html_soup.find_all("a", href=True)
@@ -90,6 +95,8 @@ def execute_script(url, filename='test'):
 
 def process_row(rows, parent, column_header = None):
     row_containers = parent.select('div[data-reference-type="row"]')
+    if column_header is not None:
+        print("for header : "+column_header)
     print("total rows: "+str(len(row_containers)))
     appended_rows = []
     for row_container in row_containers:
@@ -119,8 +126,9 @@ def process_row(rows, parent, column_header = None):
                     entry.append(cell.text)
         # print(entry)
         # print('----------------')
-        rows.append(entry)
-        appended_rows.append(entry)
+        if entry not in rows:
+            rows.append(entry)
+            appended_rows.append(entry)
     return rows, appended_rows
 
 def download_coda_csv(list_name, url, output_dir):
@@ -128,10 +136,10 @@ def download_coda_csv(list_name, url, output_dir):
     if url_parts[2] != 'coda.io':
         print("not a coda sheet")
         return None
-    if (url == 'https://coda.io/d/Talent-Board_dN7cqX2rCM4/Candidates_suM29#_luRyI' or 
-        url == 'https://coda.io/@alumni/zoom-alumni-list'):
-        print("skipping zoom-alumni-list/Talent-Board")
-        return None
+    # if (url == 'https://coda.io/d/Talent-Board_dN7cqX2rCM4/Candidates_suM29#_luRyI' or 
+    #     url == 'https://coda.io/@alumni/zoom-alumni-list'):
+    #     print("skipping zoom-alumni-list/Talent-Board")
+    #     return None
     execute_script(url, filename=f"{output_dir}/{list_name}")
     return f"{output_dir}/{list_name}.csv"
     
