@@ -33,7 +33,7 @@ def execute_script(url, filename='test'):
         print("Current URL: " + current_page)
         page_visit.append(url)
         driver.get(url)
-        wait = WebDriverWait(driver, 10)
+        wait = WebDriverWait(driver, 60)
         try:
             element = wait.until(EC.presence_of_element_located((By.CLASS_NAME, 'columnHeaderRoot')))
             scroll_time=0
