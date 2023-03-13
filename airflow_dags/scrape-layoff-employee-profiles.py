@@ -62,8 +62,9 @@ def scrape_layoff_employee_profiles():
     downloaded_csv_paths = extract_employee_profiles\
         .partial(output_dir=create_tmp_dir.output)\
         .expand(spreadsheet_link=employee_spreadsheets)
+    execute_time = int(time.time())
     upload_res = upload_employee_csv_s3\
-        .partial(s3_bucket='layoffs-decoded-master', prefix=int(time.time()))\
+        .partial(s3_bucket='layoffs-decoded-master', prefix=execute_time)\
         .expand(local_file_path=downloaded_csv_paths)
     remove_tmp_dir = BashOperator(
         task_id="remove_tmp_dir",

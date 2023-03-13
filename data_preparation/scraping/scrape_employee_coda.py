@@ -95,7 +95,7 @@ def execute_script(url, filename='test'):
             print(unvisited_link)
         except Exception:
             traceback.print_exc()
-
+    driver.quit()
     df = pd.DataFrame(rows, columns=columns)
     df.to_csv(filename+'.csv')
 
