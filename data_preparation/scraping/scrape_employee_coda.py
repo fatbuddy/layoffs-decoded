@@ -11,7 +11,9 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.action_chains import ActionChains
+from selenium.common.exceptions import TimeoutException
 from urllib.parse import urlparse, urlunparse
+import traceback
 import time
 
 def execute_script(url, filename='test'):
@@ -76,7 +78,8 @@ def execute_script(url, filename='test'):
                     if previous_result == appended_row:
                         break
                     previous_result = appended_row
-        except:
+        except TimeoutException as t_e:
+            print("Element not found! Looks for the link!")
             html_soup = BeautifulSoup(driver.page_source, 'html.parser')
             anchors = html_soup.find_all("a", href=True)
             for anchor in anchors:
@@ -89,6 +92,8 @@ def execute_script(url, filename='test'):
                     target_page = urlunparse(parsed_url._replace(path=href))
                     unvisited_link.append(target_page)
             print(unvisited_link)
+        except Exception:
+            traceback.print_exc()
 
     df = pd.DataFrame(rows, columns=columns)
     df.to_csv(filename+'.csv')
@@ -148,7 +153,7 @@ def download_coda_csv(list_name, url, output_dir):
 # execute_script('https://coda.io/@daanyal-kamaal/goto-alumni-list')
 
 # second case: merged cells on the 1st column
-# execute_script('https://coda.io/@alumni/zoom-alumni-list')
+execute_script('https://coda.io/@alumni/zoom-alumni-list')
 
 # third case: javascript driven loading the data
 # execute_script('https://coda.io/@kenny/coda-alumni-list')
