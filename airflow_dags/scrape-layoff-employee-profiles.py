@@ -14,6 +14,7 @@ from data_preparation.scraping import scrape_employee
 @dag(
     schedule=None,
     start_date=pendulum.datetime(2021, 1, 1, tz="UTC"),
+    concurrency=10,
     catchup=False,
     tags=["scraping"],
 )
