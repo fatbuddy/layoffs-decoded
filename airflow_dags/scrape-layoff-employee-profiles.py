@@ -11,11 +11,13 @@ from airflow.operators.bash import BashOperator
 from data_preparation.scraping import laid_off_employee_list
 from data_preparation.scraping import scrape_employee
 
+
 @dag(
     schedule=None,
     start_date=pendulum.datetime(2021, 1, 1, tz="UTC"),
     concurrency=10,
     catchup=False,
+    schedule_interval='0 0 * * *',
     tags=["scraping"],
 )
 def scrape_layoff_employee_profiles():

@@ -30,7 +30,7 @@ def execute_script(url, filename='test'):
     current_page = parsed_url.path
     while len(unvisited_link) > 0:
         url = unvisited_link.pop()
-        print("Current URL: " + current_page)
+        print("Current URL: " + url)
         page_visit.append(url)
         driver.get(url)
         wait = WebDriverWait(driver, 60)
