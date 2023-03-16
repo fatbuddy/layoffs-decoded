@@ -41,39 +41,30 @@ def preprocess_file(folder_name, filename):
         try:
             foundColumn = False
             # Get the first row of the CSV file
-            while True:
+            while not foundColumn:
                 first_row = next(reader)
-                # hard code for the case BigCommerce
-                if "BigCommerce" in filename:
-                    first_row = next(reader)
-
                 if len_character_threshold <= len(first_row[0]):
-                    # Skip to the next row
-                    # print(f"too many characters in file {filename}: skip ")
-                    # invalid_first_row_count += 1
+                    print("skipping: too many characters in first row cell")
+                    print(first_row[0])
                     continue
 
-                # Check if the first row contains column names
-                if sum([1 for colname in first_row if not colname]) <= empty_field_threshold and len(first_row) >= min_num_cols:
-                    # Append the first row to the list of first rows
+                row_text = ",".join(first_row).lower()
+                if row_text.find("name") != -1 or \
+                    row_text.find("nome") != -1 or \
+                    row_text.find("nombre") != -1:
+                    print("found label row")
+                    print(first_row)
                     columns = first_row
                     foundColumn = True
-                    break
-
-                    # Skip to the next row
-                    # invalid_first_row_count += 1
-            if foundColumn:
-                while True:
-                    row = next(reader)
-                    if len(row) == len(columns):
-                        if sum([1 for colname in row if not colname]) == len(columns):
-                            print("skip row")
-                            continue
-                        rows.append(row)
-                    else:
-                        print("Found #column does not match #row")
+            while True:
+                row = next(reader)
+                if len(row) <= len(columns):
+                    if "".join(row).strip() == "":
+                        print("skip empty row")
                         continue
-                    pass
+                    rows.append(row)
+                else:
+                    rows.append(row[:len(columns)])
         except StopIteration as e:
             print(f"Reached end of file: {filename}")
             # Skip this file if it has less than one row
