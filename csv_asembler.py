@@ -3,7 +3,7 @@ import pandas as pd
 import csv
 import re
 # Define the folder containing the CSV files
-folder_path = './csv/employee_csv_20230315'
+folder_path = 'csv/employee_csv_20230315'
 
 # Create an empty list to store the first row of each CSV file
 first_rows = []
@@ -79,7 +79,7 @@ def preprocess_file(folder_name, filename):
             # Skip this file if it has less than one row
             if len(columns) > 0:
                 df = pd.DataFrame(rows, columns=columns)
-                df.to_csv('processed_employee_csv_20230315/'+filename)
+                df.to_csv('output/'+filename)
             return len(rows)
         except Exception as e:
             print(f"Exception error file not valid: {e} in {filename}")
@@ -95,7 +95,8 @@ def preprocess_file(folder_name, filename):
     print(first_rows)
 
 for filename in os.listdir(folder_path):
-    count = preprocess_file('employee_csv_20230315', filename)
+    print(filename)
+    count = preprocess_file('csv/employee_csv_20230315', filename)
     employee_count += count
     print(count)
 
