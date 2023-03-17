@@ -18,7 +18,7 @@ import time
 
 def execute_script(url, filename='test'):
     chrome_options = Options()
-    chrome_options.add_argument('--headless')
+    # chrome_options.add_argument('--headless')
     driver = webdriver.Chrome(options=chrome_options)
     columns = []
     rows = []
@@ -71,12 +71,16 @@ def execute_script(url, filename='test'):
                             rows, appended_row = process_row(rows, vertical_group, column_header=column_header)
                             last_appended_row += appended_row
                     if previous_result == last_appended_row:
+                        if len(previous_result) == 0:
+                            continue
                         break
                     previous_result = last_appended_row
                 else:
                     # this is for the case which does not contain vertical group such as https://coda.io/@daanyal-kamaal/goto-alumni-list 
                     rows, appended_row = process_row(rows, html_soup)            
                     if previous_result == appended_row:
+                        if len(previous_result) == 0:
+                            continue
                         break
                     previous_result = appended_row
         except TimeoutException as t_e:
@@ -165,4 +169,4 @@ def download_coda_csv(list_name, url, output_dir):
 # cases not working yet
 # the rows change when scrolling
 # also have addition links for scraping
-# execute_script('https://coda.io/d/Talent-Board_dN7cqX2rCM4/Candidates_suM29#_luRyI')
+execute_script('https://coda.io/d/Talent-Board_dN7cqX2rCM4/Candidates_suM29#_luRyI')
