@@ -3,8 +3,8 @@ from airflow import DAG
 from airflow.operators.python_operator import PythonOperator
 from airflow.providers.amazon.aws.operators.s3_list import S3ListOperator
 from airflow.providers.amazon.aws.operators.s3_to_local import S3ToLocalOperator
+from airflow.operators.bash import BashOperator
 import boto3
-
 # Define default arguments for the DAG
 default_args = {
     'owner': 'airflow',
@@ -25,25 +25,39 @@ dag = DAG(
 )
 
 # Define the S3 bucket and prefix to load the files from
-s3_bucket = 'my-s3-bucket'
-s3_prefix = 'employee_csv_'
+s3_bucket = 'layoffs-decoded-master'
+# s3_prefix = 'path/to/my/files/'
 
-# Create a boto3 S3 client object
-s3 = boto3.client('s3')
+# Define the function to get the latest folder with 'employee_csv_' in the name
+def get_latest_folder():
+    s3_client = boto3.client('s3')
+    result = s3_client.list_objects_v2(Bucket=s3_bucket)
+    folders = set()
+    for obj in result.get('Contents', []):
+        if obj['Key'].endswith('/'):
+            folder_name = obj['Key'].split('/')[-2]
+            if folder_name.startswith('employee_csv_'):
+                folders.add(folder_name)
+    latest_folder = max(folders, default=None)
+    if latest_folder is None:
+        raise ValueError('No folder found with prefix employee_csv_ in the name')
+    return latest_folder
 
-# Get the latest datetime for the prefix
-s3_prefix_list = [o['Prefix'] for o in client.list_objects_v2(Bucket=s3_bucket, Prefix=s3_prefix)['CommonPrefixes']]
-latest_s3_prefix = sorted(s3_prefix_list)[-1]
+create_tmp_dir = BashOperator(
+    task_id="create_tmp_dir",
+    bash_command="mktemp -d 2>/dev/null"
+)
 
-# Add datetime to prefix and define S3 prefix for S3ListOperator and S3ToLocalOperator
-datetime_str = datetime.now().strftime("%Y%m%d")
-s3_prefix_with_datetime = latest_s3_prefix + datetime_str + '/'
+
+
+# Get the latest folder with 'employee_csv_' in the name
+latest_folder = get_latest_folder()
 
 # Define the S3ListOperator to list the files in the S3 bucket
 list_files_task = S3ListOperator(
     task_id='list_files',
     bucket=s3_bucket,
-    prefix=s3_prefix_with_datetime,
+    prefix=f'{latest_folder}',
     dag=dag
 )
 
@@ -51,8 +65,8 @@ list_files_task = S3ListOperator(
 download_files_task = S3ToLocalOperator(
     task_id='download_files',
     bucket=s3_bucket,
-    prefix=s3_prefix_with_datetime,
-    local_directory='/path/to/local/folder/',
+    prefix=f'{latest_folder}',
+    local_directory=create_tmp_dir.output,
     dag=dag
 )
 
@@ -67,6 +81,10 @@ build_csv_task = PythonOperator(
     provide_context=True,
     dag=dag
 )
+remove_tmp_dir = BashOperator(
+    task_id="remove_tmp_dir",
+    bash_command="rm -rf {{ ti.xcom_pull(task_ids='create_tmp_dir') }}"
+)
 
 # Set task dependencies
-list_files_task >> download_files_task >> build_csv_task
+list_files_task >> download_files_task >> build_csv_task >> remove_tmp_dir
