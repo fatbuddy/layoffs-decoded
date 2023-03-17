@@ -41,23 +41,18 @@ for filename in os.listdir(folder_path):
                 # Get the first row of the CSV file
                 while True:
                     first_row = next(reader)
-                    # hard code for the case BigCommerce
-                    # if "BigCommerce" in filename:
-                    #     first_row = next(reader)
 
                     if len_character_threshold <= len(first_row[0]):
-                        # Skip to the next row
-                        # print(f"too many characters in file {filename}: skip ")
+                        print("skipping: too many characters in first row cell")
+                        print(first_row[0])
                         invalid_first_row_count += 1
                         continue
 
-                    # Check if the first row contains column names
-                    # if sum([1 for colname in first_row if not colname]) <= empty_field_threshold and len(first_row) >= min_num_cols:
-                    # if len(first_row) >= min_num_cols:
                     row_text = ",".join(first_row).lower()
                     if row_text.find("name") != -1 or \
                         row_text.find("nome") != -1 or \
                         row_text.find("nombre") != -1:
+                        print(f"found label row for {filename}")
                         # Append the first row to the list of first rows
                         first_rows.append((filename, first_row))
                         break
