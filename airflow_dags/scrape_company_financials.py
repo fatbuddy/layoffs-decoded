@@ -19,7 +19,7 @@ WARN_COLUMNS = ['State', 'Company', 'City', 'Number of Workers', 'WARN Received 
        'Region', 'County', 'Industry', 'Notes']
 
 @dag(
-    schedule=None,
+    schedule_interval='@daily',
     start_date=pendulum.datetime(2023, 1, 1, tz="UTC"),
     catchup=False,
     tags=["scraping"],
