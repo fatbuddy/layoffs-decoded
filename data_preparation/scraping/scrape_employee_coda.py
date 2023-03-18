@@ -63,11 +63,15 @@ def execute_script(url, filename='test'):
 
                 # check if the page contain vertical group, that means there are merged cells that need to handle
                 vertical_groups = html_soup.select('div[data-coda-ui-id*="pivotVerticalGroup"]')
+                # for fixing kenny/coda-alumni-list 
+                if len(vertical_groups) == 0:
+                    vertical_groups = html_soup.select('div[data-reference-type*="vertical-group-headers"] > div')
                 if len(vertical_groups) > 0:
                     last_appended_row = []
                     for vertical_group in vertical_groups:
                         if len(vertical_group.select('div[role="columnheader"] .kr-cell')) > 0:
                             column_header = vertical_group.select('div[role="columnheader"] .kr-cell')[0].text
+                            print("Column header: "+column_header)
                             rows, appended_row = process_row(rows, vertical_group, column_header=column_header)
                             last_appended_row += appended_row
                     if previous_result == last_appended_row:
@@ -165,4 +169,4 @@ def download_coda_csv(list_name, url, output_dir):
 # cases not working yet
 # the rows change when scrolling
 # also have addition links for scraping
-# execute_script('https://coda.io/d/Talent-Board_dN7cqX2rCM4/Candidates_suM29#_luRyI')
+execute_script('https://coda.io/d/Talent-Board_dN7cqX2rCM4/Candidates_suM29#_luRyI')
