@@ -14,7 +14,7 @@ import pendulum
     tags=["cleaning"],
     catchup=False
 )
-def cleane_employee_profiles_csv():
+def clean_employee_profiles_csv():
     s3_bucket = 'layoffs-decoded-master'
 
     # Define the function to get the latest folder with 'employee_csv_' in the name
@@ -102,4 +102,4 @@ def cleane_employee_profiles_csv():
     # # Set task dependencies
     res >> remove_tmp_dir
 
-cleaning_employee_profiles_csv()
+clean_employee_profiles_csv()
