@@ -173,4 +173,4 @@ def download_coda_csv(list_name, url, output_dir):
 # cases not working yet
 # the rows change when scrolling
 # also have addition links for scraping
-execute_script('https://coda.io/d/Talent-Board_dN7cqX2rCM4/Candidates_suM29#_luRyI')
+# execute_script('https://coda.io/d/Talent-Board_dN7cqX2rCM4/Candidates_suM29#_luRyI')
