@@ -16,9 +16,7 @@ import pendulum
     catchup=False
 )
 def cleaning_employee_profiles_csv():
-    # Define the S3 bucket and prefix to load the files from
     s3_bucket = 'layoffs-decoded-master'
-    # s3_prefix = 'path/to/my/files/'
 
     # Define the function to get the latest folder with 'employee_csv_' in the name
     @task
@@ -31,22 +29,28 @@ def cleaning_employee_profiles_csv():
     # )
     #     result = s3_client.list_objects_v2(Bucket=s3_bucket)
         s3_hook = S3Hook()
-        keys = s3_hook.list_keys(bucket_name='layoffs-decoded-master', prefix='employee_csv_')
-        folders = set()
-        for folder_name in keys:
-            if folder_name.startswith('employee_csv_'):
-                folders.add(folder_name)
-        latest_folder = max(folders, default=None)
-        if latest_folder is None:
-            raise ValueError('No folder found with prefix employee_csv_ in the name')
-        return latest_folder
+        keys = s3_hook.list_keys(
+            bucket_name='layoffs-decoded-master',
+            prefix="employee_csv_",
+            page_size=200
+        )
+        sorted_keys = sorted(keys, reverse=True)
+        latest_dir = sorted_keys[0].split("/")[0]
+        return latest_dir
+        # print(keys)
+        # folders = set()
+        # for folder_name in keys:
+        #     if folder_name.startswith('employee_csv_'):
+        #         folders.add(folder_name)
+        # latest_folder = max(folders, default=None)
+        # if latest_folder is None:
+        #     raise ValueError('No folder found with prefix employee_csv_ in the name')
+        # return latest_folder
 
     create_tmp_dir = BashOperator(
         task_id="create_tmp_dir",
         bash_command="mktemp -d 2>/dev/null"
     )
-
-
 
     # Get the latest folder with 'employee_csv_' in the name
 
@@ -59,19 +63,19 @@ def cleaning_employee_profiles_csv():
     @task
     def download_file(file_path, destination):
         s3_hook = S3Hook()
-        file_key = file_path
-        file_name = os.path.basename(file_key)  # Extract the file name from the S3 object key
-        # local_path = 'file.csv'  # Local file path to download the file to
-        s3_hook.download_file(s3_bucket, file_key, file_name)
-        # Move the file to the Local directory
-        # local_hook.copy_to_local(local_path, local_path)
-        return file_path+file_key
+        file_name = file_path.split("/")[-1]
+        local_path = f"{destination}/{file_name}"
+        s3_hook.download_file(
+            key=file_path, 
+            bucket_name=s3_bucket, 
+            local_path=local_path,
+            preserve_file_name=True)
+        return local_path
 
     @task
     def csv_builder(files):
         # Your csv_builder function logic here
         print("Processing File: "+files)
-        pass
     # download_task = PythonOperator(
     #     task_id='download_file',
     #     python_callable=,
@@ -80,7 +84,6 @@ def cleaning_employee_profiles_csv():
 
     latest_folder = get_latest_folder()
     file_paths = list_files(s3_bucket, latest_folder)
-
     files = download_file.partial(destination=create_tmp_dir.output).expand(file_path=file_paths)
     res = csv_builder.expand(files=files)
     # Define the PythonOperator to call the csv_builder function
