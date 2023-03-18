@@ -3,6 +3,8 @@ import requests
 import csv
 from parsel import Selector
 
+USER_AGENT_HEADER={"user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:109.0) Gecko/20100101 Firefox/111.0"}
+
 def download_gsheet_csv(list_name, url, output_dir):
     print("---------------------\n")
     print(f"{list_name}")
@@ -14,7 +16,7 @@ def download_gsheet_csv(list_name, url, output_dir):
     if 'e' in url_parts:
         print("export url, manual scraping needed")
         return scrape_gsheet_manual(list_name, url, output_dir, isExportUrl=True)
-    original_link_status = requests.get(url).status_code
+    original_link_status = requests.get(url, headers=USER_AGENT_HEADER).status_code
     if original_link_status != 200:
         print(f"original url: {original_link_status}")
         return None
@@ -22,7 +24,7 @@ def download_gsheet_csv(list_name, url, output_dir):
         url_parts = url_parts[:4] + url_parts[6:]
         
     csv_url = '/'.join(url_parts[:6] + [f'export?format=csv&id={url_parts[5]}'])
-    resp = requests.get(csv_url)
+    resp = requests.get(csv_url, headers=USER_AGENT_HEADER)
     if resp.status_code != 200:
         print(f"csv url: {resp.status_code}, manual scraping needed")
         return scrape_gsheet_manual(list_name, url, output_dir, isExportUrl=False)
@@ -42,7 +44,7 @@ def scrape_gsheet_manual(list_name, url, output_dir, isExportUrl=False):
         url_parts = url.split('/')
         html_url = '/'.join(url_parts[:6] + ['htmlview'])
 #     print(html_url)
-    resp = requests.get(html_url)
+    resp = requests.get(html_url, headers=USER_AGENT_HEADER)
     if resp.status_code != 200:
         print(f'html url: {resp.status_code}')
         return None
