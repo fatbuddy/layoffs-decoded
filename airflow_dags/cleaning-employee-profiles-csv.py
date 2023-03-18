@@ -13,7 +13,7 @@ import pendulum
     start_date=pendulum.datetime(2021, 1, 1, tz="UTC"),
     concurrency=10,
     schedule_interval='@daily',
-    tags=["cleaning"]
+    tags=["cleaning"],
     catchup=False
 )
 def cleaning_employee_profiles_csv():
