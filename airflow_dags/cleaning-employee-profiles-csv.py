@@ -6,25 +6,16 @@ from airflow.providers.amazon.aws.hooks.s3 import S3Hook
 from airflow.operators.bash import BashOperator
 import boto3
 import os
-# Define default arguments for the DAG
-default_args = {
-    'owner': 'airflow',
-    'depends_on_past': False,
-    'start_date': datetime(2023, 3, 16),
-    'email_on_failure': False,
-    'email_on_retry': False,
-    'retries': 3,
-    'retry_delay': timedelta(minutes=5)
-}
+import pendulum
 
 # Define the DAG
 @dag(
-    's3_to_csv',
-    default_args=default_args,
-    schedule_interval=timedelta(days=1),
+    start_date=pendulum.datetime(2021, 1, 1, tz="UTC"),
+    concurrency=10,
+    schedule_interval='@daily',
+    tags=["cleaning"]
     catchup=False
 )
-
 def cleaning_employee_profiles_csv():
     # Define the S3 bucket and prefix to load the files from
     s3_bucket = 'layoffs-decoded-master'
@@ -67,7 +58,7 @@ def cleaning_employee_profiles_csv():
         return files
 
     @task
-    def download_file(file_path):
+    def download_file(file_path, destination):
         s3_hook = S3Hook()
         file_key = file_path
         file_name = os.path.basename(file_key)  # Extract the file name from the S3 object key
@@ -91,7 +82,7 @@ def cleaning_employee_profiles_csv():
     latest_folder = get_latest_folder()
     file_paths = list_files(s3_bucket, latest_folder)
 
-    files = download_file.expand(file_path=file_paths)
+    files = download_file.partial(destination=create_tmp_dir.output).expand(file_path=file_paths)
     csv_builder.expand(files=files)
     # Define the PythonOperator to call the csv_builder function
 
@@ -109,3 +100,5 @@ def cleaning_employee_profiles_csv():
 
     # # Set task dependencies
     # build_csv_task >> remove_tmp_dir
+
+cleaning_employee_profiles_csv()
