@@ -21,7 +21,7 @@ def clean_employee_profiles_csv():
     def get_latest_folder():
         s3_hook = S3Hook()
         keys = s3_hook.list_keys(
-            bucket_name='layoffs-decoded-master',
+            bucket_name=s3_bucket,
             prefix="employee_csv_",
             page_size=200
         )
