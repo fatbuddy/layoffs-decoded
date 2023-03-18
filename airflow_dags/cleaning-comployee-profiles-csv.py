@@ -31,7 +31,12 @@ s3_bucket = 'layoffs-decoded-master'
 
 # Define the function to get the latest folder with 'employee_csv_' in the name
 def get_latest_folder():
-    s3_client = boto3.client('s3')
+    s3_client = boto3.client(
+    's3',
+    aws_access_key_id=os.environ.get('ACCESS_KEY'),
+    aws_secret_access_key=os.environ.get('SECRET_KEY'),
+    aws_session_token=os.environ.get('SESSION_TOKEN')
+)
     result = s3_client.list_objects_v2(Bucket=s3_bucket)
     folders = set()
     for obj in result.get('Contents', []):
