@@ -55,12 +55,12 @@ create_tmp_dir = BashOperator(
 
 
 def list_files(bucket, prefix):
-    s3_hook = S3Hook(aws_conn_id='aws_default')
+    s3_hook = S3Hook()
     files = s3_hook.list_keys(bucket_name=bucket, prefix=prefix)
     return files
 
 def download_file(file_path):
-    s3_hook = S3Hook(aws_conn_id='aws_default')
+    s3_hook = S3Hook()
     file_key = file_path
     file_name = os.path.basename(file_key)  # Extract the file name from the S3 object key
     # local_path = 'file.csv'  # Local file path to download the file to
