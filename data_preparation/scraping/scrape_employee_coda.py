@@ -72,7 +72,7 @@ def execute_script(url, filename='test'):
                         if len(vertical_group.select('div[role="columnheader"] .kr-cell')) > 0:
                             column_header = vertical_group.select('div[role="columnheader"] .kr-cell')[0].text
                             print("Column header: "+column_header)
-                            rows, appended_row = process_row(rows, vertical_group, column_header=column_header)
+                            rows, appended_row = process_row(rows, columns, vertical_group, column_header=column_header)
                             last_appended_row += appended_row
                     if previous_result == last_appended_row:
                         if len(previous_result) == 0:
@@ -81,7 +81,7 @@ def execute_script(url, filename='test'):
                     previous_result = last_appended_row
                 else:
                     # this is for the case which does not contain vertical group such as https://coda.io/@daanyal-kamaal/goto-alumni-list 
-                    rows, appended_row = process_row(rows, html_soup)            
+                    rows, appended_row = process_row(rows, columns, html_soup)            
                     if previous_result == appended_row:
                         if len(previous_result) == 0:
                             continue
@@ -104,10 +104,13 @@ def execute_script(url, filename='test'):
         except Exception:
             traceback.print_exc()
     driver.quit()
+    for row in rows:
+        print("length: "+str(len(row)))
+        print(row)
     df = pd.DataFrame(rows, columns=columns)
     df.to_csv(filename+'.csv')
 
-def process_row(rows, parent, column_header = None):
+def process_row(rows, columns, parent, column_header = None):
     row_containers = parent.select('div[data-reference-type="row"]')
     if column_header is not None:
         print("for header : "+column_header)
@@ -119,6 +122,7 @@ def process_row(rows, parent, column_header = None):
             entry = [column_header]
         else:
             entry = []
+        print(f"Number of cell: {len(cells)}")
         for cell in cells:
             anchor = cell.find("a")        
             if anchor:
@@ -140,6 +144,11 @@ def process_row(rows, parent, column_header = None):
                     entry.append(cell.text)
         # print(entry)
         # print('----------------')
+        # in case the number of column in rows is less than the number of columns given, fill the rest with empty string
+        while len(columns) > len(entry):
+            entry.append('')
+
+
         if entry not in rows:
             rows.append(entry)
             appended_rows.append(entry)
