@@ -1,10 +1,11 @@
 from datetime import datetime, timedelta
 from airflow import DAG
 from airflow.operators.python_operator import PythonOperator
-from airflow.providers.amazon.aws.operators.s3_list import S3ListOperator
-from airflow.providers.amazon.aws.operators.s3_to_local import S3ToLocalOperator
+from airflow.providers.amazon.aws.operators.s3 import S3ListOperator
+from airflow.providers.amazon.aws.hooks.s3 import S3Hook
 from airflow.operators.bash import BashOperator
 import boto3
+import os
 # Define default arguments for the DAG
 default_args = {
     'owner': 'airflow',
@@ -12,7 +13,7 @@ default_args = {
     'start_date': datetime(2023, 3, 16),
     'email_on_failure': False,
     'email_on_retry': False,
-    'retries': 1,
+    'retries': 3,
     'retry_delay': timedelta(minutes=5)
 }
 
@@ -51,40 +52,51 @@ create_tmp_dir = BashOperator(
 
 
 # Get the latest folder with 'employee_csv_' in the name
-latest_folder = get_latest_folder()
 
-# Define the S3ListOperator to list the files in the S3 bucket
-list_files_task = S3ListOperator(
-    task_id='list_files',
-    bucket=s3_bucket,
-    prefix=f'{latest_folder}',
-    dag=dag
-)
 
-# Define the S3ToLocalOperator to download the files to the local machine
-download_files_task = S3ToLocalOperator(
-    task_id='download_files',
-    bucket=s3_bucket,
-    prefix=f'{latest_folder}',
-    local_directory=create_tmp_dir.output,
-    dag=dag
-)
+def list_files(bucket, prefix):
+    s3_hook = S3Hook(aws_conn_id='aws_default')
+    files = s3_hook.list_keys(bucket_name=bucket, prefix=prefix)
+    return files
 
-# Define the PythonOperator to call the csv_builder function
-def csv_builder(ds, **kwargs):
+def download_file(file_path):
+    s3_hook = S3Hook(aws_conn_id='aws_default')
+    file_key = file_path
+    file_name = os.path.basename(file_key)  # Extract the file name from the S3 object key
+    # local_path = 'file.csv'  # Local file path to download the file to
+    s3_hook.download_file(s3_bucket, file_key, file_name)
+    # Move the file to the Local directory
+    # local_hook.copy_to_local(local_path, local_path)
+    return file_path+file_key
+
+def csv_builder(files):
     # Your csv_builder function logic here
+    print("Processing File: "+files)
     pass
+# download_task = PythonOperator(
+#     task_id='download_file',
+#     python_callable=,
+#     dag=dag
+# )
 
-build_csv_task = PythonOperator(
-    task_id='build_csv',
-    python_callable=csv_builder,
-    provide_context=True,
-    dag=dag
-)
+latest_folder = get_latest_folder()
+file_paths = list_files(s3_bucket, latest_folder)
+
+files = download_file.expand(file_path=file_paths)
+csv_builder.expand(files=files)
+# Define the PythonOperator to call the csv_builder function
+
+
+# build_csv_task = PythonOperator(
+#     task_id='build_csv',
+#     python_callable=csv_builder,
+#     provide_context=True,
+#     dag=dag
+# )
 remove_tmp_dir = BashOperator(
     task_id="remove_tmp_dir",
     bash_command="rm -rf {{ ti.xcom_pull(task_ids='create_tmp_dir') }}"
 )
 
-# Set task dependencies
-list_files_task >> download_files_task >> build_csv_task >> remove_tmp_dir
+# # Set task dependencies
+# build_csv_task >> remove_tmp_dir
