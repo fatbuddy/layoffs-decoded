@@ -84,7 +84,7 @@ def clean_employee_profiles_csv():
     latest_folder = get_latest_folder()
     file_paths = list_files(s3_bucket, latest_folder)
     files = download_file.partial(destination=create_tmp_dir.output).expand(file_path=file_paths)
-    res = clean_employee_csv.expand(files=files)
+    res = clean_employee_csv.expand(file=files)
     # Define the PythonOperator to call the csv_builder function
 
 
