@@ -82,7 +82,7 @@ def cleaning_employee_profiles_csv():
     file_paths = list_files(s3_bucket, latest_folder)
 
     files = download_file.partial(destination=create_tmp_dir.output).expand(file_path=file_paths)
-    csv_builder.expand(files=files)
+    res = csv_builder.expand(files=files)
     # Define the PythonOperator to call the csv_builder function
 
 
@@ -98,6 +98,6 @@ def cleaning_employee_profiles_csv():
     )
 
     # # Set task dependencies
-    csv_builder >> remove_tmp_dir
+    res >> remove_tmp_dir
 
 cleaning_employee_profiles_csv()
