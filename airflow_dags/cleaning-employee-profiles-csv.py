@@ -14,7 +14,7 @@ import pendulum
     tags=["cleaning"],
     catchup=False
 )
-def cleaning_employee_profiles_csv():
+def cleane_employee_profiles_csv():
     s3_bucket = 'layoffs-decoded-master'
 
     # Define the function to get the latest folder with 'employee_csv_' in the name
@@ -72,9 +72,9 @@ def cleaning_employee_profiles_csv():
         return local_path
 
     @task
-    def csv_builder(files):
+    def clean_employee_csv(file):
         # Your csv_builder function logic here
-        print("Processing File: "+files)
+        print("Processing File: "+file)
     # download_task = PythonOperator(
     #     task_id='download_file',
     #     python_callable=,
@@ -84,7 +84,7 @@ def cleaning_employee_profiles_csv():
     latest_folder = get_latest_folder()
     file_paths = list_files(s3_bucket, latest_folder)
     files = download_file.partial(destination=create_tmp_dir.output).expand(file_path=file_paths)
-    res = csv_builder.expand(files=files)
+    res = clean_employee_csv.expand(files=files)
     # Define the PythonOperator to call the csv_builder function
 
 
