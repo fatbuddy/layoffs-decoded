@@ -4,7 +4,6 @@ from airflow.operators.python_operator import PythonOperator
 from airflow.providers.amazon.aws.operators.s3 import S3ListOperator
 from airflow.providers.amazon.aws.hooks.s3 import S3Hook
 from airflow.operators.bash import BashOperator
-import boto3
 import os
 import pendulum
 
@@ -24,19 +23,19 @@ def cleaning_employee_profiles_csv():
     # Define the function to get the latest folder with 'employee_csv_' in the name
     @task
     def get_latest_folder():
-        s3_client = boto3.client(
-        's3',
-        aws_access_key_id=os.environ.get('ACCESS_KEY'),
-        aws_secret_access_key=os.environ.get('SECRET_KEY'),
-        aws_session_token=os.environ.get('SESSION_TOKEN')
-    )
-        result = s3_client.list_objects_v2(Bucket=s3_bucket)
+    #     s3_client = boto3.client(
+    #     's3',
+    #     aws_access_key_id=os.environ.get('ACCESS_KEY'),
+    #     aws_secret_access_key=os.environ.get('SECRET_KEY'),
+    #     aws_session_token=os.environ.get('SESSION_TOKEN')
+    # )
+    #     result = s3_client.list_objects_v2(Bucket=s3_bucket)
+        s3_hook = S3Hook()
+        keys = s3_hook.list_keys(bucket_name='layoffs-decoded-master', prefix='employee_csv_')
         folders = set()
-        for obj in result.get('Contents', []):
-            if obj['Key'].endswith('/'):
-                folder_name = obj['Key'].split('/')[-2]
-                if folder_name.startswith('employee_csv_'):
-                    folders.add(folder_name)
+        for folder_name in keys:
+            if folder_name.startswith('employee_csv_'):
+                folders.add(folder_name)
         latest_folder = max(folders, default=None)
         if latest_folder is None:
             raise ValueError('No folder found with prefix employee_csv_ in the name')
@@ -99,6 +98,6 @@ def cleaning_employee_profiles_csv():
     )
 
     # # Set task dependencies
-    # build_csv_task >> remove_tmp_dir
+    csv_builder >> remove_tmp_dir
 
 cleaning_employee_profiles_csv()
