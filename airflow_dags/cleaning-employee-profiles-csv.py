@@ -31,7 +31,7 @@ def cleaning_employee_profiles_csv():
     # )
     #     result = s3_client.list_objects_v2(Bucket=s3_bucket)
         s3_hook = S3Hook()
-        keys = s3_hook.list_keys(bucket_name='layoffs-decoded-master', prefix='employee_csv_')
+        keys = s3_hook.list_prefixes(bucket_name='layoffs-decoded-master')
         folders = set()
         for folder_name in keys:
             if folder_name.startswith('employee_csv_'):
