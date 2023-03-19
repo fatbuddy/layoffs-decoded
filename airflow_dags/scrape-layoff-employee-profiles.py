@@ -11,10 +11,12 @@ from airflow.operators.bash import BashOperator
 from data_preparation.scraping import laid_off_employee_list
 from data_preparation.scraping import scrape_employee
 
+
 @dag(
-    schedule=None,
     start_date=pendulum.datetime(2021, 1, 1, tz="UTC"),
+    concurrency=10,
     catchup=False,
+    schedule_interval='@daily',
     tags=["scraping"],
 )
 def scrape_layoff_employee_profiles():
@@ -61,8 +63,9 @@ def scrape_layoff_employee_profiles():
     downloaded_csv_paths = extract_employee_profiles\
         .partial(output_dir=create_tmp_dir.output)\
         .expand(spreadsheet_link=employee_spreadsheets)
+    execute_time = datetime.datetime.now().strftime("%Y%m%d")
     upload_res = upload_employee_csv_s3\
-        .partial(s3_bucket='layoffs-decoded-master', prefix=int(time.time()))\
+        .partial(s3_bucket='layoffs-decoded-master', prefix=execute_time)\
         .expand(local_file_path=downloaded_csv_paths)
     remove_tmp_dir = BashOperator(
         task_id="remove_tmp_dir",
