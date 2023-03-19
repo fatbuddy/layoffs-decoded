@@ -2,6 +2,7 @@ from datetime import datetime, timedelta
 from airflow.decorators import dag, task
 from airflow.providers.amazon.aws.hooks.s3 import S3Hook
 from airflow.operators.bash import BashOperator
+from airflow.models import Variable
 import os
 import pendulum
 
@@ -9,14 +10,15 @@ from data_preparation.cleaning import clean_employee_profile_csv
 
 # Define the DAG
 @dag(
-    start_date=pendulum.datetime(2021, 1, 1, tz="UTC"),
+    start_date=pendulum.datetime(2023, 1, 1, tz="UTC"),
     concurrency=10,
-    schedule_interval='@daily',
+    max_active_runs=1,
+    schedule_interval='0 1 * * *',
     tags=["cleaning"],
     catchup=False
 )
 def clean_employee_profiles_csv():
-    s3_bucket = 'layoffs-decoded-master'
+    s3_bucket = Variable.get("S3_BUCKET", default_var="layoffs-decoded-master")
 
     # Define the function to get the latest folder with 'employee_csv_' in the name
     @task
@@ -81,7 +83,7 @@ def clean_employee_profiles_csv():
         .expand(file=files)
     execute_time = datetime.now().strftime("%Y%m%d")
     upload_res = upload_cleaned_csv_s3\
-        .partial(s3_bucket="layoffs-decoded-master", prefix=execute_time)\
+        .partial(s3_bucket=s3_bucket, prefix=execute_time)\
         .expand(local_file_path=clean_res)
     remove_tmp_dir = BashOperator(
         task_id="remove_tmp_dir",
