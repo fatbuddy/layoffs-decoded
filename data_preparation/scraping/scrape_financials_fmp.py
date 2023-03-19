@@ -2,6 +2,8 @@ import io
 import pandas as pd
 import requests
 import csv
+from random import randint
+from time import sleep
 
 
 FMP_API_ENDPOINT="https://financialmodelingprep.com/api"
@@ -45,5 +47,6 @@ def pull_fmp_financial_statements(stock_symbols, output_dir, api_key):
             df = process_fmp_financial_statements(raw_file_path)
             df.to_csv(processed_file_path)
             output_files.append(processed_file_path)
+            sleep(randint(1,5))
     return output_files
             
