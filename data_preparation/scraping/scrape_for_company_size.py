@@ -1,8 +1,8 @@
 import requests
 import pandas as pd
 
-def extract_employee_data(symbols, start_year, end_year, api_key):
-    df = pd.DataFrame(columns=['company_name', 'period_of_report', 'employee_count'])
+def extract_company_data(symbols, start_year, end_year, api_key, quarterly=False):
+    df = pd.DataFrame(columns=['stock_symbol', 'company_name', 'period_of_report', 'employee_count'])
     for symbol in symbols:
         url = f'https://financialmodelingprep.com/api/v4/historical/employee_count?symbol={symbol}&apikey={api_key}'
         response = requests.get(url)
@@ -14,15 +14,23 @@ def extract_employee_data(symbols, start_year, end_year, api_key):
             period_of_report = item['periodOfReport']
             year = int(period_of_report[:4])
             if start_year <= year <= end_year:
-                df = df.append({
-                    'company_name': item['symbol'],
+                row_data = {
+                    'stock_symbol': item['symbol'],
+                    'company_name': item['companyName'],
                     'period_of_report': period_of_report,
                     'employee_count': item['employeeCount']
-                }, ignore_index=True)
-    df.to_csv(f'company_size_data.csv', index=False)
+                }
+                if quarterly:
+                    # Append the row 4 times for each quarter
+                    for i in range(1, 5):
+                        df = df.append(row_data, ignore_index=True)
+                else:
+                    # Append the row once
+                    df = df.append(row_data, ignore_index=True)
+    df.to_csv('company_size_data.csv', index=False)
 
 symbols = ['AAPL', 'GOOGL', 'MSFT']
 start_year = 2018
 end_year = 2020
 api_key = "6b5ead8d3c6bceb25d50bc6237dc8543"
-extract_employee_data(symbols, start_year, end_year, api_key)
+extract_company_data(symbols, start_year, end_year, api_key, quarterly=False)
