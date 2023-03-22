@@ -1,7 +1,7 @@
 import requests
 import pandas as pd
 
-def extract_company_data(symbols, start_year, end_year, api_key, quarterly=False):
+def extract_company_data(symbols, output_dir, start_year, end_year, api_key, quarterly=False):
     df = pd.DataFrame(columns=['stock_symbol', 'company_name', 'period_of_report', 'employee_count'])
     for symbol in symbols:
         url = f'https://financialmodelingprep.com/api/v4/historical/employee_count?symbol={symbol}&apikey={api_key}'
@@ -27,7 +27,7 @@ def extract_company_data(symbols, start_year, end_year, api_key, quarterly=False
                 else:
                     # Append the row once
                     df = df.append(row_data, ignore_index=True)
-    output = df.to_csv('company_size_data.csv', index=False)
+    output = df.to_csv(f'{output_dir}/company_size_data.csv', index=False)
     return output
 # symbols = ['AAPL', 'GOOGL', 'MSFT']
 # start_year = 2018

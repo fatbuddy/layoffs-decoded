@@ -31,7 +31,6 @@ def scrape_company_size():
     # symbols = ['AAPL', 'GOOGL', 'MSFT']
     start_year = 2018
     end_year = 2020
-    api_key = ""
     quarterly = False
 
     @task(
@@ -39,12 +38,12 @@ def scrape_company_size():
         execution_timeout=datetime.timedelta(minutes=3),
         retry_delay=datetime.timedelta(minutes=2),
     )
-    def extract_company_data(symbols, start_year, end_year, api_key, quarterly=False):
+    def extract_company_data(symbols, output_dir, start_year, end_year, quarterly=False):
         """
         Extract company size data for a given set of symbols and time period
         """
         api_key = Variable.get("FMP_API_KEY", default_var="")
-        output = scrape_for_company_size.extract_company_data(symbols, start_year, end_year, api_key, quarterly)
+        output = scrape_for_company_size.extract_company_data(symbols, output_dir, start_year, end_year, api_key, quarterly)
         return output
     
     @task(
@@ -64,8 +63,9 @@ def scrape_company_size():
         )
         symbol_df = pd.read_csv(f"{output_dir}/{csv_path}")
         symbols = symbol_df['Symbol'].tolist()
-        symbol_slices = [x.tolist() for x in np.array_split(symbols, int(len(symbols)/10))]
-        return list(symbol_slices)
+        return symbols
+        # symbol_slices = [x.tolist() for x in np.array_split(symbols, int(len(symbols)/10))]
+        # return list(symbol_slices)
     
     @task(
         retries=2,
@@ -84,12 +84,13 @@ def scrape_company_size():
         bash_command="mktemp -d 2>/dev/null"
     )
     company_symbol_list = retrieve_company_symbols(output_dir=create_tmp_dir.output)
-    company_size_csv_path = extract_company_data(company_symbol_list, start_year, end_year, api_key, quarterly=False)
-    upload_csv_s3(company_size_csv_path, s3_bucket=s3_bucket)
+    company_size_csv_path = extract_company_data(company_symbol_list, output_dir=create_tmp_dir.output,\
+                                                 start_year=start_year, end_year=end_year, quarterly=False)
+    upload_res = upload_csv_s3(company_size_csv_path, s3_bucket=s3_bucket)
     remove_tmp_dir = BashOperator(
         task_id="remove_tmp_dir",
         bash_command="rm -rf {{ ti.xcom_pull(task_ids='create_tmp_dir') }}"
     )
-    company_size_csv_path >> remove_tmp_dir
+    upload_res >> remove_tmp_dir
 
 scrape_company_size()
