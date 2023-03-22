@@ -40,10 +40,12 @@ def detect_interested_label(labels: list[str]):
     city_label = match_label("city", labels)
     country_label = match_label("country", labels)
     location_label = match_label("location", labels)
+    name_label = match_label("location", labels)
     location_label = city_label or country_label or location_label
     # label_list = [title_label, function_label, location_label]
     # return label_list
     label_map = {
+        "name": name_label,
         "title": title_label,
         "function": function_label,
         "location": location_label
@@ -113,20 +115,20 @@ def clean_csv(input_file, output_dir):
         except Exception as e:
             print(f"Exception error file not valid: {e} in {input_file}")
             return None
-    # Write the list of first rows to a text file
-    # with open('output.txt', 'w') as txtfile:
-    #     for row in first_rows:
-    #         # Write the filename and first row to the text file separated by a comma
-    #         txtfile.write(row[0] + ',' + ','.join(row[1]) + '\n')
 
-    # print("invalid_first_row_count: " + str(invalid_first_row_count))
-    # print("invalid_file_count: " + str(invalid_file_count))
-    # print(first_rows)
+def combine_csv(inputs, output_dir):
+    combined_df = pd.DataFrame(columns=['name','title','function','location'])
+    for f in inputs:
+        csv_df = extract_csv(f)
+        if csv_df is not None:
+            pd.concat([combined_df, csv_df], ignore_index=True)
+    combined_df.to_csv(f"{output_dir}/employee_merged_csv.csv")
 
-# for filename in os.listdir(folder_path):
-#     print(filename)
-#     count = preprocess_file('csv/employee_csv_20230315', filename)
-#     employee_count += count
-#     print(count)
-
-# print(f"Toal Count: {employee_count}")
+def extract_csv(input_file):
+    df = pd.read_csv(input_file)
+    found = [i for i in range(0, len(df.columns)) \
+        if df.columns[i]=='title' or df.columns[i]=='location' or df.columns[i]=='function']
+    if len(found) == 3:
+        extracted_df = df[['title','location','function']]
+        return extracted_df
+    return None
