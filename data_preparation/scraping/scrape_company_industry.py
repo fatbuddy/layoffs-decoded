@@ -17,8 +17,8 @@ def extract_company_data(symbols, api_key):
             'company_name': company_name,
             'industry': industry
         }, ignore_index=True)
-    df.to_csv('company_industry.csv', index=False)
-
+    output = df.to_csv('company_industry.csv', index=False)
+    return output
 # symbols = ['AAPL', 'GOOGL', 'MSFT']
 # api_key = '6b5ead8d3c6bceb25d50bc6237dc8543'
 # extract_company_data(symbols, api_key)
