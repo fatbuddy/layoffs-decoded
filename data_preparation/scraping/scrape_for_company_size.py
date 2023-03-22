@@ -28,7 +28,7 @@ def extract_company_data(symbols, output_dir, start_year, end_year, api_key, qua
                     # Append the row once
                     df = df.append(row_data, ignore_index=True)
     output = df.to_csv(f'{output_dir}/company_size_data.csv', index=False)
-    return output
+    return f'{output_dir}/company_size_data.csv'
 # symbols = ['AAPL', 'GOOGL', 'MSFT']
 # start_year = 2018
 # end_year = 2020
