@@ -16,6 +16,53 @@ invalid_first_row_count = 0
 invalid_file_count = 0
 employee_count = 0
 
+def detect_interested_label(labels: list[str]):
+    """
+    Detect labels of interested, i.e ["name or email (as ID)", "title/role", "department/area/function", "location"]
+    """
+    title_regex = re.compile(r".*(title|role|position|domain).*", flags=re.IGNORECASE)
+    function_regex = re.compile(r".*(department|area|function|team|discipline).*", flags=re.IGNORECASE)
+    location_regex = re.compile(r".*(location).*", flags=re.IGNORECASE)
+    desired_label_regex = re.compile(r".*(interest|desire|prefer|open).*", flags=re.IGNORECASE)
+    title_label = None
+    desired_title_label = None
+    function_label = None
+    desired_function_label = None
+    location_label = None
+    desired_location_label = None
+    for label in labels:
+        if title_regex.match(label):
+            if desired_label_regex.match(label):
+                desired_title_label = label
+            else:
+                title_label = label
+        elif function_regex.match(label):
+            if desired_label_regex.match(label):
+                desired_function_label = label
+            else:
+                function_label = label
+        elif location_regex.match(label):
+            if desired_label_regex.match(label):
+                desired_location_label = label
+            else:
+                location_label = label
+            # possible_title_labels.append(label)
+            # print(f"possible title lable: {label}")
+    if title_label is None and desired_title_label:
+        title_label = desired_title_label
+    if function_label is None and desired_function_label:
+        function_label = desired_function_label
+    if location_label is None and desired_location_label:
+        location_label = desired_location_label
+    # label_list = [title_label, function_label, location_label]
+    # return label_list
+    label_map = {
+        "title": title_label,
+        "function": function_label,
+        "location": location_label
+    }
+    return label_map
+
 def clean_csv(input_file, output_dir):
     rows = []
     labels = []
@@ -24,13 +71,13 @@ def clean_csv(input_file, output_dir):
     with open(input_file, 'r', encoding='utf-8') as csvfile:
         # Read the entire contents of the CSV file as a string
         file_content = csvfile.read()
-        
+
         # Check if the file contains any HTML tags
         if re.search(html_tag_pattern, file_content):
             # Skip to the next file if the file contains HTML content
             print(f"skipping: HTML element found in file {input_file}")
             return None
-        
+
         csvfile.seek(0)  # move file pointer to start of file
         # Create a CSV reader object
         reader = csv.reader(csvfile, delimiter=',')
@@ -48,8 +95,14 @@ def clean_csv(input_file, output_dir):
                     row_text.find("nome") != -1 or \
                     row_text.find("nombre") != -1:
                     labels = current_row
-            
+
             print(f"label row found: {labels}")
+            intereted_labels = detect_interested_label(labels=labels)
+            for k, v in intereted_labels.items():
+                if v is not None:
+                    idx = [i for i in range(0, len(labels)) if labels[i]==v]
+                    if len(idx) > 0:
+                        labels[idx[0]] = k
             while True:
                 row = next(reader)
                 if len(row) <= len(labels):
