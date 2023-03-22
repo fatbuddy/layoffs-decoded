@@ -16,44 +16,31 @@ invalid_first_row_count = 0
 invalid_file_count = 0
 employee_count = 0
 
+def match_label(to_match, labels):
+    match_regex = re.compile(f".*({to_match}).*", flags=re.IGNORECASE)
+    desired_regex = re.compile(r".*(interest|desire|prefer|open).*", flags=re.IGNORECASE)
+    matched_label = None
+    desired_label = None
+    for label in labels:
+        if match_regex.match(label):
+            if desired_regex.match(label):
+                desired_label = label
+            else:
+                matched_label = label
+    if matched_label is None and desired_label:
+        matched_label = desired_label
+    return matched_label
+
 def detect_interested_label(labels: list[str]):
     """
     Detect labels of interested, i.e ["name or email (as ID)", "title/role", "department/area/function", "location"]
     """
-    title_regex = re.compile(r".*(title|role|position|domain).*", flags=re.IGNORECASE)
-    function_regex = re.compile(r".*(department|area|function|team|discipline).*", flags=re.IGNORECASE)
-    location_regex = re.compile(r".*(location).*", flags=re.IGNORECASE)
-    desired_label_regex = re.compile(r".*(interest|desire|prefer|open).*", flags=re.IGNORECASE)
-    title_label = None
-    desired_title_label = None
-    function_label = None
-    desired_function_label = None
-    location_label = None
-    desired_location_label = None
-    for label in labels:
-        if title_regex.match(label):
-            if desired_label_regex.match(label):
-                desired_title_label = label
-            else:
-                title_label = label
-        elif function_regex.match(label):
-            if desired_label_regex.match(label):
-                desired_function_label = label
-            else:
-                function_label = label
-        elif location_regex.match(label):
-            if desired_label_regex.match(label):
-                desired_location_label = label
-            else:
-                location_label = label
-            # possible_title_labels.append(label)
-            # print(f"possible title lable: {label}")
-    if title_label is None and desired_title_label:
-        title_label = desired_title_label
-    if function_label is None and desired_function_label:
-        function_label = desired_function_label
-    if location_label is None and desired_location_label:
-        location_label = desired_location_label
+    title_label = match_label("title|role|position|domain", labels)
+    function_label = match_label("department|area|function|team|discipline", labels)
+    city_label = match_label("city", labels)
+    country_label = match_label("country", labels)
+    location_label = match_label("location", labels)
+    location_label = city_label or country_label or location_label
     # label_list = [title_label, function_label, location_label]
     # return label_list
     label_map = {
