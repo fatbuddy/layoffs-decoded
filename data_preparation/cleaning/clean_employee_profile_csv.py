@@ -2,29 +2,23 @@ import os
 import pandas as pd
 import csv
 import re
-# Define the folder containing the CSV files
-folder_path = 'csv/employee_csv_20230315'
 
 # Create an empty list to store the first row of each CSV file
 first_rows = []
 
-empty_field_threshold = 2
 # if the first column more than 50 character it is not likely to be column
 len_character_threshold = 50
 
 # Define a regular expression pattern to match HTML tags
 html_tag_pattern = re.compile(r'<\s*(html|head|body|table)\b[^>]*>', re.IGNORECASE)
 
-min_num_cols = 5
-
 invalid_first_row_count = 0
 invalid_file_count = 0
-
 employee_count = 0
 
 def clean_csv(input_file, output_dir):
     rows = []
-    columns = []
+    labels = []
     print(f"Opening file: {input_file}")
     # Open the CSV file
     with open(input_file, 'r', encoding='utf-8') as csvfile:
@@ -41,38 +35,35 @@ def clean_csv(input_file, output_dir):
         # Create a CSV reader object
         reader = csv.reader(csvfile, delimiter=',')
         try:
-            foundColumnLabelRow = False
             # Get the first row of the CSV file
-            while not foundColumnLabelRow:
-                first_row = next(reader)
-                if len_character_threshold <= len(first_row[0]):
+            while len(labels) == 0:
+                current_row = next(reader)
+                if len_character_threshold <= len(current_row[0]):
                     print("skipping: too many characters in first row cell")
-                    print(first_row[0])
+                    print(current_row[0])
                     continue
 
-                row_text = ",".join(first_row).lower()
+                row_text = "|".join(current_row).lower()
                 if row_text.find("name") != -1 or \
                     row_text.find("nome") != -1 or \
                     row_text.find("nombre") != -1:
-                    print("found label row")
-                    print(first_row)
-                    columns = first_row
-                    foundColumnLabelRow = True
-            print(f"label row found: {columns}")
+                    labels = current_row
+            
+            print(f"label row found: {labels}")
             while True:
                 row = next(reader)
-                if len(row) <= len(columns):
+                if len(row) <= len(labels):
                     if "".join(row).strip() == "":
                         print("skipping empty row")
                         continue
                     rows.append(row)
                 else:
-                    rows.append(row[:len(columns)])
+                    rows.append(row[:len(labels)])
         except StopIteration as e:
             print(f"Reached end of file: {input_file}")
             # Skip this file if it has less than one row
-            if len(columns) > 0 and len(rows) > 0:
-                df = pd.DataFrame(rows, columns=columns)
+            if len(labels) > 0 and len(rows) > 0:
+                df = pd.DataFrame(rows, columns=labels)
                 output_file = input_file.split('/')[-1].split('.')[0]
                 output_path = f"{output_dir}/{output_file}-cleaned.csv"
                 print(f"writing output file to {output_path}")

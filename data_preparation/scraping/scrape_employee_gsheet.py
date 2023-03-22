@@ -1,5 +1,6 @@
 import pandas as pd
 import requests
+from urllib.parse import urlparse, urlunparse
 import csv
 from parsel import Selector
 
@@ -9,8 +10,9 @@ def download_gsheet_csv(list_name, url, output_dir):
     print("---------------------\n")
     print(f"{list_name}")
     err = None
-    url_parts = url.split('/')
-    if url_parts[2] != 'docs.google.com':
+    parsed_url = urlparse(url)
+    url_parts = parsed_url.path.split('/')
+    if parsed_url.netloc != 'docs.google.com':
         print("not a google sheet")
         return None
     if 'e' in url_parts:
@@ -20,10 +22,18 @@ def download_gsheet_csv(list_name, url, output_dir):
     if original_link_status != 200:
         print(f"original url: {original_link_status}")
         return None
-    if url_parts[4] == 'u' and url_parts[6] == 'd':
-        url_parts = url_parts[:4] + url_parts[6:]
-        
-    csv_url = '/'.join(url_parts[:6] + [f'export?format=csv&id={url_parts[5]}'])
+    if url_parts[2] == 'u' and url_parts[4] == 'd':
+        url_parts = url_parts[:2] + url_parts[4:]
+
+    query_string = f"format=csv&id={url_parts[3]}"
+    if parsed_url.fragment != "":
+        query_string = f"{query_string}&{parsed_url.fragment}"
+    modified_path = '/'.join(url_parts[:4] + ["export"])
+    modified_parsed_url = parsed_url._replace(
+        path=modified_path,
+        query=query_string,
+        fragment="")
+    csv_url = urlunparse(modified_parsed_url)
     resp = requests.get(csv_url, headers=USER_AGENT_HEADER)
     if resp.status_code != 200:
         print(f"csv url: {resp.status_code}, manual scraping needed")
