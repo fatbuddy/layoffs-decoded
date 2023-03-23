@@ -123,7 +123,7 @@ def combine_csv(inputs, output_dir):
     combined_file_path = f"{output_dir}/employee_merged_csv.csv"
     for f in inputs:
         # csv_df = extract_csv(f)
-        file_name = inputs.split('/')[-1]
+        file_name = f.split('/')[-1]
         csv_df = pd.read_csv(f)
         csv_df['source'] = file_name
         combined_df = pd.concat([combined_df, csv_df], ignore_index=True)

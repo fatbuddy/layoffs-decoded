@@ -22,7 +22,7 @@ def execute_script(url, filename='test'):
     driver = webdriver.Chrome(options=chrome_options)
     columns = []
     rows = []
-    
+
     times_scroll_down = 50
     unvisited_link = [url]
     page_visit = []
@@ -45,7 +45,7 @@ def execute_script(url, filename='test'):
                 # file = open('test','w', encoding="utf-8")
                 # file.write()
                 # file.close()
-                
+
                 # file = open(filename,'r', encoding="utf-8");
                 html_code = driver.page_source
                 html_soup = BeautifulSoup(html_code, 'html.parser')
@@ -63,7 +63,7 @@ def execute_script(url, filename='test'):
 
                 # check if the page contain vertical group, that means there are merged cells that need to handle
                 vertical_groups = html_soup.select('div[data-coda-ui-id*="pivotVerticalGroup"]')
-                # for fixing kenny/coda-alumni-list 
+                # for fixing kenny/coda-alumni-list
                 if len(vertical_groups) == 0:
                     vertical_groups = html_soup.select('div[data-reference-type*="vertical-group-headers"] > div')
                 if len(vertical_groups) > 0:
@@ -80,8 +80,8 @@ def execute_script(url, filename='test'):
                         break
                     previous_result = last_appended_row
                 else:
-                    # this is for the case which does not contain vertical group such as https://coda.io/@daanyal-kamaal/goto-alumni-list 
-                    rows, appended_row = process_row(rows, columns, html_soup)            
+                    # this is for the case which does not contain vertical group such as https://coda.io/@daanyal-kamaal/goto-alumni-list
+                    rows, appended_row = process_row(rows, columns, html_soup)
                     if previous_result == appended_row:
                         if len(previous_result) == 0:
                             continue
@@ -124,7 +124,7 @@ def process_row(rows, columns, parent, column_header = None):
             entry = []
         print(f"Number of cell: {len(cells)}")
         for cell in cells:
-            anchor = cell.find("a")        
+            anchor = cell.find("a")
             if anchor:
                 link = anchor.get('href')
                 entry.append(link.replace("mailto:", ""))
@@ -159,13 +159,13 @@ def download_coda_csv(list_name, url, output_dir):
     if url_parts[2] != 'coda.io':
         print("not a coda sheet")
         return None
-    # if (url == 'https://coda.io/d/Talent-Board_dN7cqX2rCM4/Candidates_suM29#_luRyI' or 
+    # if (url == 'https://coda.io/d/Talent-Board_dN7cqX2rCM4/Candidates_suM29#_luRyI' or
     #     url == 'https://coda.io/@alumni/zoom-alumni-list'):
     #     print("skipping zoom-alumni-list/Talent-Board")
     #     return None
     execute_script(url, filename=f"{output_dir}/{list_name}")
-    return f"{output_dir}/{list_name}.csv"
-    
+    return [f"{output_dir}/{list_name}.csv"]
+
 
 # first case: base cases
 # execute_script('https://coda.io/@daanyal-kamaal/goto-alumni-list')
@@ -177,7 +177,7 @@ def download_coda_csv(list_name, url, output_dir):
 # execute_script('https://coda.io/@kenny/coda-alumni-list')
 
 # forth case: additional link
-# execute_script('https://coda.io/@opendoorosn/opendoor-os-national-talent-board')  
+# execute_script('https://coda.io/@opendoorosn/opendoor-os-national-talent-board')
 
 # cases not working yet
 # the rows change when scrolling
