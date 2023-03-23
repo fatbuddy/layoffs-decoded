@@ -35,6 +35,7 @@ def detect_interested_label(labels: list[str]):
     """
     Detect labels of interested, i.e ["name or email (as ID)", "title/role", "department/area/function", "location"]
     """
+    match_against = ""
     title_label = match_label("title|role|position|domain", labels)
     function_label = match_label("department|area|function|team|discipline", labels)
     city_label = match_label("city", labels)
@@ -80,7 +81,7 @@ def clean_csv(input_file, output_dir):
                     continue
 
                 row_text = "|".join(current_row).lower()
-                if len(list([c for c in current_row if c.strip() != ""])) > 1:
+                if len(list([c for c in current_row if c.strip() != ""])) <= 1:
                     print("skipping: only 1 cell is non-empty")
                     print(row_text)
                     continue
