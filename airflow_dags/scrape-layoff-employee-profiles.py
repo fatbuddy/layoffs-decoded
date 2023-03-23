@@ -45,15 +45,16 @@ def scrape_layoff_employee_profiles():
             url=spreadsheet_link[4],
             output_dir=output_dir
         )
-    
+
     @task
-    def upload_employee_csv_s3(local_file_path, s3_bucket, prefix):
+    def upload_employee_csv_s3(local_file_paths, s3_bucket, prefix):
         """
         Upload output CSV to S3 bucket
         """
         s3_hook = S3Hook()
-        file_name = local_file_path.split('/')[-1]
-        s3_hook.load_file(local_file_path, f"employee_csv_{prefix}/{file_name}", s3_bucket, replace=True)
+        for f in local_file_paths:
+            file_name = f.split('/')[-1]
+            s3_hook.load_file(f, f"employee_csv_{prefix}/{file_name}", s3_bucket, replace=True)
 
     employee_spreadsheets = extract_layoff_links()
     create_tmp_dir = BashOperator(
