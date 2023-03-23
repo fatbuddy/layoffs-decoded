@@ -37,7 +37,7 @@ def clean_employee_profiles_csv():
     def list_files(bucket, prefix):
         s3_hook = S3Hook()
         files = s3_hook.list_keys(bucket_name=bucket, prefix=prefix)
-        return files[:10]
+        return files
 
     @task
     def download_file(file_path, destination):

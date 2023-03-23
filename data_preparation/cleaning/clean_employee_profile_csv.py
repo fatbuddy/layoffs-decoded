@@ -87,11 +87,13 @@ def clean_csv(input_file, output_dir):
 
             print(f"label row found: {labels}")
             intereted_labels = detect_interested_label(labels=labels)
+            original_labels = [l for l in labels]
             for k, v in intereted_labels.items():
                 if v is not None:
                     idx = [i for i in range(0, len(labels)) if labels[i]==v]
                     if len(idx) > 0:
                         labels[idx[0]] = k
+            rows.append(original_labels)
             while True:
                 row = next(reader)
                 if len(row) <= len(labels):
@@ -104,7 +106,7 @@ def clean_csv(input_file, output_dir):
         except StopIteration as e:
             print(f"Reached end of file: {input_file}")
             # Skip this file if it has less than one row
-            if len(labels) > 0 and len(rows) > 0:
+            if len(labels) > 0 and len(rows) > 1:
                 df = pd.DataFrame(rows, columns=labels)
                 output_file = input_file.split('/')[-1].split('.')[0]
                 output_path = f"{output_dir}/{output_file}-cleaned.csv"
@@ -117,13 +119,15 @@ def clean_csv(input_file, output_dir):
             return None
 
 def combine_csv(inputs, output_dir):
-    combined_df = pd.DataFrame(columns=['name','title','function','location'])
+    combined_df = pd.DataFrame(columns=['source', 'name','title','function','location'])
     combined_file_path = f"{output_dir}/employee_merged_csv.csv"
     for f in inputs:
         # csv_df = extract_csv(f)
+        file_name = inputs.split('/')[-1]
         csv_df = pd.read_csv(f)
+        csv_df['source'] = file_name
         combined_df = pd.concat([combined_df, csv_df], ignore_index=True)
-    combined_df = combined_df[['name','title','function','location']]
+    combined_df = combined_df[['source', 'name','title','function','location']]
     combined_df.to_csv(combined_file_path, index=False)
     return combined_file_path
 
