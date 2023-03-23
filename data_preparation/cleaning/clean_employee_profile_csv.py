@@ -80,6 +80,11 @@ def clean_csv(input_file, output_dir):
                     continue
 
                 row_text = "|".join(current_row).lower()
+                if len(list([c for c in current_row if c.strip() != ""])) > 1:
+                    print("skipping: only 1 cell is non-empty")
+                    print(row_text)
+                    continue
+
                 if row_text.find("name") != -1 or \
                     row_text.find("nome") != -1 or \
                     row_text.find("nombre") != -1:
