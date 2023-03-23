@@ -37,7 +37,7 @@ def clean_employee_profiles_csv():
     def list_files(bucket, prefix):
         s3_hook = S3Hook()
         files = s3_hook.list_keys(bucket_name=bucket, prefix=prefix)
-        return files
+        return files[:10]
 
     @task
     def download_file(file_path, destination):
@@ -58,8 +58,7 @@ def clean_employee_profiles_csv():
 
     @task
     def merge_employee_csv(inputs, output_dir):
-        files = [item for sublist in inputs for item in sublist]
-        clean_employee_profile_csv.combine_csv(inputs=files, output_dir=output_dir)
+        return clean_employee_profile_csv.combine_csv(inputs=inputs, output_dir=output_dir)
 
     @task
     def upload_cleaned_csv_s3(local_file_path, s3_bucket, prefix):
