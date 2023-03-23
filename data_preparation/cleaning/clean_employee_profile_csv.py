@@ -123,8 +123,9 @@ def combine_csv(inputs, output_dir):
         # csv_df = extract_csv(f)
         csv_df = pd.read_csv(f)
         combined_df = pd.concat([combined_df, csv_df], ignore_index=True)
-    combined_df.to_csv(combined_file_path)
-    return combined_file_path[['name','title','function','location']]
+    combined_df = combined_df[['name','title','function','location']]
+    combined_df.to_csv(combined_file_path, index=False)
+    return combined_file_path
 
 def extract_csv(input_file):
     df = pd.read_csv(input_file)
