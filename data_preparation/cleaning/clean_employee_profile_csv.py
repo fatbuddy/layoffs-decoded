@@ -109,7 +109,7 @@ def clean_csv(input_file, output_dir):
                 output_file = input_file.split('/')[-1].split('.')[0]
                 output_path = f"{output_dir}/{output_file}-cleaned.csv"
                 print(f"writing output file to {output_path}")
-                df.to_csv(output_path)
+                df.to_csv(output_path, index=False)
                 return output_path
             return None
         except Exception as e:
@@ -120,11 +120,11 @@ def combine_csv(inputs, output_dir):
     combined_df = pd.DataFrame(columns=['name','title','function','location'])
     combined_file_path = f"{output_dir}/employee_merged_csv.csv"
     for f in inputs:
-        csv_df = extract_csv(f)
-        if csv_df is not None:
-            pd.concat([combined_df, csv_df], ignore_index=True)
+        # csv_df = extract_csv(f)
+        csv_df = pd.read_csv(f)
+        combined_df = pd.concat([combined_df, csv_df], ignore_index=True)
     combined_df.to_csv(combined_file_path)
-    return combined_file_path
+    return combined_file_path[['name','title','function','location']]
 
 def extract_csv(input_file):
     df = pd.read_csv(input_file)
