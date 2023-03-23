@@ -67,7 +67,7 @@ def scrape_layoff_employee_profiles():
     execute_time = datetime.datetime.now().strftime("%Y%m%d")
     upload_res = upload_employee_csv_s3\
         .partial(s3_bucket='layoffs-decoded-master', prefix=execute_time)\
-        .expand(local_file_path=downloaded_csv_paths)
+        .expand(local_file_paths=downloaded_csv_paths)
     remove_tmp_dir = BashOperator(
         task_id="remove_tmp_dir",
         bash_command="rm -rf {{ ti.xcom_pull(task_ids='create_tmp_dir') }}"
