@@ -82,11 +82,12 @@ def scrape_gsheet_manual(list_name, url, output_dir, isExportUrl=False):
             if len([s for s in tds if s]):
                 data.append(tds)
         print(len(data))
-        with open(f'{output_dir}/{list_name}_{sheet_idx}.csv', 'w') as f:
+        output_path = f'{output_dir}/{list_name}_{sheet_idx}.csv'
+        with open(output_path, 'w') as f:
             writer = csv.writer(f)
             for d in data:
                 writer.writerow(d)
-        output_paths.append(f'{output_dir}/{list_name}.csv')
+        output_paths.append(output_path)
     if len(output_paths) == 0:
         return None
     return output_paths
