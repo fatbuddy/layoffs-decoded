@@ -48,15 +48,15 @@ def detect_interested_label(labels: list[str]):
     location_label = match_label(to_match="location", labels=labels)
     name_label = match_label(to_match="name", labels=labels)
     location_label = city_label or country_label or location_label
-    label_list = [name_label, title_label, function_label, location_label]
-    return label_list
-    # label_map = {
-    #     "name": name_label,
-    #     "title": title_label,
-    #     "function": function_label,
-    #     "location": location_label
-    # }
-    # return label_map
+    # label_list = [name_label, title_label, function_label, location_label]
+    # return label_list
+    label_map = {
+        "name": name_label,
+        "title": title_label,
+        "function": function_label,
+        "location": location_label
+    }
+    return label_map
 
 def clean_csv(input_file, output_dir):
     rows = []
