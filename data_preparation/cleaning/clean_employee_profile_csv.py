@@ -16,42 +16,47 @@ invalid_first_row_count = 0
 invalid_file_count = 0
 employee_count = 0
 
-def match_label(to_match, labels):
-    match_regex = re.compile(f".*({to_match}).*", flags=re.IGNORECASE)
-    desired_regex = re.compile(r".*(interest|desire|prefer|open).*", flags=re.IGNORECASE)
-    matched_label = None
+def match_label(to_match, to_not_match="", labels=None):
+    match_regex_str = f"^(?=.*({to_match}))"
+    if to_not_match != "":
+        match_regex_str = f"{match_regex_str}(?!.*({to_not_match}))"
+    match_regex = re.compile(
+        f"{match_regex_str}(?!.*(interest|desire|prefer|open)).*",
+        flags=re.IGNORECASE
+    )
+    desired_regex = re.compile(
+        f"{match_regex_str}.*",
+        flags=re.IGNORECASE
+    )
+    # matched_label = None
     desired_label = None
     for label in labels:
         if match_regex.match(label):
-            if desired_regex.match(label):
-                desired_label = label
-            else:
-                matched_label = label
-    if matched_label is None and desired_label:
-        matched_label = desired_label
-    return matched_label
+            return label
+        if desired_regex.match(label):
+            desired_label = label
+    return desired_label
 
 def detect_interested_label(labels: list[str]):
     """
     Detect labels of interested, i.e ["name or email (as ID)", "title/role", "department/area/function", "location"]
     """
-    match_against = ""
-    title_label = match_label("title|role|position|domain", labels)
-    function_label = match_label("department|area|function|team|discipline", labels)
-    city_label = match_label("city", labels)
-    country_label = match_label("country", labels)
-    location_label = match_label("location", labels)
-    name_label = match_label("name", labels)
+    title_label = match_label(to_match="title|role|position|domain", labels=labels)
+    function_label = match_label(to_match="department|area|function|team|discipline", labels=labels)
+    city_label = match_label(to_match="city", labels=labels)
+    country_label = match_label(to_match="country", labels=labels)
+    location_label = match_label(to_match="location", labels=labels)
+    name_label = match_label(to_match="name", labels=labels)
     location_label = city_label or country_label or location_label
-    # label_list = [title_label, function_label, location_label]
-    # return label_list
-    label_map = {
-        "name": name_label,
-        "title": title_label,
-        "function": function_label,
-        "location": location_label
-    }
-    return label_map
+    label_list = [name_label, title_label, function_label, location_label]
+    return label_list
+    # label_map = {
+    #     "name": name_label,
+    #     "title": title_label,
+    #     "function": function_label,
+    #     "location": location_label
+    # }
+    # return label_map
 
 def clean_csv(input_file, output_dir):
     rows = []
