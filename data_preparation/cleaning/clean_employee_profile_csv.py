@@ -40,7 +40,7 @@ def detect_interested_label(labels: list[str]):
     city_label = match_label("city", labels)
     country_label = match_label("country", labels)
     location_label = match_label("location", labels)
-    name_label = match_label("location", labels)
+    name_label = match_label("name", labels)
     location_label = city_label or country_label or location_label
     # label_list = [title_label, function_label, location_label]
     # return label_list
