@@ -9,8 +9,6 @@
 
 # In[1]:
 
-
-# similarity_join.py
 import re
 import numpy as np
 import pandas as pd
@@ -43,14 +41,8 @@ class SimilarityJoin:
                      (2) Convert each token to its lower-case
         """
         
-        # new_df = df.select("*")
-        # replace NaN with empty string for columns
+     
         new_df.na.fill("",[cols[0]])
-        # join values, apply regex, filter empty strings, and convert to lower
-        # new_df['joinKey'] = new_df[cols].apply(lambda row: ' '.join(row.values.astype(str)).strip(), axis=1)
-        # new_df['joinKey'] = new_df['joinKey'].apply(lambda row: re.split(r'\W+', row))
-        # new_df['joinKey'] = new_df['joinKey'].apply(lambda row: list(filter(None, row)))
-        # new_df['joinKey'] = new_df['joinKey'].apply(lambda row: list(map(str.lower, row)))
         new_df = new_df.withColumn("OG-Company", new_df[cols[0]])
         new_df = new_df.withColumn('joinKey', concat_ws(' ', *cols))
         new_df = new_df.withColumn('joinKey', split('joinKey', '\W+')) \
@@ -74,15 +66,6 @@ class SimilarityJoin:
                       you are NOT allowed to compute a cartesian join between $df1 and $df2 in the function. 
                       Please come up with a more efficient algorithm (see hints in Lecture 2). 
         """
-        # df1["joinKey1"] = df1["joinKey"]
-        # df2["joinKey2"] = df2["joinKey"]
-        # new_df1 = df1.explode('joinKey')
-        # new_df2 = df2.explode('joinKey')
-        # cand_df = pd.merge(new_df1[['id', 'joinKey1', 'joinKey']], new_df2[['id', 'joinKey2', 'joinKey']], on=['joinKey'], suffixes=('1', '2'))
-        # # drop duplicates, and drop exploded merge column
-        # cand_df = cand_df.drop_duplicates(subset=['id1', 'id2'], ignore_index= True)
-        # cand_df.drop('joinKey', axis=1, inplace=True)
-        # return cand_df
         
        # explode for both keys
         df1 = df1.withColumn("joinKey1", df1["joinKey"])
@@ -120,18 +103,6 @@ class SimilarityJoin:
                           between $joinKey1 and $joinKey2
                       (2) $result_df removes the rows whose jaccard similarity is smaller than $threshold 
         """
-        # # create a columns for converting the joinKey lists to sets
-        # # create columns applying intersection and union on the sets
-        # cand_df["intersection"] = cand_df.apply(lambda row: len(list(row["joinKey1_set"].intersection(row["joinKey2_set"]))), axis =1)
-        # cand_df["union"] = cand_df.apply(lambda row: len(list(row["joinKey1_set"].union(row["joinKey2_set"]))), axis =1)
-        # # ceate column to compute jaccard apply threshold and reset index
-        # cand_df["jaccard"] = cand_df.apply(lambda row: row["intersection"]/row["union"], axis=1)
-        # cand_df = cand_df[cand_df['jaccard'] >= threshold]
-        # cand_df.reset_index(drop=True, inplace=True)
-        # # drop intermediate columns
-        # result_df = cand_df.copy()
-        # result_df.drop(columns=["joinKey1_set", "joinKey2_set", "intersection", "union"], inplace=True)       
-        # return result_df     
         
         # convert joinKey1 and joinKey2 arrays to sets
         cand_df = cand_df.withColumn('joinKey1_set', array_distinct(col('joinKey1')))
@@ -148,7 +119,6 @@ class SimilarityJoin:
 
         # drop intermediate columns and reset index
         result_df = cand_df.drop('joinKey1_set', 'joinKey2_set', 'intersection', 'union').dropna()
-#         result_df = result_df.withColumnRenamed('id1', 'id').drop('id2').dropna()
         return result_df
         
 
@@ -175,10 +145,6 @@ class SimilarityJoin:
 
     def jaccard_join(self, cols1, cols2, threshold):
         new_df1 = self.preprocess_df(self.df1, cols1)
-#         new_df1.toPandas().to_csv('ppreprocess1.csv', index=False)
-#         df1 = pd.read_csv('preprocess1.csv')
-#         df2 = pd.read_csv('ppreprocess1.csv')
-#         print(df1.equals(df2))
     
         new_df2 = self.preprocess_df(self.df2, cols2)
         print("Before filtering: %d pairs in total" % (self.df1.count() * self.df2.count()))
@@ -196,32 +162,19 @@ def array_to_string(my_list):
 
 if __name__ == "__main__":
     er = SimilarityJoin("warn.csv", "nasdaq.csv")
-    amazon_cols = ["Company"]
-    google_cols = ["Name"]
-#     er = SimilarityJoin("Amazon_sample.csv", "Google_sample.csv")
-#     amazon_cols = ["title", "manufacturer"]
-#     google_cols = ["name", "manufacturer"]
-    result_df = er.jaccard_join(amazon_cols, google_cols, 0.5)
+    warn_cols = ["Company"]
+    nasdaq_cols = ["Name"]
+    result_df = er.jaccard_join(warn_cols, nasdaq_cols, 0.5)
 
     result = result_df.select('id1', 'id2').collect()
-#     ground_truth = pd.read_csv("Amazon_Google_perfectMapping_sample.csv").values.tolist()
-#     print ("(precision, recall, fmeasure) = ", er.evaluate(result, ground_truth))
-    
     array_to_string_udf = udf(array_to_string, StringType())
 
     result_df = result_df.withColumn('joinKey1', array_to_string_udf(result_df["joinKey1"]))
     result_df = result_df.withColumn('joinKey2', array_to_string_udf(result_df["joinKey2"]))
     result_df.show()
-    print("***********************************************************",(result_df.count(), len(result_df.columns)))
+    print(result_df.count(), len(result_df.columns))
 
     result_df.write.option("header",True).csv("warn_jaccard.csv")
-#     ground_truth = pd.read_csv("Amazon_Google_perfectMapping_sample.csv").values.tolist()
-#     print ("(precision, recall, fmeasure) = ", er.evaluate(result, ground_truth))
-
-
-
-# In[ ]:
-
 
 
 
