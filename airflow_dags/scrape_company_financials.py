@@ -43,7 +43,7 @@ def scrape_company_financials():
         api_key = Variable.get("FMP_API_KEY", default_var="")
         outputs = scrape_financials_fmp.pull_fmp_financial_statements(symbols, output_dir, api_key)
         return outputs
-    
+
     @task(
         retries=2,
         execution_timeout=datetime.timedelta(minutes=1),
@@ -60,10 +60,10 @@ def scrape_company_financials():
             local_path=output_dir
         )
         symbol_df = pd.read_csv(f"{output_dir}/{csv_path}")
-        symbols = symbol_df['Symbol'].tolist()
+        symbols = symbol_df['id2'].tolist()
         symbol_slices = [x.tolist() for x in np.array_split(symbols, int(len(symbols)/10))]
         return list(symbol_slices)
-    
+
     @task(
         retries=2,
         execution_timeout=datetime.timedelta(minutes=3),
@@ -77,7 +77,7 @@ def scrape_company_financials():
         for fp in local_file_paths:
             file_name = fp.split('/')[-1]
             s3_hook.load_file(fp, f"company_financials_{prefix}/{file_name}", s3_bucket, replace=True)
-    
+
     create_tmp_dir = BashOperator(
         task_id="create_tmp_dir",
         bash_command="mktemp -d 2>/dev/null"
@@ -95,5 +95,5 @@ def scrape_company_financials():
         bash_command="rm -rf {{ ti.xcom_pull(task_ids='create_tmp_dir') }}"
     )
     upload_res >> remove_tmp_dir
-    
+
 scrape_company_financials()
