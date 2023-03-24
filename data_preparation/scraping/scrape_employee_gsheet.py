@@ -2,6 +2,7 @@ import pandas as pd
 import requests
 from urllib.parse import urlparse, urlunparse
 import csv
+import re
 from parsel import Selector
 
 USER_AGENT_HEADER={"user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:109.0) Gecko/20100101 Firefox/111.0"}
@@ -56,7 +57,10 @@ def download_gsheet_csv(list_name, url, output_dir):
     return [f'{output_dir}/{list_name}.csv']
 
 def scrape_gsheet_manual(list_name, url, output_dir, isExportUrl=False):
-    html_url = gsheet_html_view(url, isExportUrl)
+    html_url = url
+    if not isExportUrl:
+        url_parts = url.split('/')
+        html_url = '/'.join(url_parts[:6] + ['htmlview'])
 #     print(html_url)
     resp = requests.get(html_url, headers=USER_AGENT_HEADER)
     if resp.status_code != 200:
@@ -65,9 +69,16 @@ def scrape_gsheet_manual(list_name, url, output_dir, isExportUrl=False):
     root = Selector(text=resp.text)
     sheets = root.xpath('//table[contains(@class,"waffle")]')
     print(f"sheet count = {len(sheets)}")
+    sheet_buttons = root.xpath('//li[contains(@id,"sheet-button")]')
+    sheet_names = list([sb.xpath('descendant-or-self::*/text()').get() for sb in sheet_buttons])
     output_paths = []
+    regex = re.compile(r"(hire|hiring|recruit|job|company)", re.IGNORECASE)
     for sheet_idx, sheet in enumerate(sheets):
-        print(sheet_idx)
+        sheet_name = sheet_names[sheet_idx]
+        print(sheet_name)
+        if regex.match(sheet_name):
+            print(f"skipping: sheet name {sheet_name}")
+            continue
         html_rows = sheet.xpath('tbody/tr')
         print(len(html_rows))
         data = []
@@ -82,7 +93,7 @@ def scrape_gsheet_manual(list_name, url, output_dir, isExportUrl=False):
             if len([s for s in tds if s]):
                 data.append(tds)
         print(len(data))
-        output_path = f'{output_dir}/{list_name}_{sheet_idx}.csv'
+        output_path = f'{output_dir}/{list_name}_{sheet_name}.csv'
         with open(output_path, 'w') as f:
             writer = csv.writer(f)
             for d in data:

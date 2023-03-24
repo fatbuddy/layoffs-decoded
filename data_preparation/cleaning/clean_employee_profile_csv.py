@@ -86,8 +86,8 @@ def clean_csv(input_file, output_dir):
                     continue
 
                 row_text = "|".join(current_row).lower()
-                if len(list([c for c in current_row if c.strip() != ""])) <= 1:
-                    print("skipping: only 1 cell is non-empty")
+                if len(list([c for c in current_row if c.strip() != ""])) <= 2:
+                    print("skipping: only 2 cell are non-empty")
                     print(row_text)
                     continue
 
