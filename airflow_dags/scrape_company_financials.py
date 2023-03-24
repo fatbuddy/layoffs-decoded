@@ -23,7 +23,7 @@ from data_preparation.scraping import scrape_financials_fmp
     concurrency=10,
     max_active_runs=1,
     params={
-        "companySymbolCsv": "warn-155.csv"
+        "companySymbolCsv": "warn_nasdaq_merged.csv"
     }
 )
 def scrape_company_financials():
