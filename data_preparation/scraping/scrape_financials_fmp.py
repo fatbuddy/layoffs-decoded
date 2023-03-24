@@ -24,7 +24,8 @@ def pull_fmp_financial_statements(stock_symbols, output_dir, api_key):
     statment_types = ["income-statement", "balance-sheet-statement", "cash-flow-statement"]
     session = requests.Session()
     output_files = []
-    for sym in stock_symbols:
+    for raw_sym in stock_symbols:
+        sym = raw_sym.replace("/", "-")
         for stmt_type in statment_types:
             statement_url = f"{FMP_API_ENDPOINT}/v3/{stmt_type}/{sym}"
             resp = session.get(url = statement_url, params={
