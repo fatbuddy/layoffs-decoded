@@ -16,6 +16,48 @@ invalid_first_row_count = 0
 invalid_file_count = 0
 employee_count = 0
 
+def match_label(to_match, to_not_match="", labels=None):
+    match_regex_str = f"^(?=.*({to_match}))"
+    if to_not_match != "":
+        match_regex_str = f"{match_regex_str}(?!.*({to_not_match}))"
+    match_regex = re.compile(
+        f"{match_regex_str}(?!.*(interest|desire|prefer|open)).*",
+        flags=re.IGNORECASE
+    )
+    desired_regex = re.compile(
+        f"{match_regex_str}.*",
+        flags=re.IGNORECASE
+    )
+    # matched_label = None
+    desired_label = None
+    for label in labels:
+        if match_regex.match(label):
+            return label
+        if desired_regex.match(label):
+            desired_label = label
+    return desired_label
+
+def detect_interested_label(labels: list[str]):
+    """
+    Detect labels of interested, i.e ["name or email (as ID)", "title/role", "department/area/function", "location"]
+    """
+    title_label = match_label(to_match="title|role|position|domain", labels=labels)
+    function_label = match_label(to_match="department|area|function|team|discipline", labels=labels)
+    city_label = match_label(to_match="city", labels=labels)
+    country_label = match_label(to_match="country", labels=labels)
+    location_label = match_label(to_match="location", labels=labels)
+    name_label = match_label(to_match="name", labels=labels)
+    location_label = city_label or country_label or location_label
+    # label_list = [name_label, title_label, function_label, location_label]
+    # return label_list
+    label_map = {
+        "name": name_label,
+        "title": title_label,
+        "function": function_label,
+        "location": location_label
+    }
+    return label_map
+
 def clean_csv(input_file, output_dir):
     rows = []
     labels = []
@@ -24,13 +66,13 @@ def clean_csv(input_file, output_dir):
     with open(input_file, 'r', encoding='utf-8') as csvfile:
         # Read the entire contents of the CSV file as a string
         file_content = csvfile.read()
-        
+
         # Check if the file contains any HTML tags
         if re.search(html_tag_pattern, file_content):
             # Skip to the next file if the file contains HTML content
             print(f"skipping: HTML element found in file {input_file}")
             return None
-        
+
         csvfile.seek(0)  # move file pointer to start of file
         # Create a CSV reader object
         reader = csv.reader(csvfile, delimiter=',')
@@ -44,12 +86,25 @@ def clean_csv(input_file, output_dir):
                     continue
 
                 row_text = "|".join(current_row).lower()
+                if len(list([c for c in current_row if c.strip() != ""])) <= 1:
+                    print("skipping: only 1 cell is non-empty")
+                    print(row_text)
+                    continue
+
                 if row_text.find("name") != -1 or \
                     row_text.find("nome") != -1 or \
                     row_text.find("nombre") != -1:
                     labels = current_row
-            
+
             print(f"label row found: {labels}")
+            intereted_labels = detect_interested_label(labels=labels)
+            original_labels = [l for l in labels]
+            for k, v in intereted_labels.items():
+                if v is not None:
+                    idx = [i for i in range(0, len(labels)) if labels[i]==v]
+                    if len(idx) > 0:
+                        labels[idx[0]] = k
+            rows.append(original_labels)
             while True:
                 row = next(reader)
                 if len(row) <= len(labels):
@@ -62,31 +117,37 @@ def clean_csv(input_file, output_dir):
         except StopIteration as e:
             print(f"Reached end of file: {input_file}")
             # Skip this file if it has less than one row
-            if len(labels) > 0 and len(rows) > 0:
+            if len(labels) > 0 and len(rows) > 1:
                 df = pd.DataFrame(rows, columns=labels)
                 output_file = input_file.split('/')[-1].split('.')[0]
                 output_path = f"{output_dir}/{output_file}-cleaned.csv"
                 print(f"writing output file to {output_path}")
-                df.to_csv(output_path)
+                df.to_csv(output_path, index=False)
                 return output_path
             return None
         except Exception as e:
             print(f"Exception error file not valid: {e} in {input_file}")
             return None
-    # Write the list of first rows to a text file
-    # with open('output.txt', 'w') as txtfile:
-    #     for row in first_rows:
-    #         # Write the filename and first row to the text file separated by a comma
-    #         txtfile.write(row[0] + ',' + ','.join(row[1]) + '\n')
 
-    # print("invalid_first_row_count: " + str(invalid_first_row_count))
-    # print("invalid_file_count: " + str(invalid_file_count))
-    # print(first_rows)
+def combine_csv(inputs, output_dir):
+    combined_df = pd.DataFrame(columns=['source', 'name','title','function','location'])
+    combined_file_path = f"{output_dir}/employee_merged_csv.csv"
+    for f in inputs:
+        # csv_df = extract_csv(f)
+        file_name = f.split('/')[-1]
+        csv_df = pd.read_csv(f)
+        csv_df['source'] = file_name
+        combined_df = pd.concat([combined_df, csv_df], ignore_index=True)
+    combined_df = combined_df[['source', 'name','title','function','location']]
+    combined_df = combined_df.dropna(thresh=2)
+    combined_df.to_csv(combined_file_path, index=False)
+    return combined_file_path
 
-# for filename in os.listdir(folder_path):
-#     print(filename)
-#     count = preprocess_file('csv/employee_csv_20230315', filename)
-#     employee_count += count
-#     print(count)
-
-# print(f"Toal Count: {employee_count}")
+def extract_csv(input_file):
+    df = pd.read_csv(input_file)
+    found = [i for i in range(0, len(df.columns)) \
+        if df.columns[i]=='title' or df.columns[i]=='location' or df.columns[i]=='function']
+    if len(found) == 3:
+        extracted_df = df[['title','location','function']]
+        return extracted_df
+    return None

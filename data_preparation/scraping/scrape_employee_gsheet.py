@@ -15,13 +15,20 @@ def download_gsheet_csv(list_name, url, output_dir):
     if parsed_url.netloc != 'docs.google.com':
         print("not a google sheet")
         return None
-    if 'e' in url_parts:
-        print("export url, manual scraping needed")
-        return scrape_gsheet_manual(list_name, url, output_dir, isExportUrl=True)
+
     original_link_status = requests.get(url, headers=USER_AGENT_HEADER).status_code
     if original_link_status != 200:
         print(f"original url: {original_link_status}")
         return None
+
+    if 'e' in url_parts:
+        print("export url, manual scraping needed")
+        return scrape_gsheet_manual(list_name, url, output_dir, isExportUrl=True)
+
+    if gsheet_has_multiple_sheets(url=url, isExportUrl=False):
+        print("csv has multiple sheets, manual scraping needed")
+        return scrape_gsheet_manual(list_name, url, output_dir, isExportUrl=False)
+
     if url_parts[2] == 'u' and url_parts[4] == 'd':
         url_parts = url_parts[:2] + url_parts[4:]
 
@@ -46,38 +53,61 @@ def download_gsheet_csv(list_name, url, output_dir):
             writer.writerow(row)
             count+=1
         print(count)
-    return f'{output_dir}/{list_name}.csv'
+    return [f'{output_dir}/{list_name}.csv']
 
 def scrape_gsheet_manual(list_name, url, output_dir, isExportUrl=False):
-    html_url = url
-    if not isExportUrl:
-        url_parts = url.split('/')
-        html_url = '/'.join(url_parts[:6] + ['htmlview'])
+    html_url = gsheet_html_view(url, isExportUrl)
 #     print(html_url)
     resp = requests.get(html_url, headers=USER_AGENT_HEADER)
     if resp.status_code != 200:
         print(f'html url: {resp.status_code}')
         return None
     root = Selector(text=resp.text)
-    html_rows = root.xpath('//table[contains(@class,"waffle")]/tbody/tr')
-#     print(len(html_rows))
-    data = []
-    for row in html_rows:
-        tds = []
-        for td in row.xpath('td'):
-            td_text = td.xpath('descendant-or-self::*/text()').get()
-            if td_text:
-                tds.append(td_text)
-            else:
-                tds.append("")
-        if len([s for s in tds if s]):
-            data.append(tds)
-    print(len(data))
-    with open(f'{output_dir}/{list_name}.csv', 'w') as f:
-        writer = csv.writer(f)
-        for d in data:
-            writer.writerow(d)
-    return f'{output_dir}/{list_name}.csv'
+    sheets = root.xpath('//table[contains(@class,"waffle")]')
+    print(f"sheet count = {len(sheets)}")
+    output_paths = []
+    for sheet_idx, sheet in enumerate(sheets):
+        print(sheet_idx)
+        html_rows = sheet.xpath('tbody/tr')
+        print(len(html_rows))
+        data = []
+        for row in html_rows:
+            tds = []
+            for td in row.xpath('td'):
+                td_text = td.xpath('descendant-or-self::*/text()').get()
+                if td_text:
+                    tds.append(td_text)
+                else:
+                    tds.append("")
+            if len([s for s in tds if s]):
+                data.append(tds)
+        print(len(data))
+        output_path = f'{output_dir}/{list_name}_{sheet_idx}.csv'
+        with open(output_path, 'w') as f:
+            writer = csv.writer(f)
+            for d in data:
+                writer.writerow(d)
+        output_paths.append(output_path)
+    if len(output_paths) == 0:
+        return None
+    return output_paths
+
+def gsheet_html_view(url, isExportUrl=False):
+    html_url = url
+    if not isExportUrl:
+        url_parts = url.split('/')
+        html_url = '/'.join(url_parts[:6] + ['htmlview'])
+    return html_url
+
+def gsheet_has_multiple_sheets(url, isExportUrl=False):
+    html_url = gsheet_html_view(url, isExportUrl)
+    resp = requests.get(html_url, headers=USER_AGENT_HEADER)
+    if resp.status_code != 200:
+        print(f'html url: {resp.status_code}')
+        return False
+    root = Selector(text=resp.text)
+    sheets = root.xpath('//table[contains(@class,"waffle")]')
+    return len(sheets) > 1
 
 # layoff_list = pd.read_csv('layoff_fyi.csv', header=0, index_col=0)
 # for row in layoff_list.iterrows():
