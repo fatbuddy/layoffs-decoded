@@ -146,5 +146,6 @@ def combine_csv(inputs, output_dir):
         combined_df = pd.concat([combined_df, csv_df], ignore_index=True)
     combined_df = combined_df[columns]
     combined_df = combined_df.dropna(thresh=3)
+    combined_df = combined_df.drop_duplicates(subset=['source','name'], keep='first')
     combined_df.to_csv(combined_file_path, index=False)
     return combined_file_path
