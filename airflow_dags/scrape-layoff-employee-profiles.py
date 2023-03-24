@@ -45,15 +45,16 @@ def scrape_layoff_employee_profiles():
             url=spreadsheet_link[4],
             output_dir=output_dir
         )
-    
+
     @task
-    def upload_employee_csv_s3(local_file_path, s3_bucket, prefix):
+    def upload_employee_csv_s3(local_file_paths, s3_bucket, prefix):
         """
         Upload output CSV to S3 bucket
         """
         s3_hook = S3Hook()
-        file_name = local_file_path.split('/')[-1]
-        s3_hook.load_file(local_file_path, f"employee_csv_{prefix}/{file_name}", s3_bucket, replace=True)
+        for f in local_file_paths:
+            file_name = f.split('/')[-1]
+            s3_hook.load_file(f, f"employee_csv_{prefix}/{file_name}", s3_bucket, replace=True)
 
     employee_spreadsheets = extract_layoff_links()
     create_tmp_dir = BashOperator(
@@ -66,7 +67,7 @@ def scrape_layoff_employee_profiles():
     execute_time = datetime.datetime.now().strftime("%Y%m%d")
     upload_res = upload_employee_csv_s3\
         .partial(s3_bucket='layoffs-decoded-master', prefix=execute_time)\
-        .expand(local_file_path=downloaded_csv_paths)
+        .expand(local_file_paths=downloaded_csv_paths)
     remove_tmp_dir = BashOperator(
         task_id="remove_tmp_dir",
         bash_command="rm -rf {{ ti.xcom_pull(task_ids='create_tmp_dir') }}"
