@@ -14,23 +14,36 @@ def extract_company_data(symbols, output_dir, start_year, end_year, api_key, qua
             period_of_report = item['periodOfReport']
             year = int(period_of_report[:4])
             if start_year <= year <= end_year:
-                row_data = {
-                    'stock_symbol': item['symbol'],
-                    'company_name': item['companyName'],
-                    'period_of_report': period_of_report,
-                    'employee_count': item['employeeCount']
-                }
                 if quarterly:
-                    # Append the row 4 times for each quarter
-                    for i in range(1, 5):
+                    for i in ['01','04','08','12']:
+                        # Append the row 4 times for each quarter
+                        row_data = {
+                            'stock_symbol': item['symbol'],
+                            'company_name': item['companyName'],
+                            'period_of_report': period_of_report[:5]+i+period_of_report[7:],
+                            'employee_count': item['employeeCount']
+                        }
                         df = df.append(row_data, ignore_index=True)
                 else:
                     # Append the row once
+                    row_data = {
+                            'stock_symbol': item['symbol'],
+                            'company_name': item['companyName'],
+                            'period_of_report': period_of_report,
+                            'employee_count': item['employeeCount']
+                        }
                     df = df.append(row_data, ignore_index=True)
-    output = df.to_csv(f'{output_dir}/company_size_data.csv', index=False)
-    return output
+    if quarterly == True:
+        out_path = f'{output_dir}/company_size_data_quarterly.csv'
+    else:
+        out_path = f'{output_dir}/company_size_data.csv'
+    output = df.to_csv(out_path, index=False)
+    return out_path
 # symbols = ['AAPL', 'GOOGL', 'MSFT']
 # start_year = 2018
 # end_year = 2020
-# api_key = "6b5ead8d3c6bceb25d50bc6237dc8543"
-# extract_company_data(symbols, start_year, end_year, api_key, quarterly=False)
+# api_key = ""
+# symbols = pd.read_csv("warn-155.csv")["Symbol"].to_list()
+# output_dir = './'
+# output = extract_company_data(symbols, output_dir, start_year, end_year, api_key, quarterly=True)
+# print(output)
