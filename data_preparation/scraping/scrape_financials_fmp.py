@@ -2,6 +2,7 @@ import io
 import pandas as pd
 import requests
 import csv
+import re
 from random import randint
 from time import sleep
 
@@ -16,6 +17,7 @@ def process_fmp_financial_statements(file_path):
     df = df.drop("date", axis=1)
     df = df.rename({"metric": "date"}, axis=1)
     df = df.set_index("date").transpose()
+    df.index = df.index.map(lambda s: re.sub(r"_Q[1-4]", "", s))
     df = df.sort_index(ascending=False)
     return df
 
@@ -47,6 +49,8 @@ def pull_fmp_financial_statements(stock_symbols, output_dir, api_key):
                     if len(row) >= 3 and len(row[2]) > 0:
                         writer.writerow(row)
             df = process_fmp_financial_statements(raw_file_path)
+            df["symbol"] = raw_sym
+            df["statementType"] = stmt_type
             df.to_csv(processed_file_path)
             output_files.append(processed_file_path)
             sleep(randint(1,3))
