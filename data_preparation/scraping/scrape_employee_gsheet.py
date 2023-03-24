@@ -57,6 +57,14 @@ def download_gsheet_csv(list_name, url, output_dir):
     return [f'{output_dir}/{list_name}.csv']
 
 def scrape_gsheet_manual(list_name, url, output_dir, isExportUrl=False):
+    directory_tabs = {
+        "delivery hero": "Talent Directory",
+        "doordash": "All Functions"
+    }
+    use_directory_tab = None
+    for k, v in directory_tabs.items():
+        if list_name.lower().find(k) > -1:
+            use_directory_tab = v
     html_url = url
     if not isExportUrl:
         url_parts = url.split('/')
@@ -78,6 +86,9 @@ def scrape_gsheet_manual(list_name, url, output_dir, isExportUrl=False):
         print(sheet_name)
         if regex.match(sheet_name):
             print(f"skipping: sheet name {sheet_name}")
+            continue
+        if use_directory_tab is not None and sheet_name != use_directory_tab:
+            print(f"skipping: sheet name {sheet_name} for {list_name}")
             continue
         html_rows = sheet.xpath('tbody/tr')
         print(len(html_rows))

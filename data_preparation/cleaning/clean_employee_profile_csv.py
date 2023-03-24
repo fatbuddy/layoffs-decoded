@@ -42,7 +42,11 @@ def detect_interested_label(labels: list[str]):
     Detect labels of interested, i.e ["name or email (as ID)", "title/role", "department/area/function", "location"]
     """
     title_label = match_label(to_match="title|role|position|domain", labels=labels)
-    function_label = match_label(to_match="department|area|function|team|discipline", labels=labels)
+    function_label = match_label(
+        to_match="department|area|function|team|discipline",
+        to_not_match="expertise|skill",
+        labels=labels
+    )
     city_label = match_label(to_match="city", labels=labels)
     country_label = match_label(to_match="country", labels=labels)
     location_label = match_label(to_match="location", labels=labels)
