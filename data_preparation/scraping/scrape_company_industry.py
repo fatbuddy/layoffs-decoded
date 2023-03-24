@@ -1,7 +1,7 @@
 import requests
 import pandas as pd
 
-def extract_company_data(symbols, api_key):
+def extract_company_data(symbols, output_dir, api_key):
     df = pd.DataFrame(columns=['stock_symbol','company_name', 'industry'])
     for symbol in symbols:
         url = f'https://financialmodelingprep.com/api/v3/profile/{symbol}?apikey={api_key}'
@@ -17,8 +17,12 @@ def extract_company_data(symbols, api_key):
             'company_name': company_name,
             'industry': industry
         }, ignore_index=True)
-    output = df.to_csv('company_industry.csv', index=False)
-    return output
+    out_path = f'{output_dir}/company_industry.csv'
+    output = df.to_csv(out_path, index=False)
+    return out_path
+
 # symbols = ['AAPL', 'GOOGL', 'MSFT']
-# api_key = '6b5ead8d3c6bceb25d50bc6237dc8543'
-# extract_company_data(symbols, api_key)
+# api_key = ""
+# symbols = pd.read_csv("warn-155.csv")["Symbol"].to_list()
+# output_dir = './'
+# extract_company_data(symbols, output_dir, api_key)
