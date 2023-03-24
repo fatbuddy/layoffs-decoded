@@ -51,11 +51,13 @@ def detect_interested_label(labels: list[str]):
     country_label = match_label(to_match="country", labels=labels)
     location_label = match_label(to_match="location", labels=labels)
     name_label = match_label(to_match="name", labels=labels)
+    email_label = match_label(to_match="email", labels=labels)
     location_label = city_label or country_label or location_label
     # label_list = [name_label, title_label, function_label, location_label]
     # return label_list
     label_map = {
         "name": name_label,
+        "email": email_label,
         "title": title_label,
         "function": function_label,
         "location": location_label
@@ -134,24 +136,15 @@ def clean_csv(input_file, output_dir):
             return None
 
 def combine_csv(inputs, output_dir):
-    combined_df = pd.DataFrame(columns=['source', 'name','title','function','location'])
+    columns = ['source','name','email','title','function','location']
+    combined_df = pd.DataFrame(columns=columns)
     combined_file_path = f"{output_dir}/employee_merged_csv.csv"
     for f in inputs:
-        # csv_df = extract_csv(f)
         file_name = f.split('/')[-1]
         csv_df = pd.read_csv(f)
         csv_df['source'] = file_name
         combined_df = pd.concat([combined_df, csv_df], ignore_index=True)
-    combined_df = combined_df[['source', 'name','title','function','location']]
+    combined_df = combined_df[columns]
     combined_df = combined_df.dropna(thresh=2)
     combined_df.to_csv(combined_file_path, index=False)
     return combined_file_path
-
-def extract_csv(input_file):
-    df = pd.read_csv(input_file)
-    found = [i for i in range(0, len(df.columns)) \
-        if df.columns[i]=='title' or df.columns[i]=='location' or df.columns[i]=='function']
-    if len(found) == 3:
-        extracted_df = df[['title','location','function']]
-        return extracted_df
-    return None
