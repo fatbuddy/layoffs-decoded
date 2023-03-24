@@ -77,7 +77,7 @@ def scrape_company_size():
         Upload output CSV to S3 bucket
         """
         s3_hook = S3Hook()
-        s3_hook.load_file(local_file_path, s3_bucket, replace=True)
+        s3_hook.load_file(local_file_path, f"company_size_data.csv", s3_bucket, replace=True)
     
     create_tmp_dir = BashOperator(
         task_id="create_tmp_dir",
