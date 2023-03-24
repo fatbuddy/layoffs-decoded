@@ -74,7 +74,7 @@ def scrape_gsheet_manual(list_name, url, output_dir, isExportUrl=False):
     output_paths = []
     regex = re.compile(r"(hire|hiring|recruit|job|company)", re.IGNORECASE)
     for sheet_idx, sheet in enumerate(sheets):
-        sheet_name = sheet_names[sheet_idx]
+        sheet_name = sheet_names[sheet_idx] if sheet_idx < len(sheet_names) else str(sheet_idx)
         print(sheet_name)
         if regex.match(sheet_name):
             print(f"skipping: sheet name {sheet_name}")
