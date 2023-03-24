@@ -1,6 +1,3 @@
-# CSV-File created with merge-csv.com
-# -----------------------------------------------------------
-
 id1,id2,joinKey1,joinKey2,OG-Company-Warn,OG-Company-Nasdaq,jaccard
 16611,BJ,"[bj,s,wholesale,club,inc]","[bj,s,wholesale,club,holdings,inc,common,stock]","Bj's Wholesale Club, Inc.",BJ's Wholesale Club Holdings Inc. Common Stock,0.625
 17240,DAL,"[delta,air,lines,inc]","[delta,air,lines,inc,common,stock]","Delta Air Lines, Inc.",Delta Air Lines Inc. Common Stock,0.6666666666666666
@@ -275,7 +272,7 @@ id1,id2,joinKey1,joinKey2,OG-Company-Warn,OG-Company-Nasdaq,jaccard
 26560,NATH,"[nathan,s,famous,inc]","[nathan,s,famous,inc,common,stock]","Nathan's Famous, Inc.",Nathan's Famous Inc. Common Stock,0.6666666666666666
 8935,DECK,"[deckers,outdoor,corporation]","[deckers,outdoor,corporation,common,stock]",Deckers Outdoor Corporation,Deckers Outdoor Corporation Common Stock,0.6
 14230,ABG,"[asbury,automotive,group,inc]","[asbury,automotive,group,inc,common,stock]","Asbury Automotive Group, Inc.",Asbury Automotive Group Inc Common Stock,0.6666666666666666
-42527,AKBA,"[akebia,therapeutics,inc,akebia]","[akebia,therapeutics,inc,common,stock]","\"Akebia Therapeutics, Inc. (\"\"Akebia\"\")\"",Akebia Therapeutics Inc. Common Stock,0.6
+42527,AKBA,"[akebia,therapeutics,inc,akebia]","[akebia,therapeutics,inc,common,stock]","Akebia Therapeutics, Inc. (""Akebia"")",Akebia Therapeutics Inc. Common Stock,0.6
 1023,LYV,"[live,nation,entertainment,inc]","[live,nation,entertainment,inc,common,stock]","Live Nation Entertainment, Inc.",Live Nation Entertainment Inc. Common Stock,0.6666666666666666
 11836,HRL,"[hormel,foods,corporation]","[hormel,foods,corporation,common,stock]",HORMEL FOODS CORPORATION,Hormel Foods Corporation Common Stock,0.6
 3582,RHI,"[robert,half,international,inc]","[robert,half,international,inc,common,stock]",Robert Half International Inc.,Robert Half International Inc. Common Stock,0.6666666666666666

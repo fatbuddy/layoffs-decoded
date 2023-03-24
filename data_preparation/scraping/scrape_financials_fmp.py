@@ -34,6 +34,7 @@ def pull_fmp_financial_statements(stock_symbols, output_dir, api_key):
                     "datatype": "csv"
                 })
             if resp.status_code != 200:
+                print(f"error in pulling data {statement_url}")
                 raise RuntimeError(f"http status is {resp.status_code}")
             file_name = f"{output_dir}/{sym}-{stmt_type}"
             raw_file_path = f"{file_name}-raw.csv"
@@ -49,4 +50,3 @@ def pull_fmp_financial_statements(stock_symbols, output_dir, api_key):
             output_files.append(processed_file_path)
             sleep(randint(1,3))
     return output_files
-            

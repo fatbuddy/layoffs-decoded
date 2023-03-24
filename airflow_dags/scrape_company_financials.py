@@ -34,7 +34,7 @@ def scrape_company_financials():
     @task(
         retries=2,
         execution_timeout=datetime.timedelta(minutes=3),
-        retry_delay=datetime.timedelta(minutes=2),
+        retry_delay=datetime.timedelta(minutes=1),
     )
     def pull_company_financial_data(symbols, output_dir):
         """
