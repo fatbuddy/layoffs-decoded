@@ -26,7 +26,7 @@ from data_preparation.scraping import scrape_company_industry
         "companySymbolCsv": "warn-155.csv"
     }
 )
-def scrape_company_industry():
+def scrape_industry():
     s3_bucket = Variable.get("S3_BUCKET", default_var="layoffs-decoded-master")
     # symbols = ['AAPL', 'GOOGL', 'MSFT']
 
@@ -35,7 +35,7 @@ def scrape_company_industry():
         execution_timeout=datetime.timedelta(minutes=3),
         retry_delay=datetime.timedelta(minutes=2),
     )
-    def extract_company_data(symbols, output_dir):
+    def extract_company_industry(symbols, output_dir):
         """
         Extract company size data for a given set of symbols and time period
         """
@@ -81,7 +81,7 @@ def scrape_company_industry():
         bash_command="mktemp -d 2>/dev/null"
     )
     company_symbol_list = retrieve_company_symbols(output_dir=create_tmp_dir.output)
-    company_size_csv_path = extract_company_data(company_symbol_list, output_dir=create_tmp_dir.output)
+    company_size_csv_path = extract_company_industry(company_symbol_list, output_dir=create_tmp_dir.output)
     upload_res = upload_csv_s3(company_size_csv_path, s3_bucket=s3_bucket)
     remove_tmp_dir = BashOperator(
         task_id="remove_tmp_dir",
@@ -89,4 +89,4 @@ def scrape_company_industry():
     )
     upload_res >> remove_tmp_dir
 
-scrape_company_industry()
+scrape_industry()
