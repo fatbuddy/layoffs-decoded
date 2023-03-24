@@ -16,7 +16,7 @@ from airflow.models import Variable
 from data_preparation.scraping import scrape_company_industry
 
 @dag(
-    schedule_interval='None',
+    schedule_interval=None,
     start_date=pendulum.datetime(2023, 1, 1, tz="UTC"),
     catchup=False,
     tags=["scraping"],
