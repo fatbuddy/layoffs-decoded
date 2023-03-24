@@ -93,7 +93,7 @@ def scrape_gsheet_manual(list_name, url, output_dir, isExportUrl=False):
             if len([s for s in tds if s]):
                 data.append(tds)
         print(len(data))
-        output_path = f'{output_dir}/{list_name}_{sheet_name}.csv'
+        output_path = f'{output_dir}/{list_name}_{"".join(c for c in sheet_name if c.isalnum())}.csv'
         with open(output_path, 'w') as f:
             writer = csv.writer(f)
             for d in data:
