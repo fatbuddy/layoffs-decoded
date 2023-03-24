@@ -108,7 +108,7 @@ def clean_csv(input_file, output_dir):
                     idx = [i for i in range(0, len(labels)) if labels[i]==v]
                     if len(idx) > 0:
                         labels[idx[0]] = k
-            rows.append(original_labels)
+            # rows.append(original_labels)
             while True:
                 row = next(reader)
                 if len(row) <= len(labels):
@@ -121,7 +121,7 @@ def clean_csv(input_file, output_dir):
         except StopIteration as e:
             print(f"Reached end of file: {input_file}")
             # Skip this file if it has less than one row
-            if len(labels) > 0 and len(rows) > 1:
+            if len(labels) > 0 and len(rows) > 0:
                 df = pd.DataFrame(rows, columns=labels)
                 output_file = input_file.split('/')[-1].split('.')[0]
                 output_path = f"{output_dir}/{output_file}-cleaned.csv"
