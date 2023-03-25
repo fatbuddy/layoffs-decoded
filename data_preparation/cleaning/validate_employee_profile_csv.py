@@ -104,3 +104,4 @@ def validate_csv(input_path, output_dir):
             writer = csv.DictWriter(outfile, fieldnames=cleaned_data[0].keys())
             writer.writeheader()
             writer.writerows(cleaned_data)
+    return f"{output_dir}/employee_merged_csv.csv"
