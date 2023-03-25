@@ -7,6 +7,7 @@ import os
 import pendulum
 
 from data_preparation.cleaning import clean_employee_profile_csv
+from data_preparation.cleaning import validate_employee_profile_csv
 
 # Define the DAG
 @dag(
@@ -59,6 +60,10 @@ def clean_employee_profiles_csv():
     @task
     def merge_employee_csv(inputs, output_dir):
         return clean_employee_profile_csv.combine_csv(inputs=inputs, output_dir=output_dir)
+    
+    @task
+    def validate_employee_csv(inputs, output_dir):
+        return validate_employee_profile_csv.validate_csv(input_path=inputs, output_dir=output_dir)
 
     @task
     def upload_cleaned_csv_s3(local_file_path, s3_bucket, prefix):
@@ -70,6 +75,18 @@ def clean_employee_profiles_csv():
         s3_hook.load_file(
             filename=local_file_path,
             key=f"employee_cleaned_csv_{prefix}/{file_name}",
+            bucket_name=s3_bucket,
+            replace=True)
+        
+    @task
+    def upload_validated_csv_s3(local_file_path, s3_bucket, prefix):
+        """
+        Upload output CSV to S3 bucket
+        """
+        s3_hook = S3Hook()
+        s3_hook.load_file(
+            filename=local_file_path,
+            key=f"employee_cleaned_csv_{prefix}/employee_merged_validated_csv.csv",
             bucket_name=s3_bucket,
             replace=True)
 
@@ -95,11 +112,17 @@ def clean_employee_profiles_csv():
         prefix=execute_time,
         local_file_path=merged_csv
     )
+    validated_csv = validate_employee_csv(inputs=merged_csv, output_dir=create_tmp_dir.output)
+    upload_validated_res = upload_validated_csv_s3(
+        s3_bucket=s3_bucket,
+        prefix=execute_time,
+        local_file_path=validated_csv
+    )
     remove_tmp_dir = BashOperator(
         task_id="remove_tmp_dir",
         bash_command="rm -rf {{ ti.xcom_pull(task_ids='create_tmp_dir') }}"
     )
-    upload_merge_res >> remove_tmp_dir
+    upload_merge_res >> validated_csv >> upload_validated_res >> remove_tmp_dir
     upload_res >> remove_tmp_dir
 
 clean_employee_profiles_csv()
