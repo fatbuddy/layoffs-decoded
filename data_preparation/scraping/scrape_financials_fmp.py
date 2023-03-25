@@ -66,6 +66,6 @@ def pull_fmp_financial_statements(stock_symbols, output_dir, api_key):
             sleep(randint(1,3))
         merged_df['symbol'] = raw_sym
         merged_df = merged_df.sort_index(ascending=False)
-        merged_df.to_csv(merged_file_name, index=True)
+        merged_df.to_csv(merged_file_name, index=True, index_label="date")
         output_files.append(merged_file_name)
     return output_files
