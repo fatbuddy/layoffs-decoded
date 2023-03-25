@@ -86,8 +86,9 @@ def scrape_company_financials():
         retry_delay=datetime.timedelta(minutes=1),
     )
     def merge_all_fmp_csv(local_file_paths, output_dir, s3_bucket, prefix):
-        combined_df = pd.read_csv(local_file_paths[0])
-        for fp in local_file_paths[1:]:
+        flatten_local_paths = list([p for sublist in local_file_paths for p in sublist])
+        combined_df = pd.read_csv(flatten_local_paths[0])
+        for fp in flatten_local_paths[1:]:
             df = pd.read_csv(fp)
             combined_df = pd.concat([combined_df, df], ignore_index=True)
         file_name = "combined_company_financials.csv"
