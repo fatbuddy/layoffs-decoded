@@ -112,7 +112,7 @@ def clean_employee_profiles_csv():
         prefix=execute_time,
         local_file_path=merged_csv
     )
-    validated_csv = validate_employee_csv(input_path=merged_csv, output_dir=create_tmp_dir.output)
+    validated_csv = validate_employee_csv(inputs=merged_csv, output_dir=create_tmp_dir.output)
     upload_validated_res = upload_validated_csv_s3(
         s3_bucket=s3_bucket,
         prefix=execute_time,
