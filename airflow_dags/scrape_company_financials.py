@@ -23,7 +23,8 @@ from data_preparation.scraping import scrape_financials_fmp
     concurrency=10,
     max_active_runs=1,
     params={
-        "companySymbolCsv": "warn_nasdaq_merged.csv"
+        "companySymbolCsv": "warn_jaccard_0.5_cleaned.csv",
+        "symbolColumn": "Symbol"
     }
 )
 def scrape_company_financials():
@@ -51,6 +52,7 @@ def scrape_company_financials():
     )
     def retrieve_company_symbols(output_dir, **ctx):
         csv_path = ctx['params']['companySymbolCsv']
+        symbol = ctx['params']['symbolColumn']
         s3_hook = S3Hook()
         s3_hook.download_file(
             key=csv_path,
@@ -60,7 +62,7 @@ def scrape_company_financials():
             local_path=output_dir
         )
         symbol_df = pd.read_csv(f"{output_dir}/{csv_path}")
-        symbols = symbol_df['id2'].tolist()
+        symbols = symbol_df[symbol].unique().tolist()
         symbol_slices = [x.tolist() for x in np.array_split(symbols, int(len(symbols)/10))]
         return list(symbol_slices)
 

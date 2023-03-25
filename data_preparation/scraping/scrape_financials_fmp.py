@@ -32,6 +32,7 @@ def pull_fmp_financial_statements(stock_symbols, output_dir, api_key):
         merged_df = None
         for stmt_type in statment_types:
             statement_url = f"{FMP_API_ENDPOINT}/v3/{stmt_type}/{sym}"
+            print(f"Pulling FMP data {statement_url}")
             resp = session.get(url = statement_url, params={
                     "apikey": api_key,
                     "period": "quarter",
@@ -39,7 +40,6 @@ def pull_fmp_financial_statements(stock_symbols, output_dir, api_key):
                     "datatype": "csv"
                 })
             if resp.status_code != 200:
-                print(f"error in pulling data {statement_url}")
                 raise RuntimeError(f"http status is {resp.status_code}")
             file_name = f"{output_dir}/{sym}-{stmt_type}"
             raw_file_path = f"{file_name}-raw.csv"
