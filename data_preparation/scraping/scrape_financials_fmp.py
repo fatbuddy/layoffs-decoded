@@ -27,6 +27,8 @@ def pull_fmp_financial_statements(stock_symbols, output_dir, api_key):
     session = requests.Session()
     output_files = []
     for raw_sym in stock_symbols:
+        merged_file_name = f"{output_dir}/{sym}-all.csv"
+        merged_df = None
         sym = raw_sym.replace("/", "-")
         for stmt_type in statment_types:
             statement_url = f"{FMP_API_ENDPOINT}/v3/{stmt_type}/{sym}"
@@ -41,7 +43,7 @@ def pull_fmp_financial_statements(stock_symbols, output_dir, api_key):
                 raise RuntimeError(f"http status is {resp.status_code}")
             file_name = f"{output_dir}/{sym}-{stmt_type}"
             raw_file_path = f"{file_name}-raw.csv"
-            processed_file_path = f"{file_name}.csv"
+            # processed_file_path = f"{file_name}.csv"
             with open(raw_file_path, 'w', encoding='utf-8') as f:
                 writer = csv.writer(f)
                 reader = csv.reader(resp.content.decode('utf-8').splitlines())
@@ -49,9 +51,15 @@ def pull_fmp_financial_statements(stock_symbols, output_dir, api_key):
                     if len(row) >= 3 and len(row[2]) > 0:
                         writer.writerow(row)
             df = process_fmp_financial_statements(raw_file_path)
-            df["symbol"] = raw_sym
-            df["statementType"] = stmt_type
-            df.to_csv(processed_file_path)
-            output_files.append(processed_file_path)
+            if merged_df is not None:
+                merged_df = merged_df.join(other=df, how="outer", rsuffix=f"_{stmt_type}")
+            else:
+                merged_df = df
+            # df.to_csv(processed_file_path)
+            # output_files.append(processed_file_path)
             sleep(randint(1,3))
+        merged_df['symbol'] = raw_sym
+        merged_df = merged_df.sort_index(ascending=False)
+        merged_df.to_csv(merged_file_name, index=True)
+        output_files.append(merged_file_name)
     return output_files
