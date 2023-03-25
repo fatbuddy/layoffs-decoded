@@ -27,9 +27,9 @@ def pull_fmp_financial_statements(stock_symbols, output_dir, api_key):
     session = requests.Session()
     output_files = []
     for raw_sym in stock_symbols:
+        sym = raw_sym.replace("/", "-")
         merged_file_name = f"{output_dir}/{sym}-all.csv"
         merged_df = None
-        sym = raw_sym.replace("/", "-")
         for stmt_type in statment_types:
             statement_url = f"{FMP_API_ENDPOINT}/v3/{stmt_type}/{sym}"
             resp = session.get(url = statement_url, params={
