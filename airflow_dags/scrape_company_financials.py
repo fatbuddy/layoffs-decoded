@@ -80,6 +80,23 @@ def scrape_company_financials():
             file_name = fp.split('/')[-1]
             s3_hook.load_file(fp, f"company_financials_{prefix}/{file_name}", s3_bucket, replace=True)
 
+    @task(
+        retries=1,
+        execution_timeout=datetime.timedelta(minutes=5),
+        retry_delay=datetime.timedelta(minutes=1),
+    )
+    def merge_all_fmp_csv(local_file_paths, output_dir, s3_bucket, prefix):
+        combined_df = pd.read_csv(local_file_paths[0])
+        for fp in local_file_paths[1:]:
+            df = pd.read_csv(fp)
+            combined_df = pd.concat([combined_df, df], ignore_index=True)
+        file_name = "combined_company_financials.csv"
+        out_file = f"{output_dir}/{file_name}"
+        combined_df.to_csv(out_file, index=False)
+        s3_hook = S3Hook()
+        s3_hook.load_file(out_file, f"company_financials_{prefix}/{file_name}", s3_bucket, replace=True)
+
+
     create_tmp_dir = BashOperator(
         task_id="create_tmp_dir",
         bash_command="mktemp -d 2>/dev/null"
@@ -92,10 +109,15 @@ def scrape_company_financials():
     upload_res = upload_fmp_csv_s3\
         .partial(s3_bucket=s3_bucket, prefix=execute_time)\
         .expand(local_file_paths=company_financial_csv_paths)
+    merge_res = merge_all_fmp_csv(
+        s3_bucket=s3_bucket,
+        prefix=execute_time,
+        output_dir=create_tmp_dir.output,
+        local_file_paths=company_financial_csv_paths)
     remove_tmp_dir = BashOperator(
         task_id="remove_tmp_dir",
         bash_command="rm -rf {{ ti.xcom_pull(task_ids='create_tmp_dir') }}"
     )
-    upload_res >> remove_tmp_dir
+    (upload_res, merge_res) >> remove_tmp_dir
 
 scrape_company_financials()
