@@ -62,7 +62,7 @@ def scrape_company_financials():
             local_path=output_dir
         )
         symbol_df = pd.read_csv(f"{output_dir}/{csv_path}")
-        symbols = symbol_df[symbol].tolist()
+        symbols = symbol_df[symbol].unique().tolist()
         symbol_slices = [x.tolist() for x in np.array_split(symbols, int(len(symbols)/10))]
         return list(symbol_slices)
 
