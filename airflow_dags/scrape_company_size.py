@@ -23,7 +23,8 @@ from data_preparation.scraping import scrape_for_company_size
     concurrency=10,
     max_active_runs=1,
     params = {
-        "companySymbolCsv": "warn_jaccard_0.5_cleaned.csv"
+        "companySymbolCsv": "warn_jaccard_0.5_cleaned.csv",
+        "quarterly": False
     }
 )
 def scrape_company_size():
@@ -38,11 +39,12 @@ def scrape_company_size():
         execution_timeout=datetime.timedelta(minutes=3),
         retry_delay=datetime.timedelta(minutes=2),
     )
-    def extract_company_data(symbols, output_dir, start_year, end_year, quarterly=False):
+    def extract_company_data(symbols, output_dir, start_year, end_year, **ctx):
         """
         Extract company size data for a given set of symbols and time period
         """
         api_key = Variable.get("FMP_API_KEY", default_var="")
+        quarterly = ctx['params']['quarterly']
         output = scrape_for_company_size.extract_company_data(symbols, output_dir, start_year, end_year, api_key, quarterly)
         return output
 
@@ -63,30 +65,48 @@ def scrape_company_size():
         )
         symbol_df = pd.read_csv(f"{output_dir}/{csv_path}")
         symbols = symbol_df['Symbol'].unique().tolist()
-        return symbols
-        # symbol_slices = [x.tolist() for x in np.array_split(symbols, int(len(symbols)/10))]
-        # return list(symbol_slices)
+        # return symbols
+        symbol_slices = [x.tolist() for x in np.array_split(symbols, int(len(symbols)/10))]
+        return list(symbol_slices)
 
     @task(
         retries=2,
         execution_timeout=datetime.timedelta(minutes=15),
         retry_delay=datetime.timedelta(minutes=1),
     )
-    def upload_csv_s3(local_file_path, s3_bucket):
+    def upload_csv_s3(local_file_paths, output_dir, s3_bucket, prefix, **ctx):
         """
         Upload output CSV to S3 bucket
         """
         s3_hook = S3Hook()
-        s3_hook.load_file(local_file_path, f"company_size_data.csv", s3_bucket, replace=True)
+        merged_df = None
+        quarterly = ctx['params']['quarterly']
+        quarterly_suffix = "_quarterly" if quarterly else ""
+        merged_filename = f"company_size_data{quarterly_suffix}.csv"
+        merged_filepath = f"{output_dir}/{merged_filename}"
+        for fp in local_file_paths:
+            df = pd.read_csv(fp)
+            if merged_df == None:
+                merged_df = df
+            else:
+                merged_df = pd.concat([merged_df, df], ignore_index=True)
+        merged_df.to_csv(merged_filepath, index=False)
+        s3_hook.load_file(merged_filepath, f"company_size_data_{prefix}/{merged_filename}", s3_bucket, replace=True)
 
+    execute_time = datetime.datetime.now().strftime("%Y%m%d")
     create_tmp_dir = BashOperator(
         task_id="create_tmp_dir",
         bash_command="mktemp -d 2>/dev/null"
     )
     company_symbol_list = retrieve_company_symbols(output_dir=create_tmp_dir.output)
-    company_size_csv_path = extract_company_data(company_symbol_list, output_dir=create_tmp_dir.output,\
-                                                 start_year=start_year, end_year=end_year, quarterly=False)
-    upload_res = upload_csv_s3(company_size_csv_path, s3_bucket=s3_bucket)
+    company_size_csv_paths = extract_company_data\
+        .partial(output_dir=create_tmp_dir.output, start_year=start_year, end_year=end_year, quarterly=False)\
+        .expand(symbols=company_symbol_list)
+    upload_res = upload_csv_s3(
+        local_file_paths=company_size_csv_paths,
+        output_dir=create_tmp_dir.output,
+        s3_bucket=s3_bucket,
+        prefix=execute_time)
     remove_tmp_dir = BashOperator(
         task_id="remove_tmp_dir",
         bash_command="rm -rf {{ ti.xcom_pull(task_ids='create_tmp_dir') }}"

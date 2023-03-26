@@ -1,6 +1,7 @@
 import requests
 import pandas as pd
 import re
+import uuid
 from random import randint
 from time import sleep
 
@@ -38,11 +39,11 @@ def extract_company_data(symbols, output_dir, start_year, end_year, api_key, qua
                             'employee_count': item['employeeCount']
                         }
                     df = pd.concat([df, pd.DataFrame.from_dict({k:[v] for k,v in row_data.items()})], ignore_index=True)
-        sleep(1)
+        sleep(randint(1,3))
     if quarterly == True:
-        out_path = f'{output_dir}/company_size_data_quarterly.csv'
+        out_path = f'{output_dir}/company_size_data_quarterly_{str(uuid.uuid4()).split("-")[0]}.csv'
     else:
-        out_path = f'{output_dir}/company_size_data.csv'
+        out_path = f'{output_dir}/company_size_data_{str(uuid.uuid4()).split("-")[0]}.csv'
     output = df.to_csv(out_path, index=False)
     return out_path
 # symbols = ['AAPL', 'GOOGL', 'MSFT']
