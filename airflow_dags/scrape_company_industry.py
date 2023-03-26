@@ -26,7 +26,7 @@ from data_preparation.scraping import scrape_company_industry
         "companySymbolCsv": "warn_jaccard_0.5_cleaned.csv"
     }
 )
-def scrape_company_industry():
+def scrape_industry():
     s3_bucket = Variable.get("S3_BUCKET", default_var="layoffs-decoded-master")
     # symbols = ['AAPL', 'GOOGL', 'MSFT']
 
