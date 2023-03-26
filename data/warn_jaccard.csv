@@ -1,0 +1,545 @@
+id1,id2,joinKey1,joinKey2,OG-Company-Warn,OG-Company-Nasdaq,jaccard
+16611,BJ,"[bj,s,wholesale,club,inc]","[bj,s,wholesale,club,holdings,inc,common,stock]","Bj's Wholesale Club, Inc.",BJ's Wholesale Club Holdings Inc. Common Stock,0.625
+19079,PH,"[parker,hannifin,corporation]","[parker,hannifin,corporation,common,stock]",Parker Hannifin Corporation,Parker-Hannifin Corporation Common Stock,0.6
+20597,BA,"[the,boeing,company]","[boeing,company,the,common,stock]",The Boeing Company,Boeing Company (The) Common Stock,0.6
+38999,CVGI,"[commercial,vehicle,group,inc]","[commercial,vehicle,group,inc,common,stock]","Commercial Vehicle Group, Inc.",Commercial Vehicle Group Inc. Common Stock,0.6666666666666666
+8825,CRL,"[charles,river,laboratories,inc]","[charles,river,laboratories,international,inc,common,stock]","Charles River Laboratories, Inc.",Charles River Laboratories International Inc. Common Stock,0.5714285714285714
+9668,TSN,"[tyson,foods,inc]","[tyson,foods,inc,common,stock]","Tyson Foods, Inc.",Tyson Foods Inc. Common Stock,0.6
+9760,BA,"[the,boeing,company]","[boeing,company,the,common,stock]",The Boeing Company,Boeing Company (The) Common Stock,0.6
+26798,IBM,"[international,business,machines,corporation,ibm]","[international,business,machines,corporation,common,stock]",International Business Machines Corporation (IBM),International Business Machines Corporation Common Stock,0.5714285714285714
+3061,ADM,"[archer,daniels,midland,company,adm]","[archer,daniels,midland,company,common,stock]",Archer-Daniels-Midland Company (ADM),Archer-Daniels-Midland Company Common Stock,0.5714285714285714
+41141,PLCE,"[the,children,s,place]","[children,s,place,inc,the,common,stock]",The Children's Place,Children's Place Inc. (The) Common Stock,0.5714285714285714
+43671,SEE,"[sealed,air,corporation]","[sealed,air,corporation,common,stock]",Sealed Air Corporation,Sealed Air Corporation Common Stock,0.6
+8551,FIX,"[california,comfort,systems,usa,inc]","[comfort,systems,usa,inc,common,stock]","California Comfort Systems USA, Inc.",Comfort Systems USA Inc. Common Stock,0.5714285714285714
+9746,BSX,"[boston,scientific,corporation]","[boston,scientific,corporation,common,stock]",Boston Scientific Corporation,Boston Scientific Corporation Common Stock,0.6
+36823,DVN,"[devon,energy,corporation]","[devon,energy,corporation,common,stock]",Devon Energy Corporation,Devon Energy Corporation Common Stock,0.6
+37266,AAP,"[advance,auto,parts]","[advance,auto,parts,inc]",Advance Auto Parts,Advance Auto Parts Inc.,0.75
+17605,BA,"[the,boeing,company]","[boeing,company,the,common,stock]",The Boeing Company,Boeing Company (The) Common Stock,0.6
+41111,BMY,"[bristol,myers,squibb,company]","[bristol,myers,squibb,company,common,stock]",Bristol Myers Squibb Company,Bristol-Myers Squibb Company Common Stock,0.6666666666666666
+4860,SGC,"[superior,group,of,companies,inc]","[superior,group,of,companies,inc,common,stock]","Superior Group of Companies, Inc.",Superior Group of Companies Inc. Common Stock,0.7142857142857143
+12168,CTG,"[computer,task,group,inc]","[computer,task,group,inc,common,stock]","Computer Task Group, Inc",Computer Task Group Inc. Common Stock,0.6666666666666666
+43940,TIL,"[instil,bio,inc]","[instil,bio,inc,common,stock]","Instil Bio, Inc.",Instil Bio Inc. Common Stock,0.6
+19001,X,"[united,states,steel,corporation]","[united,states,steel,corporation,common,stock]",United States Steel Corporation,United States Steel Corporation Common Stock,0.6666666666666666
+40298,SAVE,"[spirit,airlines,inc]","[spirit,airlines,inc,common,stock]","Spirit Airlines, Inc,",Spirit Airlines Inc. Common Stock,0.6
+18239,X,"[united,states,steel,corporation]","[united,states,steel,corporation,common,stock]",United States Steel Corporation,United States Steel Corporation Common Stock,0.6666666666666666
+27720,ARW,"[arrow,electronics,inc]","[arrow,electronics,inc,common,stock]","Arrow Electronics, Inc.",Arrow Electronics Inc. Common Stock,0.6
+40321,KDP,"[keurig,dr,pepper,inc]","[keurig,dr,pepper,inc,common,stock]",Keurig Dr Pepper Inc.,Keurig Dr Pepper Inc. Common Stock,0.6666666666666666
+17592,GT,"[goodyear,tire,rubber,company]","[the,goodyear,tire,rubber,company,common,stock]",Goodyear Tire & Rubber Company,The Goodyear Tire & Rubber Company Common Stock,0.5714285714285714
+24663,MTB,"[m,t,bank,corporation]","[m,t,bank,corporation,common,stock]",M&T Bank Corporation,M&T Bank Corporation Common Stock,0.6666666666666666
+16946,T,"[at,t]","[at,t,inc]",At&t,AT&T Inc.,0.6666666666666666
+18064,IP,"[international,paper,company]","[international,paper,company,common,stock]",International Paper Company,International Paper Company Common Stock,0.6
+42382,LMT,"[lockheed,martin,corporation]","[lockheed,martin,corporation,common,stock]",Lockheed Martin Corporation,Lockheed Martin Corporation Common Stock,0.6
+11299,DGX,"[quest,diagnostics,incorporated]","[quest,diagnostics,incorporated,common,stock]",Quest Diagnostics Incorporated,Quest Diagnostics Incorporated Common Stock,0.6
+38119,BSX,"[boston,scientific,corporation]","[boston,scientific,corporation,common,stock]",Boston Scientific Corporation,Boston Scientific Corporation Common Stock,0.6
+38190,DAL,"[delta,air,lines,inc]","[delta,air,lines,inc,common,stock]","Delta Air Lines, Inc.",Delta Air Lines Inc. Common Stock,0.6666666666666666
+8972,T,"[at,t]","[at,t,inc]",AT&T,AT&T Inc.,0.6666666666666666
+37871,BA,"[the,boeing,company]","[boeing,company,the,common,stock]",The Boeing Company,Boeing Company (The) Common Stock,0.6
+44136,SQZ,"[sqz,biotechnologies,company]","[sqz,biotechnologies,company,common,stock]",SQZ Biotechnologies Company,SQZ Biotechnologies Company Common Stock,0.6
+17697,DAL,"[delta,air,lines,inc]","[delta,air,lines,inc,common,stock]","Delta Air Lines, Inc.",Delta Air Lines Inc. Common Stock,0.6666666666666666
+8622,DVAX,"[dynavax,technologies,corporation]","[dynavax,technologies,corporation,common,stock]",Dynavax Technologies Corporation,Dynavax Technologies Corporation Common Stock,0.6
+5596,JAKK,"[jakks,pacific,inc]","[jakks,pacific,inc,common,stock]","JAKKS Pacific, Inc.",JAKKS Pacific Inc. Common Stock,0.6
+17725,HVT,"[haverty,furniture,companies,inc]","[haverty,furniture,companies,inc,common,stock]","Haverty Furniture Companies, Inc.",Haverty Furniture Companies Inc. Common Stock,0.6666666666666666
+24662,MTB,"[m,t,bank,corporation]","[m,t,bank,corporation,common,stock]",M&T Bank Corporation,M&T Bank Corporation Common Stock,0.6666666666666666
+29071,MTSI,"[macom,technology,solutions,inc]","[macom,technology,solutions,holdings,inc,common,stock]",MACOM Technology Solutions Inc.,MACOM Technology Solutions Holdings Inc. Common Stock,0.5714285714285714
+39550,CAG,"[conagra,brands,inc]","[conagra,brands,inc,common,stock]","Conagra Brands, Inc.",ConAgra Brands Inc. Common Stock,0.6
+31992,LOW,"[lowe,s,companies,inc]","[lowe,s,companies,inc,common,stock]","Lowe's Companies, Inc.",Lowe's Companies Inc. Common Stock,0.6666666666666666
+14840,BKD,"[brookdale,senior,living,inc]","[brookdale,senior,living,inc,common,stock]","Brookdale Senior Living, Inc",Brookdale Senior Living Inc. Common Stock,0.6666666666666666
+42687,HRTX,"[heron,therapeutics,inc]","[heron,therapeutics,inc,common,stock]","Heron Therapeutics, Inc.",Heron Therapeutics Inc. Common Stock,0.6
+43976,CSGP,"[costar,group,inc]","[costar,group,inc,common,stock]","CoStar Group, Inc.",CoStar Group Inc. Common Stock,0.6
+14239,ABG,"[asbury,automotive,group,inc]","[asbury,automotive,group,inc,common,stock]","Asbury Automotive Group, Inc.",Asbury Automotive Group Inc Common Stock,0.6666666666666666
+16610,BJ,"[bj,s,wholesale,club,inc]","[bj,s,wholesale,club,holdings,inc,common,stock]","Bj's Wholesale Club, Inc.",BJ's Wholesale Club Holdings Inc. Common Stock,0.625
+18439,ASRT,"[assertio,holdings,inc]","[assertio,holdings,inc,common,stock]","Assertio Holdings, Inc.",Assertio Holdings Inc. Common Stock,0.6
+30495,GT,"[the,goodyear,tire,rubber,company]","[the,goodyear,tire,rubber,company,common,stock]",The Goodyear Tire & Rubber Company,The Goodyear Tire & Rubber Company Common Stock,0.7142857142857143
+9895,MOH,"[molina,healthcare,inc]","[molina,healthcare,inc,common,stock]","Molina Healthcare, Inc.",Molina Healthcare Inc Common Stock,0.6
+1868,M,"[macy,s,inc]","[macy,s,inc,common,stock]",Macy's Inc.,Macy's Inc Common Stock,0.6
+31959,TOL,"[toll,brothers,inc]","[toll,brothers,inc,common,stock]",Toll Brothers Inc,Toll Brothers Inc. Common Stock,0.6
+43675,MMSI,"[merit,medical,systems,inc]","[merit,medical,systems,inc,common,stock]","Merit Medical Systems, Inc.",Merit Medical Systems Inc. Common Stock,0.6666666666666666
+15841,MHK,"[mohawk,industries,inc]","[mohawk,industries,inc,common,stock]","Mohawk Industries, Inc.",Mohawk Industries Inc. Common Stock,0.6
+36630,DVN,"[devon,energy,corporation]","[devon,energy,corporation,common,stock]",Devon Energy Corporation,Devon Energy Corporation Common Stock,0.6
+40200,HAIN,"[the,hain,celestial,group,inc]","[hain,celestial,group,inc,the,common,stock]","The Hain Celestial Group, Inc",Hain Celestial Group Inc. (The) Common Stock,0.7142857142857143
+43346,TMPOW,"[tempo,automation,inc]","[tempo,automation,holdings,inc,warrant]","Tempo Automation, Inc.",Tempo Automation Holdings Inc. Warrant,0.6
+11835,HRL,"[hormel,foods,corporation]","[hormel,foods,corporation,common,stock]",HORMEL FOODS CORPORATION,Hormel Foods Corporation Common Stock,0.6
+12506,CAG,"[conagra,brands,inc]","[conagra,brands,inc,common,stock]","Conagra Brands, Inc.",ConAgra Brands Inc. Common Stock,0.6
+42733,AFIB,"[acutus,medical,inc]","[acutus,medical,inc,common,stock]","Acutus Medical, Inc.",Acutus Medical Inc. Common Stock,0.6
+19557,T,"[at,t]","[at,t,inc]",AT&T,AT&T Inc.,0.6666666666666666
+36420,LXRX,"[lexicon,pharmaceuticals,inc]","[lexicon,pharmaceuticals,inc,common,stock]","Lexicon Pharmaceuticals, Inc.",Lexicon Pharmaceuticals Inc. Common Stock,0.6
+3985,BSX,"[boston,scientific,corporation]","[boston,scientific,corporation,common,stock]",Boston Scientific Corporation,Boston Scientific Corporation Common Stock,0.6
+10916,CRC,"[california,resources,corporation]","[california,resources,corporation,common,stock]",California Resources Corporation,California Resources Corporation Common Stock,0.6
+16497,WEN,"[the,wendy,s,company]","[wendy,s,company,the,common,stock]",The Wendy's Company,Wendy's Company (The) Common Stock,0.6666666666666666
+2188,DGX,"[quest,diagnostics,incorporated]","[quest,diagnostics,incorporated,common,stock]",Quest Diagnostics Incorporated,Quest Diagnostics Incorporated Common Stock,0.6
+35360,RCM,"[r1,rcm,inc]","[r1,rcm,inc,common,stock]",R1 RCM Inc.,R1 RCM Inc. Common Stock,0.6
+9977,BA,"[the,boeing,company]","[boeing,company,the,common,stock]",The Boeing Company,Boeing Company (The) Common Stock,0.6
+25120,IBM,"[international,business,machines,corporation,ibm]","[international,business,machines,corporation,common,stock]",International Business Machines Corporation (IBM),International Business Machines Corporation Common Stock,0.5714285714285714
+39913,BDX,"[becton,dickinson,and,company]","[becton,dickinson,and,company,common,stock]","Becton, Dickinson and Company",Becton Dickinson and Company Common Stock,0.6666666666666666
+5427,VIEWW,"[view,inc]","[view,inc,warrant]",View Inc,View Inc. Warrant,0.6666666666666666
+8934,DECK,"[deckers,outdoor,corporation]","[deckers,outdoor,corporation,common,stock]",Deckers Outdoor Corporation,Deckers Outdoor Corporation Common Stock,0.6
+9573,GE,"[general,electric,company]","[general,electric,company,common,stock]",General Electric Company,General Electric Company Common Stock,0.6
+14238,ABG,"[asbury,automotive,group,inc]","[asbury,automotive,group,inc,common,stock]","Asbury Automotive Group, Inc.",Asbury Automotive Group Inc Common Stock,0.6666666666666666
+1786,WFC,"[wells,fargo,company]","[wells,fargo,company,common,stock]",Wells Fargo Company,Wells Fargo & Company Common Stock,0.6
+36779,DVN,"[devon,energy,corporation]","[devon,energy,corporation,common,stock]",Devon Energy Corporation,Devon Energy Corporation Common Stock,0.6
+27718,ARW,"[arrow,electronics,inc]","[arrow,electronics,inc,common,stock]","Arrow Electronics, Inc.",Arrow Electronics Inc. Common Stock,0.6
+34160,EXPE,"[expedia,group,inc]","[expedia,group,inc,common,stock]","Expedia Group, Inc.",Expedia Group Inc. Common Stock,0.6
+36269,SD,"[sandridge,energy,inc]","[sandridge,energy,inc,common,stock]","Sandridge Energy, Inc.",SandRidge Energy Inc. Common Stock,0.6
+11150,BSX,"[boston,scientific,corporation]","[boston,scientific,corporation,common,stock]",Boston Scientific Corporation,Boston Scientific Corporation Common Stock,0.6
+12871,LNC,"[lincoln,national,corporation]","[lincoln,national,corporation,common,stock]",Lincoln National Corporation,Lincoln National Corporation Common Stock,0.6
+1303,T,"[at,t]","[at,t,inc]",AT&T,AT&T Inc.,0.6666666666666666
+21694,SP,"[sp,plus,corporation]","[sp,plus,corporation,common,stock]",SP Plus Corporation,SP Plus Corporation Common Stock,0.6
+43408,ADVM,"[adverum,biotechnologies,inc]","[adverum,biotechnologies,inc,common,stock]","Adverum Biotechnologies, Inc.",Adverum Biotechnologies Inc. Common Stock,0.6
+9752,BZFDW,"[buzzfeed,inc]","[buzzfeed,inc,warrant]","BuzzFeed, Inc.",BuzzFeed Inc. Warrant,0.6666666666666666
+3178,DLA,"[delta,apparel,inc]","[delta,apparel,inc,common,stock]","Delta Apparel, Inc.",Delta Apparel Inc. Common Stock,0.6
+40009,MOH,"[molina,healthcare,inc]","[molina,healthcare,inc,common,stock]",Molina Healthcare Inc.,Molina Healthcare Inc Common Stock,0.6
+1270,T,"[at,t]","[at,t,inc]",AT&T,AT&T Inc.,0.6666666666666666
+17747,BA,"[the,boeing,company]","[boeing,company,the,common,stock]",The Boeing Company,Boeing Company (The) Common Stock,0.6
+23760,T,"[at,t,communications,inc]","[at,t,inc]","AT&T Communications, Inc.",AT&T Inc.,0.75
+33462,CVGI,"[commercial,vehicle,group,inc]","[commercial,vehicle,group,inc,common,stock]",Commercial Vehicle Group Inc.,Commercial Vehicle Group Inc. Common Stock,0.6666666666666666
+9896,MOH,"[molina,healthcare,inc]","[molina,healthcare,inc,common,stock]","Molina Healthcare, Inc.",Molina Healthcare Inc Common Stock,0.6
+11050,T,"[at,t]","[at,t,inc]",AT&T,AT&T Inc.,0.6666666666666666
+8630,BSX,"[boston,scientific,corporation]","[boston,scientific,corporation,common,stock]",Boston Scientific Corporation,Boston Scientific Corporation Common Stock,0.6
+16904,IP,"[international,paper,company]","[international,paper,company,common,stock]",International Paper Company,International Paper Company Common Stock,0.6
+1977,CRC,"[california,resources,corporation]","[california,resources,corporation,common,stock]",California Resources Corporation,California Resources Corporation Common Stock,0.6
+17376,T,"[at,t]","[at,t,inc]",At & T,AT&T Inc.,0.6666666666666666
+17817,T,"[at,t]","[at,t,inc]",At&t,AT&T Inc.,0.6666666666666666
+26559,NATH,"[nathan,s,famous,inc]","[nathan,s,famous,inc,common,stock]","Nathan's Famous, Inc.",Nathan's Famous Inc. Common Stock,0.6666666666666666
+474,DLA,"[delta,apparel,inc]","[delta,apparel,inc,common,stock]","DELTA APPAREL, INC.",Delta Apparel Inc. Common Stock,0.6
+10327,V,"[visa,inc]","[visa,inc]",Visa Inc.,Visa Inc.,1.0
+18830,COKE,"[coca,cola,consolidated,inc]","[coca,cola,consolidated,inc,common,stock]","Coca-Cola Consolidated, Inc.",Coca-Cola Consolidated Inc. Common Stock,0.6666666666666666
+18900,AMWD,"[american,woodmark,corporation]","[american,woodmark,corporation,common,stock]",American Woodmark Corporation,American Woodmark Corporation Common Stock,0.6
+229,BA,"[the,boeing,company]","[boeing,company,the,common,stock]",THE BOEING COMPANY,Boeing Company (The) Common Stock,0.6
+17239,DAL,"[delta,air,lines,inc]","[delta,air,lines,inc,common,stock]","Delta Air Lines, Inc.",Delta Air Lines Inc. Common Stock,0.6666666666666666
+20548,BA,"[the,boeing,company]","[boeing,company,the,common,stock]",The Boeing Company,Boeing Company (The) Common Stock,0.6
+20575,BA,"[the,boeing,company]","[boeing,company,the,common,stock]",The Boeing Company,Boeing Company (The) Common Stock,0.6
+29073,AB,"[alliancebernstein,l,p]","[alliancebernstein,holding,l,p,units]",AllianceBernstein L.P.,AllianceBernstein Holding L.P.  Units,0.6
+32230,CMCO,"[columbus,mckinnon,corporation]","[columbus,mckinnon,corporation,common,stock]",Columbus McKinnon Corporation,Columbus McKinnon Corporation Common Stock,0.6
+18838,AYI,"[acuity,brands,lighting,inc]","[acuity,brands,inc]","Acuity Brands Lighting, Inc.",Acuity Brands Inc.,0.75
+18901,X,"[united,states,steel,corporation]","[united,states,steel,corporation,common,stock]",United States Steel Corporation,United States Steel Corporation Common Stock,0.6666666666666666
+298,LMT,"[lockheed,martin,corporation]","[lockheed,martin,corporation,common,stock]",LOCKHEED MARTIN CORPORATION,Lockheed Martin Corporation Common Stock,0.6
+39681,FL,"[foot,locker]","[foot,locker,inc]",Foot Locker,Foot Locker Inc.,0.6666666666666666
+39817,AMN,"[knueppel,healthcare,services,inc]","[amn,healthcare,services,inc,amn,healthcare,services,inc]",Knueppel Healthcare Services Inc.,AMN Healthcare Services Inc AMN Healthcare Services Inc,0.6
+8772,GE,"[general,electric,company]","[general,electric,company,common,stock]",General Electric Company,General Electric Company Common Stock,0.6
+12600,PKG,"[packaging,corporation,of,america]","[packaging,corporation,of,america,common,stock]",Packaging Corporation of America,Packaging Corporation of America Common Stock,0.6666666666666666
+16170,AAP,"[advance,auto,parts]","[advance,auto,parts,inc]",Advance Auto Parts,Advance Auto Parts Inc.,0.75
+25299,PH,"[parker,hannifin,corporation]","[parker,hannifin,corporation,common,stock]",Parker Hannifin Corporation,Parker-Hannifin Corporation Common Stock,0.6
+33072,M,"[macy,s,inc]","[macy,s,inc,common,stock]",Macy's Inc,Macy's Inc Common Stock,0.6
+3376,T,"[at,t]","[at,t,inc]",AT&T,AT&T Inc.,0.6666666666666666
+39484,SWN,"[southwestern,energy,company]","[southwestern,energy,company,common,stock]",Southwestern Energy Company,Southwestern Energy Company Common Stock,0.6
+3204,CRC,"[california,resources,corporation]","[california,resources,corporation,common,stock]",California Resources Corporation,California Resources Corporation Common Stock,0.6
+32298,LYV,"[live,nation,entertainment,inc]","[live,nation,entertainment,inc,common,stock]","Live Nation Entertainment, Inc.",Live Nation Entertainment Inc. Common Stock,0.6666666666666666
+44297,LYV,"[live,nation,entertainment,inc]","[live,nation,entertainment,inc,common,stock]","Live Nation Entertainment, Inc.",Live Nation Entertainment Inc. Common Stock,0.6666666666666666
+9776,TSN,"[tyson,foods,inc]","[tyson,foods,inc,common,stock]","Tyson Foods, Inc.",Tyson Foods Inc. Common Stock,0.6
+17649,T,"[at,t]","[at,t,inc]",At&t,AT&T Inc.,0.6666666666666666
+20747,ADM,"[archer,daniels,midland,company]","[archer,daniels,midland,company,common,stock]",Archer Daniels Midland Company,Archer-Daniels-Midland Company Common Stock,0.6666666666666666
+39678,SND,"[smart,sand,inc]","[smart,sand,inc,common,stock]",Smart Sand Inc.,Smart Sand Inc. Common Stock,0.6
+17266,A,"[agilent,technologies,inc]","[agilent,technologies,inc,common,stock]","Agilent Technologies, Inc.",Agilent Technologies Inc. Common Stock,0.6
+36867,BA,"[the,boeing,company]","[boeing,company,the,common,stock]",The Boeing Company,Boeing Company (The) Common Stock,0.6
+43504,BBBY,"[bed,bath,beyond,inc]","[bed,bath,beyond,inc,common,stock]",Bed Bath & Beyond Inc.,Bed Bath & Beyond Inc. Common Stock,0.6666666666666666
+905,DDS,"[dillard,s,inc]","[dillard,s,inc,common,stock]","DILLARD'S, INC.",Dillard's Inc. Common Stock,0.6
+20593,BA,"[the,boeing,company]","[boeing,company,the,common,stock]",The Boeing Company,Boeing Company (The) Common Stock,0.6
+36667,DVN,"[devon,energy,corporation]","[devon,energy,corporation,common,stock]",Devon Energy Corporation,Devon Energy Corporation Common Stock,0.6
+40530,CAG,"[conagra,brands,inc]","[conagra,brands,inc,common,stock]","Conagra Brands, Inc.",ConAgra Brands Inc. Common Stock,0.6
+28263,VECO,"[veeco,instruments,inc]","[veeco,instruments,inc,common,stock]",Veeco Instruments Inc.,Veeco Instruments Inc. Common Stock,0.6
+11241,T,"[at,t]","[at,t,inc]",AT&T,AT&T Inc.,0.6666666666666666
+20753,BA,"[the,boeing,company]","[boeing,company,the,common,stock]",The Boeing Company,Boeing Company (The) Common Stock,0.6
+9424,MPAA,"[motorcar,parts,of,america,inc]","[motorcar,parts,of,america,inc,common,stock]","Motorcar Parts of America, Inc.",Motorcar Parts  of America Inc. Common Stock,0.7142857142857143
+10852,LYV,"[live,nation,entertainment,inc]","[live,nation,entertainment,inc,common,stock]","Live Nation Entertainment, Inc.",Live Nation Entertainment Inc. Common Stock,0.6666666666666666
+22346,BBBY,"[bed,bath,beyond,inc]","[bed,bath,beyond,inc,common,stock]",Bed Bath & Beyond Inc.,Bed Bath & Beyond Inc. Common Stock,0.6666666666666666
+40146,GILD,"[gilead,sciences,inc]","[gilead,sciences,inc,common,stock]","Gilead Sciences, Inc",Gilead Sciences Inc. Common Stock,0.6
+19377,LMT,"[lockheed,martin,corporation]","[lockheed,martin,corporation,common,stock]",Lockheed Martin Corporation,Lockheed Martin Corporation Common Stock,0.6
+26163,AXL,"[american,axle,manufacturing,inc]","[american,axle,manufacturing,holdings,inc,common,stock]","American Axle & Manufacturing, Inc.",American Axle & Manufacturing Holdings Inc. Common Stock,0.5714285714285714
+36668,MLI,"[mueller,industries,inc]","[mueller,industries,inc,common,stock]","Mueller Industries, Inc.",Mueller Industries Inc. Common Stock,0.6
+37973,NOC,"[northrop,grumman,corporation]","[northrop,grumman,corporation,common,stock]",Northrop Grumman Corporation,Northrop Grumman Corporation Common Stock,0.6
+1810,BSX,"[boston,scientific,corporation]","[boston,scientific,corporation,common,stock]",Boston Scientific Corporation,Boston Scientific Corporation Common Stock,0.6
+8268,T,"[at,t]","[at,t,inc]",AT&T,AT&T Inc.,0.6666666666666666
+10021,BA,"[the,boeing,company]","[boeing,company,the,common,stock]",The Boeing Company,Boeing Company (The) Common Stock,0.6
+40102,TSN,"[tyson,foods,inc]","[tyson,foods,inc,common,stock]","Tyson Foods, Inc.",Tyson Foods Inc. Common Stock,0.6
+42730,M,"[macy,s,inc]","[macy,s,inc,common,stock]",Macy's Inc.,Macy's Inc Common Stock,0.6
+20584,BA,"[the,boeing,company]","[boeing,company,the,common,stock]",The Boeing Company,Boeing Company (The) Common Stock,0.6
+334,X,"[united,states,steel,corporation]","[united,states,steel,corporation,common,stock]",UNITED STATES STEEL CORPORATION,United States Steel Corporation Common Stock,0.6666666666666666
+18345,JJSF,"[j,j,snack,foods,sales,corp]","[j,j,snack,foods,corp,common,stock]",J & J Snack Foods Sales Corp.,J & J Snack Foods Corp. Common Stock,0.5714285714285714
+8971,T,"[at,t]","[at,t,inc]",AT&T,AT&T Inc.,0.6666666666666666
+17826,ADM,"[adm,archer,daniels,midland,company]","[archer,daniels,midland,company,common,stock]",Adm/archer Daniels Midland Company,Archer-Daniels-Midland Company Common Stock,0.5714285714285714
+19341,IP,"[international,paper,company]","[international,paper,company,common,stock]",International Paper Company,International Paper Company Common Stock,0.6
+42267,GILD,"[gilead,sciences,inc]","[gilead,sciences,inc,common,stock]","Gilead Sciences, Inc",Gilead Sciences Inc. Common Stock,0.6
+5005,PKG,"[packaging,corporation,of,america]","[packaging,corporation,of,america,common,stock]",Packaging Corporation of America,Packaging Corporation of America Common Stock,0.6666666666666666
+16303,DKS,"[dick,s,sporting,goods]","[dick,s,sporting,goods,inc,common,stock]",Dick's Sporting Goods,Dick's Sporting Goods Inc Common Stock,0.5714285714285714
+25325,BK,"[the,bank,of,new,york,mellon,distribution,services]","[the,bank,of,new,york,mellon,corporation,common,stock]",The Bank of New York Mellon - Distribution Services,The Bank of New York Mellon Corporation Common Stock,0.5454545454545454
+527,NOC,"[northrop,grumman,corporation]","[northrop,grumman,corporation,common,stock]",NORTHROP GRUMMAN CORPORATION,Northrop Grumman Corporation Common Stock,0.6
+626,MHK,"[mohawk,industries,inc]","[mohawk,industries,inc,common,stock]","MOHAWK INDUSTRIES, INC.",Mohawk Industries Inc. Common Stock,0.6
+20581,BA,"[the,boeing,company]","[boeing,company,the,common,stock]",The Boeing Company,Boeing Company (The) Common Stock,0.6
+7016,RXDX,"[prometheus,biosciences,inc]","[prometheus,biosciences,inc,common,stock]","Prometheus Biosciences, Inc.",Prometheus Biosciences Inc. Common Stock,0.6
+17750,T,"[at,t]","[at,t,inc]",At&t,AT&T Inc.,0.6666666666666666
+1787,WFC,"[wells,fargo,company]","[wells,fargo,company,common,stock]",Wells Fargo Company,Wells Fargo & Company Common Stock,0.6
+21791,WFC,"[wells,fargo,company]","[wells,fargo,company,common,stock]",Wells Fargo & Company,Wells Fargo & Company Common Stock,0.6
+22849,CBRL,"[cracker,barrel,old,country,store]","[cracker,barrel,old,country,store,inc,common,stock]",Cracker Barrel Old Country Store,Cracker Barrel Old Country Store Inc Common Stock,0.625
+21782,WFC,"[wells,fargo,company]","[wells,fargo,company,common,stock]",Wells Fargo & Company,Wells Fargo & Company Common Stock,0.6
+21894,GPN,"[global,payments,inc]","[global,payments,inc,common,stock]","Global Payments, Inc.",Global Payments Inc. Common Stock,0.6
+6906,PLCE,"[the,children,s,place,inc]","[children,s,place,inc,the,common,stock]","THE CHILDREN'S PLACE, INC",Children's Place Inc. (The) Common Stock,0.7142857142857143
+11893,AMD,"[advanced,micro,devices,inc]","[advanced,micro,devices,inc,common,stock]","Advanced Micro Devices, Inc.",Advanced Micro Devices Inc. Common Stock,0.6666666666666666
+11948,AMD,"[advanced,micro,devices,inc]","[advanced,micro,devices,inc,common,stock]","Advanced Micro Devices, Inc.",Advanced Micro Devices Inc. Common Stock,0.6666666666666666
+20930,BLMN,"[bloomin,brands,inc]","[bloomin,brands,inc,common,stock]",Bloomin' Brands Inc.,Bloomin' Brands Inc. Common Stock,0.6
+4274,LYV,"[live,nation,entertainment,inc]","[live,nation,entertainment,inc,common,stock]","Live Nation Entertainment, Inc.",Live Nation Entertainment Inc. Common Stock,0.6666666666666666
+40166,BBBY,"[bed,bath,beyond,inc]","[bed,bath,beyond,inc,common,stock]",Bed Bath & Beyond Inc.,Bed Bath & Beyond Inc. Common Stock,0.6666666666666666
+41201,XOM,"[exxon,mobil,corporation]","[exxon,mobil,corporation,common,stock]",Exxon Mobil Corporation,Exxon Mobil Corporation Common Stock,0.6
+10027,GILD,"[gilead,sciences,inc]","[gilead,sciences,inc,common,stock]","Gilead Sciences, Inc.",Gilead Sciences Inc. Common Stock,0.6
+32340,BBWI,"[bath,body,works,llc]","[bath,body,works,inc]","Bath & Body Works, LLC",Bath & Body Works Inc.,0.6
+394,AWI,"[armstrong,world,industries,inc,3]","[armstrong,world,industries,inc,common,stock]","ARMSTRONG WORLD INDUSTRIES, INC. (3)",Armstrong World Industries Inc Common Stock,0.5714285714285714
+9403,T,"[at,t,communications,inc]","[at,t,inc]","AT&T Communications, Inc.",AT&T Inc.,0.75
+13636,EXPE,"[expedia,group,inc]","[expedia,group,inc,common,stock]","Expedia Group, Inc.",Expedia Group Inc. Common Stock,0.6
+20554,BA,"[the,boeing,company]","[boeing,company,the,common,stock]",The Boeing Company,Boeing Company (The) Common Stock,0.6
+10356,ALK,"[alaska,air,group,inc]","[alaska,air,group,inc,common,stock]","Alaska Air Group, Inc.",Alaska Air Group Inc. Common Stock,0.6666666666666666
+12017,DFS,"[discover,financial,services]","[discover,financial,services,common,stock]",Discover Financial Services,Discover Financial Services Common Stock,0.6
+12603,NWPX,"[northwest,pipe,company]","[northwest,pipe,company,common,stock]",Northwest Pipe Company,Northwest Pipe Company Common Stock,0.6
+38768,KMB,"[kimberly,clark,corporation]","[kimberly,clark,corporation,common,stock]",Kimberly-Clark Corporation,Kimberly-Clark Corporation Common Stock,0.6
+5706,DKS,"[dick,s,sporting,goods,inc]","[dick,s,sporting,goods,inc,common,stock]","Dick's Sporting Goods, Inc.",Dick's Sporting Goods Inc Common Stock,0.7142857142857143
+9119,IP,"[international,paper,company]","[international,paper,company,common,stock]",International Paper Company,International Paper Company Common Stock,0.6
+17471,T,"[at,t]","[at,t,inc]",At & T,AT&T Inc.,0.6666666666666666
+24811,AXL,"[american,axle,manufacturing,inc]","[american,axle,manufacturing,holdings,inc,common,stock]","American Axle & Manufacturing, Inc.",American Axle & Manufacturing Holdings Inc. Common Stock,0.5714285714285714
+10117,TXN,"[texas,instruments,incorporated]","[texas,instruments,incorporated,common,stock]",Texas Instruments Incorporated,Texas Instruments Incorporated Common Stock,0.6
+11046,PH,"[parker,hannifin,corporation]","[parker,hannifin,corporation,common,stock]",Parker Hannifin Corporation,Parker-Hannifin Corporation Common Stock,0.6
+14229,ABG,"[asbury,automotive,group,inc]","[asbury,automotive,group,inc,common,stock]","Asbury Automotive Group, Inc.",Asbury Automotive Group Inc Common Stock,0.6666666666666666
+14234,ABG,"[asbury,automotive,group,inc]","[asbury,automotive,group,inc,common,stock]","Asbury Automotive Group, Inc.",Asbury Automotive Group Inc Common Stock,0.6666666666666666
+20738,BA,"[the,boeing,company]","[boeing,company,the,common,stock]",The Boeing Company,Boeing Company (The) Common Stock,0.6
+6981,BJRI,"[bj,s,restaurants,inc]","[bj,s,restaurants,inc,common,stock]","BJ's Restaurants, Inc.",BJ's Restaurants Inc. Common Stock,0.6666666666666666
+11596,AMD,"[advanced,micro,devices,inc]","[advanced,micro,devices,inc,common,stock]","Advanced Micro Devices, Inc.",Advanced Micro Devices Inc. Common Stock,0.6666666666666666
+31993,LOW,"[lowe,s,companies,inc]","[lowe,s,companies,inc,common,stock]","Lowe's Companies, Inc.",Lowe's Companies Inc. Common Stock,0.6666666666666666
+8148,KMB,"[kimberly,clark,corporation]","[kimberly,clark,corporation,common,stock]",Kimberly-Clark Corporation,Kimberly-Clark Corporation Common Stock,0.6
+10444,V,"[visa,inc]","[visa,inc]",Visa Inc.,Visa Inc.,1.0
+18684,MEI,"[methode,electronics,inc]","[methode,electronics,inc,common,stock]","Methode Electronics, Inc.",Methode Electronics Inc. Common Stock,0.6
+22466,DXLG,"[destination,xl,group,inc]","[destination,xl,group,inc,common,stock]","Destination XL Group, Inc.",Destination XL Group Inc. Common Stock,0.6666666666666666
+38144,PLAY,"[dave,buster,s,inc]","[dave,buster,s,entertainment,inc,common,stock]","Dave & Buster's, Inc",Dave & Buster's Entertainment Inc. Common Stock,0.5714285714285714
+35967,SMP,"[standard,motor,products,inc]","[standard,motor,products,inc,common,stock]","Standard Motor Products, Inc.",Standard Motor Products Inc. Common Stock,0.6666666666666666
+5359,ROST,"[ross,stores,inc]","[ross,stores,inc,common,stock]","Ross Stores, Inc.",Ross Stores Inc. Common Stock,0.6
+13451,LYV,"[live,nation,entertainment,inc]","[live,nation,entertainment,inc,common,stock]","Live Nation Entertainment, Inc.",Live Nation Entertainment Inc. Common Stock,0.6666666666666666
+14603,LEG,"[leggett,platt,incorporated]","[leggett,platt,incorporated,common,stock]","Leggett & Platt, Incorporated",Leggett & Platt Incorporated Common Stock,0.6
+15409,TRN,"[trinity,industries,inc]","[trinity,industries,inc,common,stock]",Trinity Industries Inc.,Trinity Industries Inc. Common Stock,0.6
+1731,AIG,"[american,international,group,inc]","[american,international,group,inc,new,common,stock]","American International Group, Inc",American International Group Inc. New Common Stock,0.5714285714285714
+17560,SON,"[sonoco,products,company]","[sonoco,products,company,common,stock]",Sonoco Products Company,Sonoco Products Company Common Stock,0.6
+2239,BSX,"[boston,scientific,corporation]","[boston,scientific,corporation,common,stock]",Boston Scientific Corporation,Boston Scientific Corporation Common Stock,0.6
+35420,JPM,"[jp,morgan,chase,co]","[jp,morgan,chase,co,common,stock]",JP Morgan Chase & Co.,JP Morgan Chase & Co. Common Stock,0.6666666666666666
+8855,MOH,"[molina,healthcare,inc]","[molina,healthcare,inc,common,stock]","Molina Healthcare, Inc.",Molina Healthcare Inc Common Stock,0.6
+8925,MOH,"[molina,healthcare,inc]","[molina,healthcare,inc,common,stock]","Molina Healthcare, Inc.",Molina Healthcare Inc Common Stock,0.6
+17421,DAL,"[delta,air,lines,inc]","[delta,air,lines,inc,common,stock]","Delta Air Lines, Inc.",Delta Air Lines Inc. Common Stock,0.6666666666666666
+19418,LLY,"[eli,lilly,and,company]","[eli,lilly,and,company,common,stock]",Eli Lilly and Company,Eli Lilly and Company Common Stock,0.6666666666666666
+26027,FLWS,"[1,800,flowers,com]","[1,800,flowers,com,inc,common,stock]",1-800 Flowers.com,1-800-FLOWERS.COM Inc. Common Stock,0.5714285714285714
+28234,CC,"[the,chemours,company]","[chemours,company,the,common,stock]",The Chemours Company,Chemours Company (The) Common Stock,0.6
+7094,BJRI,"[bj,s,restaurants,inc]","[bj,s,restaurants,inc,common,stock]","BJ's Restaurants, Inc",BJ's Restaurants Inc. Common Stock,0.6666666666666666
+19295,IP,"[international,paper,company]","[international,paper,company,common,stock]",International Paper Company,International Paper Company Common Stock,0.6
+19365,F,"[ford,motor,company]","[ford,motor,company,common,stock]",Ford Motor Company,Ford Motor Company Common Stock,0.6
+20568,BA,"[the,boeing,company]","[boeing,company,the,common,stock]",The Boeing Company,Boeing Company (The) Common Stock,0.6
+768,LPX,"[louisiana,pacific,corporation]","[louisiana,pacific,corporation,common,stock]",LOUISIANA PACIFIC CORPORATION,Louisiana-Pacific Corporation Common Stock,0.6
+24370,PLCE,"[the,children,s,place]","[children,s,place,inc,the,common,stock]",The Children's Place,Children's Place Inc. (The) Common Stock,0.5714285714285714
+4800,DRI,"[darden,restaurants,inc]","[darden,restaurants,inc,common,stock]","Darden Restaurants, Inc.",Darden Restaurants Inc. Common Stock,0.6
+9978,BA,"[the,boeing,company]","[boeing,company,the,common,stock]",The Boeing Company,Boeing Company (The) Common Stock,0.6
+2443,LYV,"[live,nation,entertainment,inc]","[live,nation,entertainment,inc,common,stock]",Live Nation Entertainment Inc.,Live Nation Entertainment Inc. Common Stock,0.6666666666666666
+2444,LYV,"[live,nation,entertainment,inc]","[live,nation,entertainment,inc,common,stock]","Live Nation Entertainment, Inc.",Live Nation Entertainment Inc. Common Stock,0.6666666666666666
+27878,T,"[at,t]","[at,t,inc]",AT & T,AT&T Inc.,0.6666666666666666
+40217,RL,"[ralph,lauren,corporation]","[ralph,lauren,corporation,common,stock]",Ralph Lauren Corporation,Ralph Lauren Corporation Common Stock,0.6
+24661,MTB,"[m,t,bank,corporation]","[m,t,bank,corporation,common,stock]",M&T Bank Corporation,M&T Bank Corporation Common Stock,0.6666666666666666
+16991,MHK,"[mohawk,industries,inc]","[mohawk,industries,inc,common,stock]","Mohawk Industries, Inc.",Mohawk Industries Inc. Common Stock,0.6
+19458,BMY,"[bristol,myers,squibb,company]","[bristol,myers,squibb,company,common,stock]",Bristol-Myers Squibb Company,Bristol-Myers Squibb Company Common Stock,0.6666666666666666
+40432,KDP,"[keurig,dr,pepper,inc]","[keurig,dr,pepper,inc,common,stock]",Keurig Dr Pepper Inc.,Keurig Dr Pepper Inc. Common Stock,0.6666666666666666
+18065,IP,"[international,paper,company]","[international,paper,company,common,stock]",International Paper Company,International Paper Company Common Stock,0.6
+20532,BA,"[the,boeing,company]","[boeing,company,the,common,stock]",The Boeing Company,Boeing Company (The) Common Stock,0.6
+20920,AMWD,"[american,woodmark,corporation]","[american,woodmark,corporation,common,stock]",AMERICAN WOODMARK CORPORATION,American Woodmark Corporation Common Stock,0.6
+5587,ODFL,"[old,dominion,freight,line,inc]","[old,dominion,freight,line,inc,common,stock]","Old Dominion Freight Line, Inc.",Old Dominion Freight Line Inc. Common Stock,0.7142857142857143
+12602,NWPX,"[northwest,pipe,company]","[northwest,pipe,company,common,stock]",Northwest Pipe Company,Northwest Pipe Company Common Stock,0.6
+14634,SP,"[sp,plus,corporation]","[sp,plus,corporation,common,stock]",SP Plus Corporation,SP Plus Corporation Common Stock,0.6
+17441,T,"[at,t]","[at,t,inc]",At&t,AT&T Inc.,0.6666666666666666
+17856,DAL,"[delta,air,lines,inc]","[delta,air,lines,inc,common,stock]","Delta Air Lines, Inc.",Delta Air Lines Inc. Common Stock,0.6666666666666666
+20886,DAL,"[delta,air,lines,inc]","[delta,air,lines,inc,common,stock]","Delta Air Lines, Inc.",Delta Air Lines Inc. Common Stock,0.6666666666666666
+3581,RHI,"[robert,half,international,inc]","[robert,half,international,inc,common,stock]",Robert Half International Inc.,Robert Half International Inc. Common Stock,0.6666666666666666
+8711,KMB,"[kimberly,clark,corporation]","[kimberly,clark,corporation,common,stock]",Kimberly-Clark Corporation,Kimberly-Clark Corporation Common Stock,0.6
+9753,BZFDW,"[buzzfeed,inc]","[buzzfeed,inc,warrant]","BuzzFeed, Inc.",BuzzFeed Inc. Warrant,0.6666666666666666
+11763,LMT,"[lockheed,martin,corporation]","[lockheed,martin,corporation,common,stock]",Lockheed Martin Corporation,Lockheed Martin Corporation Common Stock,0.6
+19708,FLXS,"[flexsteel,industries,inc]","[flexsteel,industries,inc,common,stock]","Flexsteel Industries, Inc.",Flexsteel Industries Inc. Common Stock,0.6
+236,TMO,"[thermo,fisher,scientific,inc]","[thermo,fisher,scientific,inc,common,stock]","THERMO FISHER SCIENTIFIC, INC.",Thermo Fisher Scientific Inc Common Stock,0.6666666666666666
+2484,WFC,"[wells,fargo,company]","[wells,fargo,company,common,stock]",Wells Fargo & Company,Wells Fargo & Company Common Stock,0.6
+31042,UBER,"[uber,technologies,inc]","[uber,technologies,inc,common,stock]","Uber Technologies, Inc.",Uber Technologies Inc. Common Stock,0.6
+10266,SP,"[sp,plus,corporation]","[sp,plus,corporation,common,stock]",SP Plus Corporation,SP Plus Corporation Common Stock,0.6
+30613,FIX,"[comfort,systems,usa,inc,syracuse]","[comfort,systems,usa,inc,common,stock]","Comfort Systems USA, Inc. (Syracuse)",Comfort Systems USA Inc. Common Stock,0.5714285714285714
+8967,T,"[at,t]","[at,t,inc]",AT&T,AT&T Inc.,0.6666666666666666
+15266,KO,"[the,coca,cola,company]","[coca,cola,company,the,common,stock]",The Coca-Cola Company,Coca-Cola Company (The) Common Stock,0.6666666666666666
+18,CVGI,"[commercial,vehicle,group,inc]","[commercial,vehicle,group,inc,common,stock]","Commercial Vehicle Group, Inc",Commercial Vehicle Group Inc. Common Stock,0.6666666666666666
+25606,T,"[at,t]","[at,t,inc]",AT&T,AT&T Inc.,0.6666666666666666
+26268,SEE,"[sealed,air,corporation]","[sealed,air,corporation,common,stock]",Sealed Air Corporation,Sealed Air Corporation Common Stock,0.6
+3303,LYV,"[live,nation,entertainment,inc]","[live,nation,entertainment,inc,common,stock]",Live Nation Entertainment Inc,Live Nation Entertainment Inc. Common Stock,0.6666666666666666
+39501,CBRL,"[cracker,barrel,old,country,store]","[cracker,barrel,old,country,store,inc,common,stock]",Cracker Barrel Old Country Store,Cracker Barrel Old Country Store Inc Common Stock,0.625
+5874,DKS,"[dick,s,sporting,goods,inc]","[dick,s,sporting,goods,inc,common,stock]","Dick's Sporting Goods, Inc",Dick's Sporting Goods Inc Common Stock,0.7142857142857143
+7115,BBWI,"[bath,body,works]","[bath,body,works,inc]",Bath & Body Works,Bath & Body Works Inc.,0.75
+7995,PBI,"[pitney,bowes,inc]","[pitney,bowes,inc,common,stock]",Pitney Bowes Inc,Pitney Bowes Inc. Common Stock,0.6
+817,IP,"[international,paper,company]","[international,paper,company,common,stock]",INTERNATIONAL PAPER COMPANY,International Paper Company Common Stock,0.6
+10633,TSN,"[tyson,foods,inc]","[tyson,foods,inc,common,stock]",Tyson Foods Inc.,Tyson Foods Inc. Common Stock,0.6
+26315,TMO,"[thermo,fisher,scientific,inc,metavac]","[thermo,fisher,scientific,inc,common,stock]",Thermo Fisher Scientific Inc./Metavac,Thermo Fisher Scientific Inc Common Stock,0.5714285714285714
+2946,T,"[at,t]","[at,t,inc]",AT&T,AT&T Inc.,0.6666666666666666
+6736,AEO,"[american,eagle,outfitters,inc]","[american,eagle,outfitters,inc,common,stock]","American Eagle Outfitters, Inc.",American Eagle Outfitters Inc. Common Stock,0.6666666666666666
+12868,ARW,"[arrow,electronics,inc]","[arrow,electronics,inc,common,stock]","Arrow Electronics, Inc.",Arrow Electronics Inc. Common Stock,0.6
+16120,CRD/A,"[crawford,and,company]","[crawford,company]",Crawford and Company,Crawford & Company,0.6666666666666666
+32899,FLWS,"[1,800,flowers,com]","[1,800,flowers,com,inc,common,stock]",1-800-flowers.com,1-800-FLOWERS.COM Inc. Common Stock,0.5714285714285714
+8961,BZFDW,"[buzzfeed,inc]","[buzzfeed,inc,warrant]","Buzzfeed, Inc.",BuzzFeed Inc. Warrant,0.6666666666666666
+9351,SJM,"[the,j,m,smucker,company]","[j,m,smucker,company,the,new,common,stock]",The J.M. Smucker Company,J.M. Smucker Company (The) New Common Stock,0.625
+8582,GPN,"[global,payments,inc]","[global,payments,inc,common,stock]",Global Payments Inc.,Global Payments Inc. Common Stock,0.6
+9823,JNPR,"[juniper,networks,inc]","[juniper,networks,inc,common,stock]","Juniper Networks, Inc.",Juniper Networks Inc. Common Stock,0.6
+15346,CAG,"[conagra,brands,inc]","[conagra,brands,inc,common,stock]","Conagra Brands, Inc.",ConAgra Brands Inc. Common Stock,0.6
+16300,TSN,"[tyson,foods,inc]","[tyson,foods,inc,common,stock]","Tyson Foods, Inc.",Tyson Foods Inc. Common Stock,0.6
+19414,F,"[ford,motor,company]","[ford,motor,company,common,stock]",Ford Motor Company,Ford Motor Company Common Stock,0.6
+44597,MGM,"[mgm,resorts,international]","[mgm,resorts,international,common,stock]",MGM Resorts International,MGM Resorts International Common Stock,0.6
+11123,T,"[at,t]","[at,t,inc]",AT&T,AT&T Inc.,0.6666666666666666
+12092,NOC,"[northrop,grumman,corporation]","[northrop,grumman,corporation,common,stock]",Northrop Grumman Corporation,Northrop Grumman Corporation Common Stock,0.6
+20184,NWPX,"[northwest,pipe,company]","[northwest,pipe,company,common,stock]",Northwest Pipe Company,Northwest Pipe Company Common Stock,0.6
+38342,LFLYW,"[leafly,holdings,inc]","[leafly,holdings,inc,warrant]",Leafly Holdings Inc,Leafly Holdings Inc. Warrant,0.75
+9707,LMT,"[lockheed,martin,corporation]","[lockheed,martin,corporation,common,stock]",Lockheed Martin Corporation,Lockheed Martin Corporation Common Stock,0.6
+28636,BBWI,"[bath,body,works]","[bath,body,works,inc]",Bath & Body Works,Bath & Body Works Inc.,0.75
+32158,BHE,"[benchmark,electronics,inc]","[benchmark,electronics,inc,common,stock]",Benchmark Electronics Inc,Benchmark Electronics Inc. Common Stock,0.6
+7286,KMB,"[kimberly,clark,corporation]","[kimberly,clark,corporation,common,stock]",Kimberly-Clark Corporation,Kimberly-Clark Corporation Common Stock,0.6
+17954,IP,"[international,paper,company]","[international,paper,company,common,stock]",International Paper Company,International Paper Company Common Stock,0.6
+40679,NRG,"[nrg,energy,inc]","[nrg,energy,inc,common,stock]","NRG Energy, Inc.",NRG Energy Inc. Common Stock,0.6
+27313,FLWS,"[1,800,flowers,com,inc]","[1,800,flowers,com,inc,common,stock]","1-800-Flowers.com, Inc.",1-800-FLOWERS.COM Inc. Common Stock,0.7142857142857143
+16020,CRD/B,"[crawford,company]","[crawford,company]",Crawford & Company,Crawford & Company,1.0
+2168,GE,"[general,electric,company]","[general,electric,company,common,stock]",General Electric Company,General Electric Company Common Stock,0.6
+10841,LMT,"[lockheed,martin,corporation]","[lockheed,martin,corporation,common,stock]",Lockheed Martin Corporation,Lockheed Martin Corporation Common Stock,0.6
+14232,ABG,"[asbury,automotive,group,inc]","[asbury,automotive,group,inc,common,stock]","Asbury Automotive Group, Inc.",Asbury Automotive Group Inc Common Stock,0.6666666666666666
+37782,SXC,"[suncoke,energy,inc]","[suncoke,energy,inc,common,stock]","SunCoke Energy, Inc.",SunCoke Energy Inc. Common Stock,0.6
+40049,SP,"[sp,plus,corporation]","[sp,plus,corporation,common,stock]",SP Plus Corporation,SP Plus Corporation Common Stock,0.6
+26301,BR,"[broadridge,financial,solutions,inc]","[broadridge,financial,solutions,inc,common,stock]","Broadridge Financial Solutions, Inc.",Broadridge Financial Solutions Inc. Common Stock,0.6666666666666666
+2710,WFC,"[wells,fargo,company]","[wells,fargo,company,common,stock]",Wells Fargo & Company,Wells Fargo & Company Common Stock,0.6
+321,NSC,"[norfolk,southern,corporation]","[norfolk,southern,corporation,common,stock]",NORFOLK SOUTHERN CORPORATION,Norfolk Southern Corporation Common Stock,0.6
+37776,SXC,"[suncoke,energy,inc]","[suncoke,energy,inc,common,stock]","Suncoke Energy, Inc.",SunCoke Energy Inc. Common Stock,0.6
+11653,EA,"[electronic,arts,inc]","[electronic,arts,inc,common,stock]",Electronic Arts Inc.,Electronic Arts Inc. Common Stock,0.6
+16971,MHK,"[mohawk,industries,inc]","[mohawk,industries,inc,common,stock]","Mohawk Industries, Inc.",Mohawk Industries Inc. Common Stock,0.6
+20135,DGLY,"[digital,ally,inc]","[digital,ally,inc,common,stock]","Digital Ally, Inc.",Digital Ally Inc. Common Stock,0.6
+24711,SMP,"[standard,motor,products,inc,smp]","[standard,motor,products,inc,common,stock]","Standard Motor Products, Inc. (SMP)",Standard Motor Products Inc. Common Stock,0.5714285714285714
+36618,APD,"[air,products,and,chemicals,inc]","[air,products,and,chemicals,inc,common,stock]","Air Products and Chemicals, Inc.",Air Products and Chemicals Inc. Common Stock,0.7142857142857143
+252,DDS,"[dillard,s,inc]","[dillard,s,inc,common,stock]","DILLARD'S, INC.",Dillard's Inc. Common Stock,0.6
+20138,T,"[at,t]","[at,t,inc]",AT&T,AT&T Inc.,0.6666666666666666
+41318,BK,"[bank,of,new,york,mellon]","[the,bank,of,new,york,mellon,corporation,common,stock]",Bank of New York Mellon,The Bank of New York Mellon Corporation Common Stock,0.5555555555555556
+41212,HCSG,"[healthcare,services,group,inc]","[healthcare,services,group,inc,common,stock]","Healthcare Services Group, Inc.",Healthcare Services Group Inc. Common Stock,0.6666666666666666
+43242,BMRN,"[biomarin,pharmaceutical,inc]","[biomarin,pharmaceutical,inc,common,stock]",BioMarin Pharmaceutical Inc.,BioMarin Pharmaceutical Inc. Common Stock,0.6
+3888,ADI,"[analog,devices,inc]","[analog,devices,inc,common,stock]","Analog Devices, Inc.",Analog Devices Inc. Common Stock,0.6
+5293,RHI,"[robert,half,international,inc]","[robert,half,international,inc,common,stock]",Robert Half International Inc.,Robert Half International Inc. Common Stock,0.6666666666666666
+1634,WFC,"[wells,fargo,company]","[wells,fargo,company,common,stock]",Wells Fargo & Company,Wells Fargo & Company Common Stock,0.6
+1972,PBI,"[pitney,bowes,inc]","[pitney,bowes,inc,common,stock]","Pitney Bowes, Inc.",Pitney Bowes Inc. Common Stock,0.6
+31579,SWK,"[stanley,black,decker,inc]","[stanley,black,decker,inc,common,stock]","Stanley Black & Decker, Inc.",Stanley Black & Decker Inc. Common Stock,0.6666666666666666
+19256,ONB,"[old,national,bancorp]","[old,national,bancorp,common,stock]",Old National Bancorp,Old National Bancorp Common Stock,0.6
+2870,LYV,"[live,nation,entertainment,inc]","[live,nation,entertainment,inc,common,stock]",Live Nation Entertainment Inc,Live Nation Entertainment Inc. Common Stock,0.6666666666666666
+17265,A,"[agilent,technologies,inc]","[agilent,technologies,inc,common,stock]","Agilent Technologies, Inc",Agilent Technologies Inc. Common Stock,0.6
+20564,BA,"[the,boeing,company]","[boeing,company,the,common,stock]",The Boeing Company,Boeing Company (The) Common Stock,0.6
+26797,IBM,"[international,business,machines,corporation,ibm]","[international,business,machines,corporation,common,stock]",International Business Machines Corporation (IBM),International Business Machines Corporation Common Stock,0.5714285714285714
+31348,DAL,"[delta,air,lines,inc]","[delta,air,lines,inc,common,stock]","Delta Air Lines, Inc.",Delta Air Lines Inc. Common Stock,0.6666666666666666
+41356,BK,"[bank,of,new,york,mellon,corporation]","[the,bank,of,new,york,mellon,corporation,common,stock]",BANK OF NEW YORK MELLON CORPORATION,The Bank of New York Mellon Corporation Common Stock,0.6666666666666666
+44622,ARW,"[arrow,electronics,inc]","[arrow,electronics,inc,common,stock]","Arrow Electronics, Inc.",Arrow Electronics Inc. Common Stock,0.6
+15961,TSN,"[tyson,foods,inc]","[tyson,foods,inc,common,stock]","Tyson Foods, Inc.",Tyson Foods Inc. Common Stock,0.6
+16635,BK,"[bny,mellon,the,bank,of,new,york,mellon]","[the,bank,of,new,york,mellon,corporation,common,stock]",Bny Mellon (the Bank Of New York Mellon),The Bank of New York Mellon Corporation Common Stock,0.6
+43552,BBWI,"[bath,and,body,works,direct,inc]","[bath,body,works,inc]","Bath and Body Works Direct, Inc",Bath & Body Works Inc.,0.6666666666666666
+8550,FIX,"[california,comfort,systems,usa,inc]","[comfort,systems,usa,inc,common,stock]","California Comfort Systems USA, Inc.",Comfort Systems USA Inc. Common Stock,0.5714285714285714
+14233,ABG,"[asbury,automotive,group,inc]","[asbury,automotive,group,inc,common,stock]","Asbury Automotive Group, Inc.",Asbury Automotive Group Inc Common Stock,0.6666666666666666
+22330,HPE,"[hewlett,packard,enterprise,company,hpe]","[hewlett,packard,enterprise,company,common,stock]",Hewlett Packard Enterprise Company (HPE),Hewlett Packard Enterprise Company Common Stock,0.5714285714285714
+35499,T,"[at,t,communications,inc]","[at,t,inc]","AT&T Communications, Inc.",AT&T Inc.,0.75
+38494,EA,"[electronic,arts,inc]","[electronic,arts,inc,common,stock]",Electronic Arts Inc,Electronic Arts Inc. Common Stock,0.6
+24920,JPM,"[jp,morgan,chase,co]","[jp,morgan,chase,co,common,stock]",JP Morgan Chase Co.,JP Morgan Chase & Co. Common Stock,0.6666666666666666
+11128,T,"[at,t]","[at,t,inc]",AT&T,AT&T Inc.,0.6666666666666666
+29099,NATH,"[nathan,s,famous,inc]","[nathan,s,famous,inc,common,stock]","Nathan's Famous, Inc.",Nathan's Famous Inc. Common Stock,0.6666666666666666
+37995,PBI,"[pitney,bowes,inc]","[pitney,bowes,inc,common,stock]","Pitney Bowes, Inc",Pitney Bowes Inc. Common Stock,0.6
+793,TRN,"[trinity,industries,inc]","[trinity,industries,inc,common,stock]","TRINITY INDUSTRIES, INC.",Trinity Industries Inc. Common Stock,0.6
+32794,CHK,"[chesapeake,energy,corporation]","[chesapeake,energy,corporation,common,stock]",Chesapeake Energy Corporation,Chesapeake Energy Corporation Common Stock,0.6
+502,THG,"[vesta,insurance,group,inc]","[hanover,insurance,group,inc]","VESTA INSURANCE GROUP, INC.",Hanover Insurance Group Inc,0.6
+5428,VIEWW,"[view,inc]","[view,inc,warrant]","View, Inc.",View Inc. Warrant,0.6666666666666666
+8546,FIX,"[california,comfort,systems,usa,inc]","[comfort,systems,usa,inc,common,stock]","California Comfort Systems USA, Inc.",Comfort Systems USA Inc. Common Stock,0.5714285714285714
+10020,BA,"[the,boeing,company]","[boeing,company,the,common,stock]",The Boeing Company,Boeing Company (The) Common Stock,0.6
+20595,BA,"[the,boeing,company]","[boeing,company,the,common,stock]",The Boeing Company,Boeing Company (The) Common Stock,0.6
+9870,MOH,"[molina,healthcare,inc]","[molina,healthcare,inc,common,stock]","Molina Healthcare, Inc.",Molina Healthcare Inc Common Stock,0.6
+1976,GILD,"[gilead,sciences,inc]","[gilead,sciences,inc,common,stock]","Gilead Sciences, Inc.",Gilead Sciences Inc. Common Stock,0.6
+37817,EA,"[electronic,arts,inc]","[electronic,arts,inc,common,stock]",Electronic Arts Inc.,Electronic Arts Inc. Common Stock,0.6
+37688,ARW,"[arrow,electronics,inc]","[arrow,electronics,inc,common,stock]","Arrow Electronics, Inc.",Arrow Electronics Inc. Common Stock,0.6
+38342,LFLY,"[leafly,holdings,inc]","[leafly,holdings,inc,common,stock]",Leafly Holdings Inc,Leafly Holdings Inc. Common Stock,0.6
+8174,T,"[at,t]","[at,t,inc]",AT&T,AT&T Inc.,0.6666666666666666
+9759,BA,"[the,boeing,company]","[boeing,company,the,common,stock]",The Boeing Company,Boeing Company (The) Common Stock,0.6
+20578,BA,"[the,boeing,company]","[boeing,company,the,common,stock]",The Boeing Company,Boeing Company (The) Common Stock,0.6
+42867,ADI,"[analog,devices,inc]","[analog,devices,inc,common,stock]","Analog Devices, Inc.",Analog Devices Inc. Common Stock,0.6
+9734,TSN,"[tyson,foods,inc]","[tyson,foods,inc,common,stock]","Tyson Foods, Inc.",Tyson Foods Inc. Common Stock,0.6
+10264,SP,"[sp,plus,corporation]","[sp,plus,corporation,common,stock]",SP Plus Corporation,SP Plus Corporation Common Stock,0.6
+1525,ORLY,"[o,reilly,automotive,inc]","[o,reilly,automotive,inc,common,stock]","O'Reilly Automotive, Inc.",O'Reilly Automotive Inc. Common Stock,0.6666666666666666
+25174,IBM,"[international,business,machines,corporation,ibm]","[international,business,machines,corporation,common,stock]",International Business Machines Corporation (IBM),International Business Machines Corporation Common Stock,0.5714285714285714
+42563,SJM,"[the,j,m,smucker,company]","[j,m,smucker,company,the,new,common,stock]",The J.M. Smucker Company,J.M. Smucker Company (The) New Common Stock,0.625
+7369,CAKE,"[the,cheesecake,factory,bakery,incorporated]","[cheesecake,factory,incorporated,the,common,stock]",The Cheesecake Factory Bakery Incorporated,Cheesecake Factory Incorporated (The) Common Stock,0.5714285714285714
+11610,NOC,"[northrop,grumman,corporation]","[northrop,grumman,corporation,common,stock]",Northrop Grumman Corporation,Northrop Grumman Corporation Common Stock,0.6
+39613,REVG,"[rev,group,inc]","[rev,group,inc,common,stock]",Rev Group Inc,REV Group Inc. Common Stock,0.6
+17877,SEE,"[sealed,air,corporation]","[sealed,air,corporation,common,stock]",Sealed Air Corporation,Sealed Air Corporation Common Stock,0.6
+17902,CRD/B,"[crawford,company]","[crawford,company]",Crawford & Company,Crawford & Company,1.0
+39354,AMWD,"[american,woodmark,corporation]","[american,woodmark,corporation,common,stock]",American Woodmark Corporation,American Woodmark Corporation Common Stock,0.6
+5541,AMWD,"[american,woodmark,corporation]","[american,woodmark,corporation,common,stock]",American Woodmark Corporation,American Woodmark Corporation Common Stock,0.6
+9539,MOH,"[molina,healthcare,inc]","[molina,healthcare,inc,common,stock]","Molina Healthcare, Inc.",Molina Healthcare Inc Common Stock,0.6
+42677,HLTH,"[cue,health,inc]","[cue,health,inc,common,stock]",Cue Health Inc.,Cue Health Inc. Common Stock,0.6
+14670,TROW,"[t,rowe,price,group,inc]","[t,rowe,price,group,inc,common,stock]","T. Rowe Price Group, Inc.",T. Rowe Price Group Inc. Common Stock,0.7142857142857143
+43409,ADVM,"[adverum,biotechnologies,inc]","[adverum,biotechnologies,inc,common,stock]","Adverum Biotechnologies, Inc.",Adverum Biotechnologies Inc. Common Stock,0.6
+19616,LLY,"[eli,lilly,and,company]","[eli,lilly,and,company,common,stock]",Eli Lilly and Company,Eli Lilly and Company Common Stock,0.6666666666666666
+20542,BA,"[the,boeing,company]","[boeing,company,the,common,stock]",The Boeing Company,Boeing Company (The) Common Stock,0.6
+40134,JPM,"[jp,morgan,chase,co]","[jp,morgan,chase,co,common,stock]",JP Morgan Chase & Co,JP Morgan Chase & Co. Common Stock,0.6666666666666666
+9805,TSN,"[tyson,foods,inc]","[tyson,foods,inc,common,stock]","Tyson Foods, Inc.",Tyson Foods Inc. Common Stock,0.6
+9934,HNST,"[the,honest,company,inc]","[the,honest,company,inc,common,stock]","The Honest Company, Inc.",The Honest Company Inc. Common Stock,0.6666666666666666
+20557,BA,"[the,boeing,company]","[boeing,company,the,common,stock]",The Boeing Company,Boeing Company (The) Common Stock,0.6
+21798,WFC,"[wells,fargo,company]","[wells,fargo,company,common,stock]",Wells Fargo & Company.,Wells Fargo & Company Common Stock,0.6
+25245,IBM,"[international,business,machines,corporation,ibm]","[international,business,machines,corporation,common,stock]",International Business Machines Corporation (IBM),International Business Machines Corporation Common Stock,0.5714285714285714
+25278,BK,"[the,bank,of,new,york,mellon,cdo,unit]","[the,bank,of,new,york,mellon,corporation,common,stock]",The Bank of New York Mellon (CDO Unit),The Bank of New York Mellon Corporation Common Stock,0.5454545454545454
+4920,DRI,"[darden,restaurants,inc]","[darden,restaurants,inc,common,stock]","Darden Restaurants, Inc. -",Darden Restaurants Inc. Common Stock,0.6
+8476,ICUI,"[icu,medical,inc]","[icu,medical,inc,common,stock]","ICU Medical, Inc",ICU Medical Inc. Common Stock,0.6
+16680,T,"[at,t]","[at,t,inc]",At&t,AT&T Inc.,0.6666666666666666
+18876,TOL,"[toll,brothers,inc]","[toll,brothers,inc,common,stock]","Toll Brothers, Inc.",Toll Brothers Inc. Common Stock,0.6
+24384,GEO,"[the,geo,group]","[geo,group,inc,the,reit]",The Geo Group,Geo Group Inc (The) REIT,0.6
+39685,BBBY,"[bed,bath,beyond,inc]","[bed,bath,beyond,inc,common,stock]",Bed Bath & Beyond Inc.,Bed Bath & Beyond Inc. Common Stock,0.6666666666666666
+40195,HAIN,"[hain,celestial,group,inc]","[hain,celestial,group,inc,the,common,stock]","Hain Celestial Group, Inc.",Hain Celestial Group Inc. (The) Common Stock,0.5714285714285714
+9167,JACK,"[jack,in,the,box,inc]","[jack,in,the,box,inc,common,stock]",Jack in the Box Inc.,Jack In The Box Inc. Common Stock,0.7142857142857143
+28262,VECO,"[veeco,instruments,inc]","[veeco,instruments,inc,common,stock]",Veeco Instruments Inc.,Veeco Instruments Inc. Common Stock,0.6
+43395,CTMX,"[cytomx,therapeutics,inc]","[cytomx,therapeutics,inc,common,stock]",CytomX Therapeutics Inc.,CytomX Therapeutics Inc. Common Stock,0.6
+14236,ABG,"[asbury,automotive,group,inc]","[asbury,automotive,group,inc,common,stock]","Asbury Automotive Group, Inc.",Asbury Automotive Group Inc Common Stock,0.6666666666666666
+16851,MHK,"[mohawk,industries,inc]","[mohawk,industries,inc,common,stock]","Mohawk Industries,inc.",Mohawk Industries Inc. Common Stock,0.6
+20498,SUP,"[superior,industries,international,inc]","[superior,industries,international,inc,common,stock,de]","Superior Industries International, Inc.",Superior Industries International Inc. Common Stock (DE),0.5714285714285714
+20533,ADM,"[archer,daniels,midland,company]","[archer,daniels,midland,company,common,stock]",Archer Daniels Midland Company,Archer-Daniels-Midland Company Common Stock,0.6666666666666666
+31960,TOL,"[toll,brothers,inc]","[toll,brothers,inc,common,stock]",Toll Brothers Inc,Toll Brothers Inc. Common Stock,0.6
+32873,TSN,"[tyson,foods,inc]","[tyson,foods,inc,common,stock]","Tyson Foods, Inc.",Tyson Foods Inc. Common Stock,0.6
+3339,LYV,"[live,nation,entertainment,inc,rsquo]","[live,nation,entertainment,inc,common,stock]","Live Nation Entertainment, Inc.&rsquo;",Live Nation Entertainment Inc. Common Stock,0.5714285714285714
+42852,PBI,"[pitney,bowes,inc]","[pitney,bowes,inc,common,stock]",Pitney Bowes Inc.,Pitney Bowes Inc. Common Stock,0.6
+89,T,"[at,t]","[at,t,inc]",AT&T,AT&T Inc.,0.6666666666666666
+9072,KMI,"[kinder,morgan,inc]","[kinder,morgan,inc,common,stock]","Kinder Morgan, Inc.",Kinder Morgan Inc. Common Stock,0.6
+16990,MHK,"[mohawk,industries,inc]","[mohawk,industries,inc,common,stock]","Mohawk Industries, Inc.",Mohawk Industries Inc. Common Stock,0.6
+17902,CRD/A,"[crawford,company]","[crawford,company]",Crawford & Company,Crawford & Company,1.0
+8158,AVNS,"[avanos,medical,inc]","[avanos,medical,inc,common,stock]","Avanos Medical, Inc.",Avanos Medical Inc. Common Stock,0.6
+21802,WFC,"[wells,fargo,company]","[wells,fargo,company,common,stock]",Wells Fargo & Company,Wells Fargo & Company Common Stock,0.6
+9308,T,"[at,t]","[at,t,inc]",AT&T,AT&T Inc.,0.6666666666666666
+42676,HLTH,"[cue,health,inc]","[cue,health,inc,common,stock]",Cue Health Inc.,Cue Health Inc. Common Stock,0.6
+9480,AME,"[ametek,inc]","[ametek,inc]",AMETEK Inc.,AMETEK Inc.,1.0
+18156,PKG,"[packaging,corporation,of,america,pca]","[packaging,corporation,of,america,common,stock]",Packaging Corporation of America (PCA),Packaging Corporation of America Common Stock,0.5714285714285714
+21756,SHW,"[the,sherwin,williams,company]","[sherwin,williams,company,the,common,stock]",The Sherwin-Williams Company,Sherwin-Williams Company (The) Common Stock,0.6666666666666666
+7491,CAKE,"[the,cheesecake,factory,incorporated]","[cheesecake,factory,incorporated,the,common,stock]",The Cheesecake Factory Incorporated,Cheesecake Factory Incorporated (The) Common Stock,0.6666666666666666
+20582,BA,"[the,boeing,company]","[boeing,company,the,common,stock]",The Boeing Company,Boeing Company (The) Common Stock,0.6
+20598,BA,"[the,boeing,company]","[boeing,company,the,common,stock]",The Boeing Company,Boeing Company (The) Common Stock,0.6
+2202,NEWR,"[new,relic,inc]","[new,relic,inc,common,stock]","New Relic, Inc.",New Relic Inc. Common Stock,0.6
+20567,DDS,"[dillard,s,inc]","[dillard,s,inc,common,stock]",Dillard's Inc.,Dillard's Inc. Common Stock,0.6
+16120,CRD/B,"[crawford,and,company]","[crawford,company]",Crawford and Company,Crawford & Company,0.6666666666666666
+20552,BA,"[the,boeing,company]","[boeing,company,the,common,stock]",The Boeing Company,Boeing Company (The) Common Stock,0.6
+37854,NRG,"[nrg,energy,inc]","[nrg,energy,inc,common,stock]","NRG Energy, Inc.",NRG Energy Inc. Common Stock,0.6
+1022,LYV,"[live,nation,entertainment,inc]","[live,nation,entertainment,inc,common,stock]","Live Nation Entertainment, Inc.",Live Nation Entertainment Inc. Common Stock,0.6666666666666666
+11936,LAUR,"[laureate,education,inc]","[laureate,education,inc,common,stock]",Laureate Education Inc,Laureate Education Inc. Common Stock,0.6
+25460,FL,"[foot,locker,retail,inc,office]","[foot,locker,inc]","Foot Locker Retail, Inc. Office",Foot Locker Inc.,0.6
+7279,HON,"[honeywell,international,inc]","[honeywell,international,inc,common,stock]",Honeywell International Inc.,Honeywell International Inc. Common Stock,0.6
+11319,BSX,"[boston,scientific,corporation]","[boston,scientific,corporation,common,stock]",Boston Scientific Corporation,Boston Scientific Corporation Common Stock,0.6
+20757,BA,"[the,boeing,company]","[boeing,company,the,common,stock]",The Boeing Company,Boeing Company (The) Common Stock,0.6
+20758,BA,"[the,boeing,company]","[boeing,company,the,common,stock]",The Boeing Company,Boeing Company (The) Common Stock,0.6
+12584,VIAV,"[viavi,solutions,inc]","[viavi,solutions,inc,common,stock]",Viavi Solutions Inc.,Viavi Solutions Inc. Common Stock,0.6
+36872,BA,"[the,boeing,company]","[boeing,company,the,common,stock]",The Boeing Company,Boeing Company (The) Common Stock,0.6
+10221,CAG,"[conagra,brands,inc]","[conagra,brands,inc,common,stock]","Conagra Brands, Inc.",ConAgra Brands Inc. Common Stock,0.6
+17982,DLA,"[delta,apparel,inc]","[delta,apparel,inc,common,stock]","Delta Apparel, Inc",Delta Apparel Inc. Common Stock,0.6
+36666,JACK,"[jack,in,the,box,inc]","[jack,in,the,box,inc,common,stock]","Jack in the Box, Inc.",Jack In The Box Inc. Common Stock,0.7142857142857143
+37067,EA,"[electronic,arts,inc]","[electronic,arts,inc,common,stock]",Electronic Arts Inc.,Electronic Arts Inc. Common Stock,0.6
+37657,RAIL,"[freightcar,america,inc]","[freightcar,america,inc,common,stock]","FreightCar America, Inc.",FreightCar America Inc. Common Stock,0.6
+8416,MPAA,"[motorcar,parts,of,america,inc]","[motorcar,parts,of,america,inc,common,stock]","Motorcar Parts of America, Inc.",Motorcar Parts  of America Inc. Common Stock,0.7142857142857143
+8418,BDX,"[becton,dickinson,and,company]","[becton,dickinson,and,company,common,stock]","Becton, Dickinson and Company",Becton Dickinson and Company Common Stock,0.6666666666666666
+11745,T,"[at,t]","[at,t,inc]",AT&T,AT&T Inc.,0.6666666666666666
+14231,ABG,"[asbury,automotive,group,inc]","[asbury,automotive,group,inc,common,stock]","Asbury Automotive Group, Inc.",Asbury Automotive Group Inc Common Stock,0.6666666666666666
+19379,LMT,"[lockheed,martin,corporation]","[lockheed,martin,corporation,common,stock]",Lockheed Martin Corporation,Lockheed Martin Corporation Common Stock,0.6
+19617,LLY,"[eli,lilly,and,company]","[eli,lilly,and,company,common,stock]",Eli Lilly and Company,Eli Lilly and Company Common Stock,0.6666666666666666
+27931,GE,"[general,electric,company]","[general,electric,company,common,stock]",General Electric Company,General Electric Company Common Stock,0.6
+44097,FL,"[foot,locker,inc]","[foot,locker,inc]","Foot Locker, Inc.",Foot Locker Inc.,1.0
+3704,DRI,"[darden,restaurants,inc]","[darden,restaurants,inc,common,stock]","Darden Restaurants, Inc.",Darden Restaurants Inc. Common Stock,0.6
+39543,FL,"[foot,locker,corporate,services,inc]","[foot,locker,inc]","Foot Locker Corporate Services, Inc.",Foot Locker Inc.,0.6
+44262,SAVE,"[spirit,airlines,inc]","[spirit,airlines,inc,common,stock]","Spirit Airlines, Inc.",Spirit Airlines Inc. Common Stock,0.6
+41252,BK,"[the,bank,of,new,york,mellon]","[the,bank,of,new,york,mellon,corporation,common,stock]",The Bank of New York Mellon,The Bank of New York Mellon Corporation Common Stock,0.6666666666666666
+43970,BBBY,"[bed,bath,beyond,inc]","[bed,bath,beyond,inc,common,stock]",Bed Bath & Beyond Inc.,Bed Bath & Beyond Inc. Common Stock,0.6666666666666666
+9109,UEIC,"[universal,electronics,inc]","[universal,electronics,inc,common,stock]","Universal Electronics, Inc.",Universal Electronics Inc. Common Stock,0.6
+9747,GE,"[general,electric,company]","[general,electric,company,common,stock]",General Electric Company,General Electric Company Common Stock,0.6
+11320,BSX,"[boston,scientific,corporation]","[boston,scientific,corporation,common,stock]",Boston Scientific Corporation,Boston Scientific Corporation Common Stock,0.6
+14235,ABG,"[asbury,automotive,group,inc]","[asbury,automotive,group,inc,common,stock]","Asbury Automotive Group, Inc.",Asbury Automotive Group Inc Common Stock,0.6666666666666666
+35361,RCM,"[r1,rcm,inc]","[r1,rcm,inc,common,stock]",R1 RCM Inc.,R1 RCM Inc. Common Stock,0.6
+9612,TSN,"[tyson,foods,inc]","[tyson,foods,inc,common,stock]","Tyson Foods, Inc.",Tyson Foods Inc. Common Stock,0.6
+20585,BA,"[the,boeing,company]","[boeing,company,the,common,stock]",The Boeing Company,Boeing Company (The) Common Stock,0.6
+2780,AVNS,"[avanos,medical,inc]","[avanos,medical,inc,common,stock]","Avanos Medical, Inc.",Avanos Medical Inc. Common Stock,0.6
+7495,CAKE,"[the,cheesecake,factory,incorporated]","[cheesecake,factory,incorporated,the,common,stock]",The Cheesecake Factory Incorporated,Cheesecake Factory Incorporated (The) Common Stock,0.6666666666666666
+8776,MOH,"[molina,healthcare,inc]","[molina,healthcare,inc,common,stock]","Molina Healthcare, Inc.",Molina Healthcare Inc Common Stock,0.6
+9364,AQMS,"[aqua,metals,inc]","[aqua,metals,inc,common,stock]","Aqua Metals, Inc.",Aqua Metals Inc. Common Stock,0.6
+10569,GNW,"[genworth,financial,inc]","[genworth,financial,inc,common,stock]","Genworth Financial, Inc.",Genworth Financial Inc Common Stock,0.6
+37695,GNW,"[genworth,financial,inc]","[genworth,financial,inc,common,stock]",Genworth Financial Inc.,Genworth Financial Inc Common Stock,0.6
+38779,LMT,"[lockheed,martin,corporation]","[lockheed,martin,corporation,common,stock]",Lockheed Martin Corporation,Lockheed Martin Corporation Common Stock,0.6
+43375,TLIS,"[talis,biomedical,corporation]","[talis,biomedical,corporation,common,stock]",Talis Biomedical Corporation,Talis Biomedical Corporation Common Stock,0.6
+11061,PH,"[parker,hannifin,corporation]","[parker,hannifin,corporation,common,stock]",Parker Hannifin Corporation,Parker-Hannifin Corporation Common Stock,0.6
+41098,EL,"[the,estee,lauder,companies,inc]","[estee,lauder,companies,inc,the,common,stock]",The Estee Lauder Companies Inc.,Estee Lauder Companies Inc. (The) Common Stock,0.7142857142857143
+8369,EXTR,"[extreme,networks,inc]","[extreme,networks,inc,common,stock]","Extreme Networks, Inc.",Extreme Networks Inc. Common Stock,0.6
+10019,MU,"[micron,technology,inc]","[micron,technology,inc,common,stock]","Micron Technology, Inc.",Micron Technology Inc. Common Stock,0.6
+33463,CVGI,"[commercial,vehicle,group,inc]","[commercial,vehicle,group,inc,common,stock]",Commercial Vehicle Group Inc.,Commercial Vehicle Group Inc. Common Stock,0.6666666666666666
+20529,BA,"[the,boeing,company]","[boeing,company,the,common,stock]",The Boeing Company,Boeing Company (The) Common Stock,0.6
+26269,SEE,"[sealed,air,corporation]","[sealed,air,corporation,common,stock]",Sealed Air Corporation,Sealed Air Corporation Common Stock,0.6
+44623,ARW,"[arrow,electronics,inc]","[arrow,electronics,inc,common,stock]","Arrow Electronics, Inc.",Arrow Electronics Inc. Common Stock,0.6
+20591,BA,"[the,boeing,company]","[boeing,company,the,common,stock]",The Boeing Company,Boeing Company (The) Common Stock,0.6
+5922,DIN,"[dine,brands,global,inc]","[dine,brands,global,inc,common,stock]","Dine Brands Global, Inc.",Dine Brands Global Inc. Common Stock,0.6666666666666666
+7203,PAG,"[penske,automotive,group,inc]","[penske,automotive,group,inc,common,stock]","Penske Automotive Group, Inc.",Penske Automotive Group Inc. Common Stock,0.6666666666666666
+2462,UBER,"[uber,technologies,inc]","[uber,technologies,inc,common,stock]","Uber Technologies, Inc.",Uber Technologies Inc. Common Stock,0.6
+44355,BYD,"[boyd,gaming,corporation]","[boyd,gaming,corporation,common,stock]",Boyd Gaming Corporation,Boyd Gaming Corporation Common Stock,0.6
+7078,BJRI,"[bj,s,restaurants,inc]","[bj,s,restaurants,inc,common,stock]",BJ's Restaurants Inc.,BJ's Restaurants Inc. Common Stock,0.6666666666666666
+806,LPX,"[louisiana,pacific,corporation]","[louisiana,pacific,corporation,common,stock]",LOUISIANA- PACIFIC CORPORATION,Louisiana-Pacific Corporation Common Stock,0.6
+11034,T,"[at,t]","[at,t,inc]",AT&T,AT&T Inc.,0.6666666666666666
+16020,CRD/A,"[crawford,company]","[crawford,company]",Crawford & Company,Crawford & Company,1.0
+17214,F,"[ford,motor,company]","[ford,motor,company,common,stock]",Ford Motor Company,Ford Motor Company Common Stock,0.6
+20773,BA,"[the,boeing,company]","[boeing,company,the,common,stock]",The Boeing Company,Boeing Company (The) Common Stock,0.6
+43495,LSF,"[laird,superfood,inc]","[laird,superfood,inc,common,stock]","Laird Superfood, Inc",Laird Superfood Inc. Common Stock,0.6
+8646,FLXS,"[flexsteel,industries,inc]","[flexsteel,industries,inc,common,stock]","Flexsteel Industries, Inc.",Flexsteel Industries Inc. Common Stock,0.6
+14237,ABG,"[asbury,automotive,group,inc]","[asbury,automotive,group,inc,common,stock]","Asbury Automotive Group, Inc.",Asbury Automotive Group Inc Common Stock,0.6666666666666666
+18506,PPG,"[ppg,industries,inc]","[ppg,industries,inc,common,stock]","PPG Industries, Inc.",PPG Industries Inc. Common Stock,0.6
+40310,SAVE,"[spirit,airlines,inc]","[spirit,airlines,inc,common,stock]",Spirit Airlines Inc.,Spirit Airlines Inc. Common Stock,0.6
+19216,X,"[united,states,steel,corporation]","[united,states,steel,corporation,common,stock]",United States Steel Corporation,United States Steel Corporation Common Stock,0.6666666666666666
+22531,EMN,"[eastman,chemical,company]","[eastman,chemical,company,common,stock]",Eastman Chemical Company,Eastman Chemical Company Common Stock,0.6
+22291,LYV,"[live,nation,entertainment,inc]","[live,nation,entertainment,inc,common,stock]","Live Nation Entertainment, Inc.",Live Nation Entertainment Inc. Common Stock,0.6666666666666666
+1891,NOC,"[northrop,grumman,corporation]","[northrop,grumman,corporation,common,stock]",Northrop Grumman Corporation,Northrop Grumman Corporation Common Stock,0.6
+8549,FIX,"[california,comfort,systems,usa,inc]","[comfort,systems,usa,inc,common,stock]","California Comfort Systems USA, Inc.",Comfort Systems USA Inc. Common Stock,0.5714285714285714
+9897,MOH,"[molina,healthcare,inc]","[molina,healthcare,inc,common,stock]","Molina Healthcare, Inc.",Molina Healthcare Inc Common Stock,0.6
+20588,BA,"[the,boeing,company]","[boeing,company,the,common,stock]",The Boeing Company,Boeing Company (The) Common Stock,0.6
+29072,MTSI,"[macom,technology,solutions,inc]","[macom,technology,solutions,holdings,inc,common,stock]",MACOM Technology Solutions Inc.,MACOM Technology Solutions Holdings Inc. Common Stock,0.5714285714285714
+32337,BBWI,"[bath,body,works,brand,management,inc]","[bath,body,works,inc]","Bath & Body Works Brand Management, Inc.",Bath & Body Works Inc.,0.6666666666666666
+41251,BK,"[the,bank,of,new,york,mellon]","[the,bank,of,new,york,mellon,corporation,common,stock]",The Bank of New York Mellon,The Bank of New York Mellon Corporation Common Stock,0.6666666666666666
+6335,TCS,"[the,container,store]","[container,store,the,common,stock]",The Container Store,Container Store (The) Common Stock,0.6
+8247,T,"[at,t]","[at,t,inc]",AT&T,AT&T Inc.,0.6666666666666666
+8965,BZFDW,"[buzzfeed,inc]","[buzzfeed,inc,warrant]","Buzzfeed, Inc.",BuzzFeed Inc. Warrant,0.6666666666666666
+10300,ENPH,"[enphase,energy,inc]","[enphase,energy,inc,common,stock]","Enphase Energy, Inc.",Enphase Energy Inc. Common Stock,0.6
+12491,CAG,"[conagra,brands,inc]","[conagra,brands,inc,common,stock]","Conagra Brands, Inc.",ConAgra Brands Inc. Common Stock,0.6
+3263,BA,"[the,boeing,company]","[boeing,company,the,common,stock]",The Boeing Company,Boeing Company (The) Common Stock,0.6
+8307,T,"[at,t]","[at,t,inc]",AT&T,AT&T Inc.,0.6666666666666666
+43954,TIL,"[instil,bio,inc]","[instil,bio,inc,common,stock]","Instil Bio, Inc.",Instil Bio Inc. Common Stock,0.6
+33617,BK,"[bank,of,new,york,mellon]","[the,bank,of,new,york,mellon,corporation,common,stock]",Bank of New York Mellon,The Bank of New York Mellon Corporation Common Stock,0.5555555555555556
+42378,CVGI,"[commercial,vehicle,group,inc]","[commercial,vehicle,group,inc,common,stock]","Commercial Vehicle Group, Inc.",Commercial Vehicle Group Inc. Common Stock,0.6666666666666666
+6495,IMH,"[impac,mortgage,holdings,inc]","[impac,mortgage,holdings,inc,common,stock]",Impac Mortgage Holdings Inc,Impac Mortgage Holdings Inc. Common Stock,0.6666666666666666
+11186,TTMI,"[ttm,technologies,inc]","[ttm,technologies,inc,common,stock]","TTM Technologies, Inc.",TTM Technologies Inc. Common Stock,0.6
+19041,WST,"[west,pharmaceutical,services,inc]","[west,pharmaceutical,services,inc,common,stock]","West Pharmaceutical Services, Inc.",West Pharmaceutical Services Inc. Common Stock,0.6666666666666666
+21314,TROW,"[t,rowe,price,group,inc]","[t,rowe,price,group,inc,common,stock]","T.Rowe Price Group, Inc.",T. Rowe Price Group Inc. Common Stock,0.7142857142857143
+40139,SEE,"[sealed,air,corporation]","[sealed,air,corporation,common,stock]",Sealed Air Corporation,Sealed Air Corporation Common Stock,0.6
+42757,ATRA,"[atara,biotherapeutics,inc]","[atara,biotherapeutics,inc,common,stock]","Atara Biotherapeutics, Inc.",Atara Biotherapeutics Inc. Common Stock,0.6
+18982,HAYN,"[haynes,international,inc]","[haynes,international,inc,common,stock]","Haynes International, Inc.",Haynes International Inc. Common Stock,0.6
+5873,DKS,"[dick,rsquo,s,sporting,goods,inc]","[dick,s,sporting,goods,inc,common,stock]","Dick&rsquo;s Sporting Goods, Inc.",Dick's Sporting Goods Inc Common Stock,0.625
+10453,T,"[at,t]","[at,t,inc]",AT&T,AT&T Inc.,0.6666666666666666
+21825,CRL,"[charles,river,laboratories,inc]","[charles,river,laboratories,international,inc,common,stock]","Charles River Laboratories, Inc.",Charles River Laboratories International Inc. Common Stock,0.5714285714285714
+44311,MGM,"[mgm,resorts,international]","[mgm,resorts,international,common,stock]",MGM Resorts International,MGM Resorts International Common Stock,0.6
+17725,HVT/A,"[haverty,furniture,companies,inc]","[haverty,furniture,companies,inc]","Haverty Furniture Companies, Inc.",Haverty Furniture Companies Inc.,1.0
+18219,MU,"[micron,technology,inc]","[micron,technology,inc,common,stock]",Micron Technology Inc,Micron Technology Inc. Common Stock,0.6
+22197,SAIC,"[science,applications,international,corporation]","[science,applications,international,corporation,common,stock]",Science Applications International Corporation,SCIENCE APPLICATIONS INTERNATIONAL CORPORATION Common Stock,0.6666666666666666
+27561,BK,"[the,bank,of,new,york,mellon]","[the,bank,of,new,york,mellon,corporation,common,stock]",The Bank of New York Mellon,The Bank of New York Mellon Corporation Common Stock,0.6666666666666666
+40531,CAG,"[conagra,brands,inc]","[conagra,brands,inc,common,stock]","Conagra Brands, Inc.",ConAgra Brands Inc. Common Stock,0.6
+14597,LMT,"[lockheed,martin,corporation]","[lockheed,martin,corporation,common,stock]",Lockheed Martin Corporation,Lockheed Martin Corporation Common Stock,0.6
+22641,BLMN,"[bloomin,brands,inc]","[bloomin,brands,inc,common,stock]","Bloomin Brands, Inc.",Bloomin' Brands Inc. Common Stock,0.6
+3319,ICPT,"[intercept,pharmaceuticals,inc]","[intercept,pharmaceuticals,inc,common,stock]","Intercept Pharmaceuticals, Inc.",Intercept Pharmaceuticals Inc. Common Stock,0.6
+42526,AKBA,"[akebia,therapeutics,inc,akebia]","[akebia,therapeutics,inc,common,stock]","Akebia Therapeutics, Inc. (""Akebia"")",Akebia Therapeutics Inc. Common Stock,0.6
+9799,BBW,"[build,a,bear,workshop,inc]","[build,a,bear,workshop,inc,common,stock]",Build-A-Bear Workshop Inc.,Build-A-Bear Workshop Inc. Common Stock,0.7142857142857143
+24422,GEO,"[the,geo,group]","[geo,group,inc,the,reit]",The Geo Group,Geo Group Inc (The) REIT,0.6
+10244,JNPR,"[juniper,networks,inc]","[juniper,networks,inc,common,stock]","Juniper Networks, Inc.",Juniper Networks Inc. Common Stock,0.6
+29113,LYTS,"[lsi,industries,inc]","[lsi,industries,inc,common,stock]","LSI Industries, Inc.",LSI Industries Inc. Common Stock,0.6
+43241,BMRN,"[biomarin,pharmaceutical,inc]","[biomarin,pharmaceutical,inc,common,stock]",BioMarin Pharmaceutical Inc.,BioMarin Pharmaceutical Inc. Common Stock,0.6
+1633,WFC,"[wells,fargo,company]","[wells,fargo,company,common,stock]",Wells Fargo & Company,Wells Fargo & Company Common Stock,0.6
+10488,BHE,"[benchmark,electronics,inc]","[benchmark,electronics,inc,common,stock]","Benchmark Electronics, Inc.",Benchmark Electronics Inc. Common Stock,0.6
+24635,FA,"[first,advantage,corporation]","[first,advantage,corporation,common,stock]",First Advantage Corporation,First Advantage Corporation Common Stock,0.6
+2977,ROST,"[ross,stores,inc]","[ross,stores,inc,common,stock]","Ross Stores, Inc",Ross Stores Inc. Common Stock,0.6
+14240,ABG,"[asbury,automotive,group,inc]","[asbury,automotive,group,inc,common,stock]","Asbury Automotive Group, Inc.",Asbury Automotive Group Inc Common Stock,0.6666666666666666
+18833,AVY,"[avery,dennison,corporation]","[avery,dennison,corporation,common,stock]",Avery Dennison Corporation,Avery Dennison Corporation Common Stock,0.6
+24660,MTB,"[m,t,bank,corporation]","[m,t,bank,corporation,common,stock]",M&T Bank Corporation,M&T Bank Corporation Common Stock,0.6666666666666666
+5484,RWT,"[redwood,trust,inc]","[redwood,trust,inc,common,stock]",Redwood Trust Inc,Redwood Trust Inc. Common Stock,0.6
+14230,ABG,"[asbury,automotive,group,inc]","[asbury,automotive,group,inc,common,stock]","Asbury Automotive Group, Inc.",Asbury Automotive Group Inc Common Stock,0.6666666666666666
+15974,ARW,"[arrow,electronics,inc]","[arrow,electronics,inc,common,stock]","Arrow Electronics, Inc.",Arrow Electronics Inc. Common Stock,0.6
+20577,BA,"[the,boeing,company]","[boeing,company,the,common,stock]",The Boeing Company,Boeing Company (The) Common Stock,0.6
+19174,ADVWW,"[advantage,health,solutions,inc]","[advantage,solutions,inc,warrant]","ADVANTAGE Health Solutions, Inc",Advantage Solutions Inc. Warrant,0.6
+20589,BA,"[the,boeing,company]","[boeing,company,the,common,stock]",The Boeing Company,Boeing Company (The) Common Stock,0.6
+3180,T,"[at,t]","[at,t,inc]",AT&T,AT&T Inc.,0.6666666666666666
+41212,AMN,"[healthcare,services,group,inc]","[amn,healthcare,services,inc,amn,healthcare,services,inc]","Healthcare Services Group, Inc.",AMN Healthcare Services Inc AMN Healthcare Services Inc,0.6
+8458,UBER,"[uber,technologies,inc]","[uber,technologies,inc,common,stock]","Uber Technologies, Inc.",Uber Technologies Inc. Common Stock,0.6
