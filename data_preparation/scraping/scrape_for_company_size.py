@@ -35,7 +35,7 @@ def extract_company_data(symbols, output_dir, start_year, end_year, api_key, qua
                             'employee_count': item['employeeCount']
                         }
                     df = pd.concat([df, pd.DataFrame.from_dict({k:[v] for k,v in row_data.items()})], ignore_index=True)
-        sleep(randint(1,2))
+        sleep(1)
     if quarterly == True:
         out_path = f'{output_dir}/company_size_data_quarterly.csv'
     else:

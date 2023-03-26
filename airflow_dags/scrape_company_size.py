@@ -62,14 +62,14 @@ def scrape_company_size():
             local_path=output_dir
         )
         symbol_df = pd.read_csv(f"{output_dir}/{csv_path}")
-        symbols = symbol_df['Symbol'].tolist()
+        symbols = symbol_df['Symbol'].tolist().unique()
         return symbols
         # symbol_slices = [x.tolist() for x in np.array_split(symbols, int(len(symbols)/10))]
         # return list(symbol_slices)
 
     @task(
         retries=2,
-        execution_timeout=datetime.timedelta(minutes=3),
+        execution_timeout=datetime.timedelta(minutes=15),
         retry_delay=datetime.timedelta(minutes=1),
     )
     def upload_csv_s3(local_file_path, s3_bucket):
