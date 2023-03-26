@@ -1,11 +1,14 @@
 import requests
 import pandas as pd
+import re
 from random import randint
 from time import sleep
 
 def extract_company_data(symbols, output_dir, start_year, end_year, api_key, quarterly=False):
     df = pd.DataFrame(columns=['stock_symbol', 'company_name', 'period_of_report', 'employee_count'])
-    for symbol in symbols:
+    for raw_sym in symbols:
+        symbol = raw_sym.replace("/", "-")
+        symbol = re.sub(r"\^[A-Z]$", "", symbol)
         url = f'https://financialmodelingprep.com/api/v4/historical/employee_count?symbol={symbol}&apikey={api_key}'
         response = requests.get(url)
         if response.status_code != 200:
