@@ -1,5 +1,7 @@
 import requests
 import pandas as pd
+from random import randint
+from time import sleep
 
 def extract_company_data(symbols, output_dir, start_year, end_year, api_key, quarterly=False):
     df = pd.DataFrame(columns=['stock_symbol', 'company_name', 'period_of_report', 'employee_count'])
@@ -7,7 +9,7 @@ def extract_company_data(symbols, output_dir, start_year, end_year, api_key, qua
         url = f'https://financialmodelingprep.com/api/v4/historical/employee_count?symbol={symbol}&apikey={api_key}'
         response = requests.get(url)
         if response.status_code != 200:
-            print(f"Error retrieving data for {symbol}")
+            print(f"Error retrieving data for {symbol} - status_code {response.status_code}")
             continue
         data = response.json()
         for item in data:
@@ -33,6 +35,7 @@ def extract_company_data(symbols, output_dir, start_year, end_year, api_key, qua
                             'employee_count': item['employeeCount']
                         }
                     df = pd.concat([df, pd.DataFrame.from_dict({k:[v] for k,v in row_data.items()})], ignore_index=True)
+        sleep(randint(1,2))
     if quarterly == True:
         out_path = f'{output_dir}/company_size_data_quarterly.csv'
     else:
