@@ -86,7 +86,7 @@ def scrape_company_size():
         merged_filepath = f"{output_dir}/{merged_filename}"
         for fp in local_file_paths:
             df = pd.read_csv(fp)
-            if merged_df == None:
+            if merged_df is None:
                 merged_df = df
             else:
                 merged_df = pd.concat([merged_df, df], ignore_index=True)
