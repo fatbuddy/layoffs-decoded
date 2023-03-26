@@ -23,10 +23,10 @@ from data_preparation.scraping import scrape_company_industry
     concurrency=10,
     max_active_runs=1,
     params = {
-        "companySymbolCsv": "warn-155.csv"
+        "companySymbolCsv": "warn_jaccard_0.5_cleaned.csv"
     }
 )
-def scrape_industry():
+def scrape_company_industry():
     s3_bucket = Variable.get("S3_BUCKET", default_var="layoffs-decoded-master")
     # symbols = ['AAPL', 'GOOGL', 'MSFT']
 
@@ -42,7 +42,7 @@ def scrape_industry():
         api_key = Variable.get("FMP_API_KEY", default_var="")
         output = scrape_company_industry.extract_company_data(symbols, output_dir, api_key)
         return output
-    
+
     @task(
         retries=2,
         execution_timeout=datetime.timedelta(minutes=1),
@@ -63,7 +63,7 @@ def scrape_industry():
         return symbols
         # symbol_slices = [x.tolist() for x in np.array_split(symbols, int(len(symbols)/10))]
         # return list(symbol_slices)
-    
+
     @task(
         retries=2,
         execution_timeout=datetime.timedelta(minutes=3),
@@ -75,7 +75,7 @@ def scrape_industry():
         """
         s3_hook = S3Hook()
         s3_hook.load_file(local_file_path, f"company_industry_data.csv", s3_bucket, replace=True)
-    
+
     create_tmp_dir = BashOperator(
         task_id="create_tmp_dir",
         bash_command="mktemp -d 2>/dev/null"

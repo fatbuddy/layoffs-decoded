@@ -23,13 +23,13 @@ from data_preparation.scraping import scrape_for_company_size
     concurrency=10,
     max_active_runs=1,
     params = {
-        "companySymbolCsv": "warn-155.csv"
+        "companySymbolCsv": "warn_jaccard_0.5_cleaned.csv"
     }
 )
 def scrape_company_size():
     s3_bucket = Variable.get("S3_BUCKET", default_var="layoffs-decoded-master")
     # symbols = ['AAPL', 'GOOGL', 'MSFT']
-    start_year = 2018
+    start_year = 2000
     end_year = 2020
     quarterly = False
 
@@ -45,7 +45,7 @@ def scrape_company_size():
         api_key = Variable.get("FMP_API_KEY", default_var="")
         output = scrape_for_company_size.extract_company_data(symbols, output_dir, start_year, end_year, api_key, quarterly)
         return output
-    
+
     @task(
         retries=2,
         execution_timeout=datetime.timedelta(minutes=1),
@@ -66,7 +66,7 @@ def scrape_company_size():
         return symbols
         # symbol_slices = [x.tolist() for x in np.array_split(symbols, int(len(symbols)/10))]
         # return list(symbol_slices)
-    
+
     @task(
         retries=2,
         execution_timeout=datetime.timedelta(minutes=3),
@@ -78,7 +78,7 @@ def scrape_company_size():
         """
         s3_hook = S3Hook()
         s3_hook.load_file(local_file_path, f"company_size_data.csv", s3_bucket, replace=True)
-    
+
     create_tmp_dir = BashOperator(
         task_id="create_tmp_dir",
         bash_command="mktemp -d 2>/dev/null"
