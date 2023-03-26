@@ -23,7 +23,7 @@ def extract_company_data(symbols, output_dir, start_year, end_year, api_key, qua
                             'period_of_report': period_of_report[:5]+i+period_of_report[7:],
                             'employee_count': item['employeeCount']
                         }
-                        df = pd.concat([df, pd.DataFrame.from_dict(row_data)], ignore_index=True)
+                        df = pd.concat([df, pd.DataFrame.from_dict({k:[v] for k,v in row_data.items()})], ignore_index=True)
                 else:
                     # Append the row once
                     row_data = {
@@ -32,7 +32,7 @@ def extract_company_data(symbols, output_dir, start_year, end_year, api_key, qua
                             'period_of_report': period_of_report,
                             'employee_count': item['employeeCount']
                         }
-                    df = pd.concat([df, pd.DataFrame.from_dict(row_data)], ignore_index=True)
+                    df = pd.concat([df, pd.DataFrame.from_dict({k:[v] for k,v in row_data.items()})], ignore_index=True)
     if quarterly == True:
         out_path = f'{output_dir}/company_size_data_quarterly.csv'
     else:
