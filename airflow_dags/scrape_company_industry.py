@@ -59,30 +59,47 @@ def scrape_industry():
             local_path=output_dir
         )
         symbol_df = pd.read_csv(f"{output_dir}/{csv_path}")
-        symbols = symbol_df['Symbol'].tolist()
-        return symbols
-        # symbol_slices = [x.tolist() for x in np.array_split(symbols, int(len(symbols)/10))]
-        # return list(symbol_slices)
+        symbols = symbol_df['Symbol'].unique().tolist()
+        # return symbols
+        symbol_slices = [x.tolist() for x in np.array_split(symbols, int(len(symbols)/10))]
+        return list(symbol_slices)
 
     @task(
         retries=2,
         execution_timeout=datetime.timedelta(minutes=3),
         retry_delay=datetime.timedelta(minutes=1),
     )
-    def upload_csv_s3(local_file_path, s3_bucket):
+    def upload_csv_s3(local_file_paths, output_dir, s3_bucket, prefix):
         """
         Upload output CSV to S3 bucket
         """
         s3_hook = S3Hook()
-        s3_hook.load_file(local_file_path, f"company_industry_data.csv", s3_bucket, replace=True)
+        # s3_hook.load_file(local_file_path, f"company_industry_data.csv", s3_bucket, replace=True)
+        merged_df = None
+        merged_filename = f"company_industry_data.csv"
+        merged_filepath = f"{output_dir}/{merged_filename}"
+        for fp in local_file_paths:
+            df = pd.read_csv(fp)
+            if merged_df is None:
+                merged_df = df
+            else:
+                merged_df = pd.concat([merged_df, df], ignore_index=True)
+        merged_df.to_csv(merged_filepath, index=False)
+        s3_hook.load_file(merged_filepath, f"company_size_data_{prefix}/{merged_filename}", s3_bucket, replace=True)
 
+    execute_time = datetime.datetime.now().strftime("%Y%m%d")
     create_tmp_dir = BashOperator(
         task_id="create_tmp_dir",
         bash_command="mktemp -d 2>/dev/null"
     )
     company_symbol_list = retrieve_company_symbols(output_dir=create_tmp_dir.output)
-    company_size_csv_path = extract_company_industry(company_symbol_list, output_dir=create_tmp_dir.output)
-    upload_res = upload_csv_s3(company_size_csv_path, s3_bucket=s3_bucket)
+    company_size_csv_paths = extract_company_industry(company_symbol_list, output_dir=create_tmp_dir.output)
+    upload_res = upload_csv_s3(
+        local_file_paths=company_size_csv_paths,
+        output_dir=create_tmp_dir.output,
+        s3_bucket=s3_bucket,
+        prefix=execute_time
+    )
     remove_tmp_dir = BashOperator(
         task_id="remove_tmp_dir",
         bash_command="rm -rf {{ ti.xcom_pull(task_ids='create_tmp_dir') }}"
