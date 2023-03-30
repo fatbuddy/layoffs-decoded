@@ -93,7 +93,9 @@ def scrape_industry():
         bash_command="mktemp -d 2>/dev/null"
     )
     company_symbol_list = retrieve_company_symbols(output_dir=create_tmp_dir.output)
-    company_size_csv_paths = extract_company_industry(company_symbol_list, output_dir=create_tmp_dir.output)
+    company_size_csv_paths = extract_company_industry\
+        .partial(output_dir=create_tmp_dir.output)\
+        .expand(symbols=company_symbol_list)
     upload_res = upload_csv_s3(
         local_file_paths=company_size_csv_paths,
         output_dir=create_tmp_dir.output,

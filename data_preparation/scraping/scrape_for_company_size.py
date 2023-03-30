@@ -24,7 +24,7 @@ def extract_company_data(symbols, output_dir, start_year, end_year, api_key, qua
                     for i in ['01','04','08','12']:
                         # Append the row 4 times for each quarter
                         row_data = {
-                            'stock_symbol': item['symbol'],
+                            'stock_symbol': raw_sym,
                             'company_name': item['companyName'],
                             'period_of_report': period_of_report[:5]+i+period_of_report[7:],
                             'employee_count': item['employeeCount']
@@ -33,7 +33,7 @@ def extract_company_data(symbols, output_dir, start_year, end_year, api_key, qua
                 else:
                     # Append the row once
                     row_data = {
-                            'stock_symbol': item['symbol'],
+                            'stock_symbol': raw_sym,
                             'company_name': item['companyName'],
                             'period_of_report': period_of_report,
                             'employee_count': item['employeeCount']

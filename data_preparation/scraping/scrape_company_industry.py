@@ -3,10 +3,13 @@ import pandas as pd
 import uuid
 from time import sleep
 from random import randint
+import re
 
 def extract_company_data(symbols, output_dir, api_key):
     df = pd.DataFrame(columns=['stock_symbol','company_name', 'industry'])
-    for symbol in symbols:
+    for raw_sym in symbols:
+        symbol = raw_sym.replace("/", "-")
+        symbol = re.sub(r"\^[A-Z]$", "", symbol)
         url = f'https://financialmodelingprep.com/api/v3/profile/{symbol}?apikey={api_key}'
         response = requests.get(url)
         if response.status_code != 200:
@@ -14,13 +17,19 @@ def extract_company_data(symbols, output_dir, api_key):
             continue
         data = response.json()
         if len(data) == 0:
+            data = {
+                'stock_symbol': raw_sym,
+                'company_name': 'Unknown',
+                'industry': 'unknown'
+            }
+            df = pd.concat([df, pd.DataFrame.from_dict({k:[v] for k,v in data.items()})], ignore_index=True)
             continue
         company = data[0]
         if 'industry' in company:
             company_name = company['companyName']
             industry = company['industry']
             data = {
-                'stock_symbol': symbol,
+                'stock_symbol': raw_sym,
                 'company_name': company_name,
                 'industry': industry
             }
