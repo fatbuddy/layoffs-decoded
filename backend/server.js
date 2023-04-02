@@ -15,19 +15,30 @@ const pool = mysql.createPool({
 });
 
 //load model
-// const example_model = require("./models/example");
+const title = require("./models/title");
+const department = require("./models/department");
 
 app.use(express.json());
 
-// app.get("/example", (req, res) => {
-//     example_model.findAll(pool, req.query.data, (err, result) => {
-//       if (err) {
-//         res.send({ success: false, payload: err });
-//       } else {
-//         res.send({ success: true, payload: result });
-//       }
-//     });
-// });
+app.get("/titles", (req, res) => {
+  title.findAll(pool, req.query.includeUnknown, req.query.limit, (err, result) => {
+    if (err) {
+      res.send({ success: false, payload: err });
+    } else {
+      res.send({ success: true, payload: result });
+    }
+  });
+});
+
+app.get("/departments", (req, res) => {
+  department.findAll(pool, req.query.includeOthers, req.query.limit, (err, result) => {
+    if (err) {
+      res.send({ success: false, payload: err });
+    } else {
+      res.send({ success: true, payload: result });
+    }
+  });
+});
 
 
 if (config.SSL.ENABLED) {
