@@ -13,29 +13,29 @@ export default function Question1() {
   const [postcovid, setPostcovid] = useState([]);
 
   function callApis(technique) {
-    fetch('http://localhost:3000/q1_precovid_'+ technique + '?limit=10')
+    fetch(process.env.REACT_APP_API_PROXY + '/q1_precovid_'+ technique + '?limit=10')
     .then(result => result.json())
     .then(data => setPrecovid(data.payload));
 
-    fetch('http://localhost:3000/q1_covid_'+ technique + '?limit=10')
+    fetch(process.env.REACT_APP_API_PROXY + '/q1_covid_'+ technique + '?limit=10')
     .then(result => result.json())
     .then(data => setCovid(data.payload));
 
-    fetch('http://localhost:3000/q1_postcovid_'+ technique + '?limit=10')
+    fetch(process.env.REACT_APP_API_PROXY + '/q1_postcovid_'+ technique + '?limit=10')
     .then(result => result.json())
     .then(data => setPostcovid(data.payload));
   }
 
   useEffect(()=>{
-    fetch('http://localhost:3000/q1_precovid_pearson?limit=10')
+    fetch(process.env.REACT_APP_API_PROXY + '/q1_precovid_pearson?limit=10')
     .then(result => result.json())
     .then(data => setPrecovid(data.payload));
 
-    fetch('http://localhost:3000/q1_covid_pearson?limit=10')
+    fetch(process.env.REACT_APP_API_PROXY + '/q1_covid_pearson?limit=10')
     .then(result => result.json())
     .then(data => setCovid(data.payload));
 
-    fetch('http://localhost:3000/q1_postcovid_pearson?limit=10')
+    fetch(process.env.REACT_APP_API_PROXY + '/q1_postcovid_pearson?limit=10')
     .then(result => result.json())
     .then(data => setPostcovid(data.payload));
     }, []);
