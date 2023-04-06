@@ -1,4 +1,4 @@
-import { Toggle, ToggleItem, Card, Grid, Title, DonutChart, List, ListItem  } from "@tremor/react";
+import { Toggle, ToggleItem, Card, Grid, Title, DonutChart, List, ListItem, Subtitle  } from "@tremor/react";
 import {ChartPieIcon, ChartBarIcon, ChartSquareBarIcon, PresentationChartBarIcon, PresentationChartLineIcon} from "@heroicons/react/outline";
 import ChartView from "./ChartView";
 import React, { useEffect, useState } from "react"
@@ -8,14 +8,18 @@ const valueFormatter = (number) =>
 
 
 export default function Question1() {
+  const [precovidStatus, setPrecovidStatus] = useState('');
   const [precovid, setPrecovid] = useState([]);
   const [covid, setCovid] = useState([]);
   const [postcovid, setPostcovid] = useState([]);
 
   function callApis(technique) {
+    setPrecovidStatus('Loading');
     fetch(process.env.REACT_APP_API_PROXY + '/q1_precovid_'+ technique + '?limit=10')
     .then(result => result.json())
-    .then(data => setPrecovid(data.payload));
+    .then(data => setPrecovid(data.payload))
+    .then(()=>setPrecovidStatus('Success'))
+    .catch(()=>setPrecovidStatus('Error'));
 
     fetch(process.env.REACT_APP_API_PROXY + '/q1_covid_'+ technique + '?limit=10')
     .then(result => result.json())
@@ -27,6 +31,7 @@ export default function Question1() {
   }
 
   useEffect(()=>{
+    setPrecovidStatus('Loading');
     fetch(process.env.REACT_APP_API_PROXY + '/q1_precovid_pearson?limit=10')
     .then(result => result.json())
     .then(data => setPrecovid(data.payload));
@@ -57,6 +62,8 @@ export default function Question1() {
         >
         <Card>
             <Title>Precovid</Title>
+            {precovidStatus === 'Loading' && <Subtitle>Loading...</Subtitle>}
+            {precovidStatus === 'Success' && 
             <DonutChart
             className="mt-6"
             variant="pie"
@@ -65,7 +72,7 @@ export default function Question1() {
             index="name"
             valueFormatter={valueFormatter}
             colors={["slate", "violet", "indigo", "rose", "cyan", "amber", "teal", "orange", "fuchsia", "pink"]}
-            />
+            />}
         </Card>
         <Card>
             <Title>Covid</Title>
