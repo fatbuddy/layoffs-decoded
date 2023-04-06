@@ -14,6 +14,7 @@ import { Card,
     Flex,
     DonutChart} from "@tremor/react";
 import { StatusOnlineIcon } from "@heroicons/react/outline";
+import React, { useEffect, useState } from "react"
 
 const data = [
     {
@@ -132,10 +133,31 @@ const data = [
     },
 ];
 
+// const barData = async () => {
+//     try{
+//         const response = await fetch('http://localhost:3000/q3_locations?limit=10');
+//         const result = await response.json();
+//         alert(result);
+//         return result;
+//     }catch(error) {
+//         return [];
+//     }
+    
+// }
+
 const valueFormatter = (number) =>
 `$ ${Intl.NumberFormat("us").format(number).toString()}`;
 
 export default function Question3() {
+  
+  const [location, setLocations] = useState([]);
+
+  useEffect(()=>{
+    fetch('http://localhost:3000/q3_locations?limit=10')
+    .then(result => result.json())
+    .then(data => setLocations(data.payload));
+    }, []);
+    
   return (
     <>
         <Grid
@@ -155,16 +177,16 @@ export default function Question3() {
             />
         </Card>
         <Card>
-            <Title>Website Analytics</Title>
+            <Title>Top Countries Which Laid Off</Title>
             <Flex className="mt-4">
             <Text>
-                <Bold>Source</Bold>
+                <Bold>Country</Bold>
             </Text>
             <Text>
-                <Bold>Visits</Bold>
+                <Bold>Number of Layoffs</Bold>
             </Text>
             </Flex>
-            <BarList data={barData} className="mt-2" />
+            <BarList data={location} className="mt-2" />
         </Card>
         </Grid>
 
