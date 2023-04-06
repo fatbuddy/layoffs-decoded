@@ -14,7 +14,7 @@ import { Card,
     Flex,
     DonutChart} from "@tremor/react";
 import { StatusOnlineIcon } from "@heroicons/react/outline";
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useState } from "react";
 
 const data = [
     {
