@@ -135,7 +135,7 @@ const data = [
 
 // const barData = async () => {
 //     try{
-//         const response = await fetch('http://localhost:3000/q3_locations?limit=10');
+//         const response = await fetch('http://localhost:4000/q3_locations?limit=10');
 //         const result = await response.json();
 //         alert(result);
 //         return result;
@@ -153,7 +153,7 @@ export default function Question3() {
   const [location, setLocations] = useState([]);
 
   useEffect(()=>{
-    fetch('http://localhost:3000/q3_locations?limit=10')
+    fetch('http://localhost:4000/q3_locations?limit=10')
     .then(result => result.json())
     .then(data => setLocations(data.payload));
     }, []);
