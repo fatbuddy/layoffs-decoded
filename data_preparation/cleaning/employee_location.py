@@ -5,6 +5,10 @@ locationiq_token = "pk.193f7f0a30342b4a64f39837324ef939"
 import pandas as pd
 from random import randint
 import spacy
+AWS_S3_BUCKET = "layoffs-decoded-master"
+AWS_ACCESS_KEY_ID = "AKIAUHN3JA72IHF7WP6J"
+AWS_SECRET_ACCESS_KEY = "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"
+
 
 def call_api(country):
     raw_country = country
@@ -24,7 +28,7 @@ def call_api(country):
         
 def get_country_from_address(address):
     raw_address = address
-    time.sleep(3)
+    time.sleep(2)
 
     try:
         # Make API call and get response
@@ -69,19 +73,35 @@ def post_locationiq(country):
     except:
         return country
 
-file_path = 'C:/Users/Crystal/OneDrive/Desktop/employee_merged_validated_csv.csv'
 
-df = pd.read_csv(file_path)
+folder_path = "training_data_q3"
+csv = "employee_merged_validated_csv.csv"
+
+
+# loading training data from AWS S3
+df = pd.read_csv(
+    f"s3://{AWS_S3_BUCKET}/{folder_path}/{csv}",
+    storage_options={
+        "key": AWS_ACCESS_KEY_ID,
+        "secret": AWS_SECRET_ACCESS_KEY
+    }, 
+)
+
 df["country"] = df["location"]
-
 
 # df.head()
 # df_sample = df.sample(n=10)
 # df_sample["country"] = df_sample["country"].fillna("")
 # df_sample["country"] = df_sample["country"].apply(lambda x: x.lower())
 # df_sample["country"] = df_sample["country"].apply(lambda x: x if x in ["remote","hybrid", "anywhere"] else string_cleaning(x))
-# df_sample["country"] = df_sample["country"].apply(lambda x: x if x in ["remote","hybrid", "anywhere"] else get_country_from_address(x))
-# df_sample.to_csv('C:/Users/Crystal/OneDrive/Desktop/employee_location_locationiq1.csv')
+# unique_values = df_sample["country"].drop_duplicates()
+# country_dict = {}
+# for value in unique_values:
+#     country_dict[value] = get_country_from_address(value)
+    
+# df_sample["country"] = df_sample["country"].apply(lambda x: country_dict[x] if x in country_dict else x)
+# # df["country"] = df["country"].apply(lambda x: x if x in ["remote","hybrid", "anywhere"] else get_country_from_address(x))
+# df_sample.to_csv('C:/Users/Crystal/OneDrive/Desktop/employee_location_locationiq2.csv')
 
 
 # raw_loc = "nz/"
@@ -95,15 +115,36 @@ df["country"] = df["location"]
 # raw_loc = "Tempe, Arizona Available locations USA"
 # raw_loc = "Remote, Geelong/Melbourne"
 # raw_loc = "USA/ San Francisco"
-raw_loc = "San Francisco (Bay Area)/ Remote" #4585
-raw_loc = raw_loc.lower()
-raw_loc = raw_loc if raw_loc in ["remote", "hybrid", "anywhere"] else string_cleaning(raw_loc)
-raw_loc = raw_loc if raw_loc in ["remote", "hybrid", "anywhere"] else get_country_from_address(raw_loc)
-print(raw_loc)
+# raw_loc = "San Francisco (Bay Area)/ Remote" #4585
+# raw_loc = raw_loc.lower()
+# raw_loc = raw_loc if raw_loc in ["remote", "hybrid", "anywhere"] else string_cleaning(raw_loc)
+# raw_loc = raw_loc if raw_loc in ["remote", "hybrid", "anywhere"] else get_country_from_address(raw_loc)
+# print(raw_loc)
 
-# df["country"] = df["country"].fillna("")
-# df["country"] = df["country"].apply(lambda x: x.lower())
-# df["country"] = df["country"].apply(lambda x: x if x in ["remote","hybrid", "anywhere"] else string_cleaning(x))
+df["country"] = df["country"].fillna("")
+df["country"] = df["country"].apply(lambda x: x.lower())
+df["country"] = df["country"].apply(lambda x: x if x in ["remote","hybrid", "anywhere"] else string_cleaning(x))
+unique_values = df["country"].drop_duplicates()
+country_dict = {}
+count = 0
+for value in unique_values:
+    count += 1
+    print(count,"/",len(unique_values))
+    country_dict[value] = get_country_from_address(value)
+    
+df["country"] = df["country"].apply(lambda x: country_dict[x] if x in country_dict else x)
 # df["country"] = df["country"].apply(lambda x: x if x in ["remote","hybrid", "anywhere"] else get_country_from_address(x))
-# df.to_csv('C:/Users/Crystal/OneDrive/Desktop/employee_location_locationiq1.csv')
-# display(df_sample)
+
+
+#write to s3
+folder_path = "training_data_q3"  #you can create your own folder in S3 for each question and put all the tables csv in #that
+csv = "employee_location_locationiq2.csv" #give the name of csv that would want in S3
+
+# writing dataframes covid training data to AWS S3
+df.to_csv(
+    f"s3://{AWS_S3_BUCKET}/{folder_path}/{csv}",
+    storage_options={
+        "key": AWS_ACCESS_KEY_ID,
+        "secret": AWS_SECRET_ACCESS_KEY,
+    },
+)
