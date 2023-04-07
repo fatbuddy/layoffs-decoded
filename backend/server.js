@@ -1,45 +1,176 @@
 const express = require('express')
 var config = require("./config.js");
-const mysql = require("mysql2");
 const fs = require("fs");
 const https = require("https");
 const app = express()
-const port = 3000
+const port = 4000
 
-const pool = mysql.createPool({
-  host: config.MYSQL.HOST,
-  user: config.MYSQL.USER,
-  password: config.MYSQL.PASSWORD,
-  database: config.MYSQL.DATABASE,
-  waitForConnections: true,
-});
+const DB_NAME = "layoffs_decoded_result";
 
 //load model
-const title = require("./models/title");
-const department = require("./models/department");
+const q1 = require("./models/q1.js");
+const q3 = require("./models/q3.js");
 
 app.use(express.json());
 
-app.get("/titles", (req, res) => {
-  title.findAll(pool, req.query.includeUnknown, req.query.limit, (err, result) => {
-    if (err) {
-      res.send({ success: false, payload: err });
-    } else {
-      res.send({ success: true, payload: result });
-    }
-  });
+//Q1
+//PEARSON
+app.get("/q1_precovid_pearson", async (req, res) => {
+  const result = await q1.find_all_precovid_pearson(DB_NAME, req.query.limit);
+  res.header("Access-Control-Allow-Origin","*")
+  res.send(result);
 });
 
-app.get("/departments", (req, res) => {
-  department.findAll(pool, req.query.includeOthers, req.query.limit, (err, result) => {
-    if (err) {
-      res.send({ success: false, payload: err });
-    } else {
-      res.send({ success: true, payload: result });
-    }
-  });
+app.get("/q1_covid_pearson", async (req, res) => {
+  const result = await q1.find_all_covid_pearson(DB_NAME, req.query.limit);
+  res.header("Access-Control-Allow-Origin","*")
+  res.send(result);
 });
 
+app.get("/q1_postcovid_pearson", async (req, res) => {
+  const result = await q1.find_all_postcovid_pearson(DB_NAME, req.query.limit);
+  res.header("Access-Control-Allow-Origin","*")
+  res.send(result);
+});
+
+//Q1
+//SPEARMAN
+app.get("/q1_precovid_spearman", async (req, res) => {
+  const result = await q1.find_all_precovid_spearman(DB_NAME, req.query.limit);
+  res.header("Access-Control-Allow-Origin","*")
+  res.send(result);
+});
+
+app.get("/q1_covid_spearman", async (req, res) => {
+  const result = await q1.find_all_covid_spearman(DB_NAME, req.query.limit);
+  res.header("Access-Control-Allow-Origin","*")
+  res.send(result);
+});
+
+app.get("/q1_postcovid_spearman", async (req, res) => {
+  const result = await q1.find_all_postcovid_spearman(DB_NAME, req.query.limit);
+  res.header("Access-Control-Allow-Origin","*")
+  res.send(result);
+});
+
+//Q1
+//lasso
+app.get("/q1_precovid_lasso", async (req, res) => {
+  const result = await q1.find_all_precovid_lasso(DB_NAME, req.query.limit);
+  res.header("Access-Control-Allow-Origin","*")
+  res.send(result);
+});
+
+app.get("/q1_covid_lasso", async (req, res) => {
+  const result = await q1.find_all_covid_lasso(DB_NAME, req.query.limit);
+  res.header("Access-Control-Allow-Origin","*")
+  res.send(result);
+});
+
+app.get("/q1_postcovid_lasso", async (req, res) => {
+  const result = await q1.find_all_postcovid_lasso(DB_NAME, req.query.limit);
+  res.header("Access-Control-Allow-Origin","*")
+  res.send(result);
+});
+
+//Q1
+//ridge
+app.get("/q1_precovid_ridge", async (req, res) => {
+  const result = await q1.find_all_precovid_ridge(DB_NAME, req.query.limit);
+  res.header("Access-Control-Allow-Origin","*")
+  res.send(result);
+});
+
+app.get("/q1_covid_ridge", async (req, res) => {
+  const result = await q1.find_all_covid_ridge(DB_NAME, req.query.limit);
+  res.header("Access-Control-Allow-Origin","*")
+  res.send(result);
+});
+
+app.get("/q1_postcovid_ridge", async (req, res) => {
+  const result = await q1.find_all_postcovid_ridge(DB_NAME, req.query.limit);
+  res.header("Access-Control-Allow-Origin","*")
+  res.send(result);
+});
+
+//Q1
+//elasticnet
+app.get("/q1_precovid_elasticnet", async (req, res) => {
+  const result = await q1.find_all_precovid_elasticnet(DB_NAME, req.query.limit);
+  res.header("Access-Control-Allow-Origin","*")
+  res.send(result);
+});
+
+app.get("/q1_covid_elasticnet", async (req, res) => {
+  const result = await q1.find_all_covid_elasticnet(DB_NAME, req.query.limit);
+  res.header("Access-Control-Allow-Origin","*")
+  res.send(result);
+});
+
+app.get("/q1_postcovid_elasticnet", async (req, res) => {
+  const result = await q1.find_all_postcovid_elasticnet(DB_NAME, req.query.limit);
+  res.header("Access-Control-Allow-Origin","*")
+  res.send(result);
+});
+
+//Q1
+//decisiontree
+app.get("/q1_precovid_decisiontree", async (req, res) => {
+  const result = await q1.find_all_precovid_decisiontree(DB_NAME, req.query.limit);
+  res.header("Access-Control-Allow-Origin","*")
+  res.send(result);
+});
+
+app.get("/q1_covid_decisiontree", async (req, res) => {
+  const result = await q1.find_all_covid_decisiontree(DB_NAME, req.query.limit);
+  res.header("Access-Control-Allow-Origin","*")
+  res.send(result);
+});
+
+app.get("/q1_postcovid_decisiontree", async (req, res) => {
+  const result = await q1.find_all_postcovid_decisiontree(DB_NAME, req.query.limit);
+  res.header("Access-Control-Allow-Origin","*")
+  res.send(result);
+});
+
+//Q1
+//randomforest
+app.get("/q1_precovid_randomforest", async (req, res) => {
+  const result = await q1.find_all_precovid_randomforest(DB_NAME, req.query.limit);
+  res.header("Access-Control-Allow-Origin","*")
+  res.send(result);
+});
+
+app.get("/q1_covid_randomforest", async (req, res) => {
+  const result = await q1.find_all_covid_randomforest(DB_NAME, req.query.limit);
+  res.header("Access-Control-Allow-Origin","*")
+  res.send(result);
+});
+
+app.get("/q1_postcovid_randomforest", async (req, res) => {
+  const result = await q1.find_all_postcovid_randomforest(DB_NAME, req.query.limit);
+  res.header("Access-Control-Allow-Origin","*")
+  res.send(result);
+});
+
+//Q3
+app.get("/q3_titles", async (req, res) => {
+  const result = await q3.find_all_titles(DB_NAME, req.query.includeUnknown, req.query.limit);
+  res.header("Access-Control-Allow-Origin","*")
+  res.send(result);
+});
+
+app.get("/q3_departments", async (req, res) => {
+  const result = await q3.find_all_departments(DB_NAME, req.query.includeOthers, req.query.limit);
+  res.header("Access-Control-Allow-Origin","*")
+  res.send(result);
+});
+
+app.get("/q3_locations", async (req, res) => {
+  const result = await q3.find_all_locations(DB_NAME, req.query.limit);
+  res.header("Access-Control-Allow-Origin","*")
+  res.send(result);
+});
 
 if (config.SSL.ENABLED) {
   var privateKey = fs.readFileSync(config.SSL.KEYPATH);
