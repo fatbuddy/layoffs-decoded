@@ -23,7 +23,7 @@ df = pd.read_csv(
 
 
 # remove blank entries and strip spaces
-print(df)
+# print(df)
 df = df.apply(lambda x: x.str.strip())
 # df = df.replace('\s\s', np.nan)
 # df = df.dropna()
@@ -33,12 +33,12 @@ country_counts = df['country'].value_counts()
 
 
 
-folder_path = "training_data_q3"  #you can create your own folder in S3 for each question and put all the tables csv in #that
-covid_csv = "test.csv" #give the name of csv that would want in S3
+folder_path = "feature_results/q3_location"  #you can create your own folder in S3 for each question and put all the tables csv in #that
+csv = "test.csv" #give the name of csv that would want in S3
 
 # writing dataframes covid training data to AWS S3
 country_counts.to_csv(
-    f"s3://{AWS_S3_BUCKET}/{folder_path}/{covid_csv}",
+    f"s3://{AWS_S3_BUCKET}/{folder_path}/{csv}",
     storage_options={
         "key": AWS_ACCESS_KEY_ID,
         "secret": AWS_SECRET_ACCESS_KEY,
