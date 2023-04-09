@@ -63,7 +63,7 @@ export default function Question1() {
 
   return (
     <>
-        <Toggle defaultValue="pearson" onValueChange={(value) => callApis(value)}>
+        <Toggle defaultValue="pearson" style={{"flex-wrap": "wrap"}} onValueChange={(value) => callApis(value)}>
           <ToggleItem value="pearson" text="Pearson" icon={ChartPieIcon} />
           <ToggleItem value="spearman" text="Spearman" icon={ChartBarIcon} />
           <ToggleItem value="lasso" text="Lasso" icon={ChartSquareBarIcon} />
