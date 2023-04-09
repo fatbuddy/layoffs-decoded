@@ -2,20 +2,39 @@
 
 # import re
 # import numpy as np
-# import pandas as pd
 import pyspark
 from pyspark.sql import SparkSession
-from pyspark.sql.types import StructType,StructField, StringType, IntegerType
+from pyspark.sql.types import StructType, StructField, StringType, IntegerType
 from pyspark.sql.types import ArrayType, DoubleType, BooleanType
-from pyspark.sql.functions import col,array_contains,concat_ws, split, explode, lower, array_remove, to_json, array, array_intersect, array_union, size, expr, array_distinct
+from pyspark.sql.functions import col, concat_ws, split, explode, array_remove, array_intersect, array_union, size, expr, array_distinct
 from pyspark.sql.functions import udf
 from pyspark.sql.types import StringType
+from pyspark import SparkConf
+from pyspark.sql import SparkSession
+
+AWS_S3_BUCKET = "layoffs-decoded-master"
+AWS_ACCESS_KEY_ID = "AKIAUHN3JA72IHF7WP6J"
+AWS_SECRET_ACCESS_KEY = "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"
+AWS_FOLDER_PATH = "training_data_q1"
+warn_csv = "warn.csv"
+nasdaq_csv = "nasdaq.csv"
+
 
 class SimilarityJoin:
-    def __init__(self, data_file1, data_file2):
-        spark = SparkSession.builder.appName('SparkByExamples.com').getOrCreate()
-        self.df1 = spark.read.option("header",True).csv(data_file1)
-        self.df2 = spark.read.option("header",True).csv(data_file2)
+
+    def __init__(self):
+        conf = SparkConf()
+        conf.set('spark.hadoop.fs.s3a.access.key', AWS_ACCESS_KEY_ID)
+        conf.set('spark.hadoop.fs.s3a.secret.key', AWS_SECRET_ACCESS_KEY)
+        conf.set('fs.s3a.endpoint', 'http://s3-us-west-2.amazonaws.com')
+        
+        spark = SparkSession.builder.config(conf=conf).getOrCreate()
+        
+        self.df1 = spark.read.format('csv').options(header='true', inferSchema='true').load(
+            's3a://layoffs-decoded-master/training_data_q1/warn.csv')
+        self.df2 = spark.read.format('csv').options(header='true', inferSchema='true').load(
+            's3a://layoffs-decoded-master/training_data_q1/nasdaq.csv')
+        
         self.df1.cache()
         self.df2.cache()
 
@@ -34,26 +53,24 @@ class SimilarityJoin:
                      (2) Convert each token to its lower-case
         """
 
-
-        new_df.na.fill("",[cols[0]])
+        new_df.na.fill("", [cols[0]])
         new_df = new_df.withColumn("OG-Company", new_df[cols[0]])
         new_df = new_df.withColumn('joinKey', concat_ws(' ', *cols))
         new_df = new_df.withColumn('joinKey', split('joinKey', '\W+')) \
-               .withColumn('joinKey', expr("transform(joinKey, x -> lower(x))")) \
-               .withColumn('joinKey', array_remove(col('joinKey'), '')) \
-               .withColumn('joinKey', array_remove(col('joinKey'), 'inc')) \
-               .withColumn('joinKey', array_remove(col('joinKey'), 'co')) \
-               .withColumn('joinKey', array_remove(col('joinKey'), 'group')) \
-               .withColumn('joinKey', array_remove(col('joinKey'), 'llc')) \
-               .withColumn('joinKey', array_remove(col('joinKey'), 'common')) \
-               .withColumn('joinKey', array_remove(col('joinKey'), 'stock')) \
-               .withColumn('joinKey', array_remove(col('joinKey'), 'the')) \
-               .withColumn('joinKey', array_remove(col('joinKey'), 'company')) \
-               .withColumn('joinKey', array_remove(col('joinKey'), 'corporation')) \
-               .withColumn('joinKey', array_remove(col('joinKey'), 'corp')) \
+            .withColumn('joinKey', expr("transform(joinKey, x -> lower(x))")) \
+            .withColumn('joinKey', array_remove(col('joinKey'), '')) \
+            .withColumn('joinKey', array_remove(col('joinKey'), 'inc')) \
+            .withColumn('joinKey', array_remove(col('joinKey'), 'co')) \
+            .withColumn('joinKey', array_remove(col('joinKey'), 'group')) \
+            .withColumn('joinKey', array_remove(col('joinKey'), 'llc')) \
+            .withColumn('joinKey', array_remove(col('joinKey'), 'common')) \
+            .withColumn('joinKey', array_remove(col('joinKey'), 'stock')) \
+            .withColumn('joinKey', array_remove(col('joinKey'), 'the')) \
+            .withColumn('joinKey', array_remove(col('joinKey'), 'company')) \
+            .withColumn('joinKey', array_remove(col('joinKey'), 'corporation')) \
+            .withColumn('joinKey', array_remove(col('joinKey'), 'corp')) \
 
         return new_df
-
 
     def filtering(self, df1, df2):
         """
@@ -73,25 +90,25 @@ class SimilarityJoin:
        # explode for both keys
         df1 = df1.withColumn("joinKey1", df1["joinKey"])
         df2 = df2.withColumn("joinKey2", df2["joinKey"])
-        new_df1 = df1.select('id', 'joinKey1', explode('joinKey').alias('joinKey'), 'OG-Company')
-        new_df2 = df2.select('id', 'joinKey2', explode('joinKey').alias('joinKey'), 'OG-Company')
+        new_df1 = df1.select('id', 'joinKey1', explode(
+            'joinKey').alias('joinKey'), 'OG-Company')
+        new_df2 = df2.select('id', 'joinKey2', explode(
+            'joinKey').alias('joinKey'), 'OG-Company')
 
         # merge on joinKey column
-        new_df1 = new_df1.withColumnRenamed("id","id1")
-        new_df2 = new_df2.withColumnRenamed("id","id2")
-        new_df1 = new_df1.withColumnRenamed("OG-Company","OG-Company-Warn")
-        new_df2 = new_df2.withColumnRenamed("OG-Company","OG-Company-Nasdaq")
-        cand_df = (new_df1.select('id1', 'joinKey1', 'joinKey','OG-Company-Warn')
-           .join(new_df2.select('id2', 'joinKey2', 'joinKey', 'OG-Company-Nasdaq'), on='joinKey')
-           .select('id1', 'id2', 'joinKey1', 'joinKey2','OG-Company-Warn','OG-Company-Nasdaq'))
+        new_df1 = new_df1.withColumnRenamed("id", "id1")
+        new_df2 = new_df2.withColumnRenamed("id", "id2")
+        new_df1 = new_df1.withColumnRenamed("OG-Company", "OG-Company-Warn")
+        new_df2 = new_df2.withColumnRenamed("OG-Company", "OG-Company-Nasdaq")
+        cand_df = (new_df1.select('id1', 'joinKey1', 'joinKey', 'OG-Company-Warn')
+                   .join(new_df2.select('id2', 'joinKey2', 'joinKey', 'OG-Company-Nasdaq'), on='joinKey')
+                   .select('id1', 'id2', 'joinKey1', 'joinKey2', 'OG-Company-Warn', 'OG-Company-Nasdaq'))
 
         # drop duplicates and joinKey column
         cand_df = cand_df.dropDuplicates(['id1', 'id2']) \
                          .drop('joinKey')
 
         return cand_df
-
-
 
     def verification(self, cand_df, threshold):
         """
@@ -108,22 +125,27 @@ class SimilarityJoin:
         """
 
         # convert joinKey1 and joinKey2 arrays to sets
-        cand_df = cand_df.withColumn('joinKey1_set', array_distinct(col('joinKey1')))
-        cand_df = cand_df.withColumn('joinKey2_set', array_distinct(col('joinKey2')))
+        cand_df = cand_df.withColumn(
+            'joinKey1_set', array_distinct(col('joinKey1')))
+        cand_df = cand_df.withColumn(
+            'joinKey2_set', array_distinct(col('joinKey2')))
 
         # compute intersection and union of sets
         joinKey1_set = cand_df.select('joinKey1_set')
-        cand_df = cand_df.withColumn('intersection', size(array_intersect(col('joinKey1_set'), col('joinKey2_set'))))
-        cand_df = cand_df.withColumn('union', size(array_union(col('joinKey1_set'), col('joinKey2_set'))))
+        cand_df = cand_df.withColumn('intersection', size(
+            array_intersect(col('joinKey1_set'), col('joinKey2_set'))))
+        cand_df = cand_df.withColumn('union', size(
+            array_union(col('joinKey1_set'), col('joinKey2_set'))))
 
         # compute jaccard similarity and filter by threshold
-        cand_df = cand_df.withColumn('jaccard', col('intersection')/col('union'))
+        cand_df = cand_df.withColumn(
+            'jaccard', col('intersection')/col('union'))
         cand_df = cand_df.filter(col('jaccard') > threshold)
 
         # drop intermediate columns and reset index
-        result_df = cand_df.drop('joinKey1_set', 'joinKey2_set', 'intersection', 'union').dropna()
+        result_df = cand_df.drop(
+            'joinKey1_set', 'joinKey2_set', 'intersection', 'union').dropna()
         return result_df
-
 
     def evaluate(self, result, ground_truth):
         """
@@ -145,28 +167,33 @@ class SimilarityJoin:
 
         return precision, recall, fmeasure
 
-
     def jaccard_join(self, cols1, cols2, threshold):
         new_df1 = self.preprocess_df(self.df1, cols1)
 
         new_df2 = self.preprocess_df(self.df2, cols2)
-        print("Before filtering: %d pairs in total" % (self.df1.count() * self.df2.count()))
+        print("Before filtering: %d pairs in total" %
+              (self.df1.count() * self.df2.count()))
 
         cand_df = self.filtering(new_df1, new_df2)
         cand_df.cache()
-        print ("After Filtering: %d pairs left" %(cand_df.count()))
+        print("After Filtering: %d pairs left" % (cand_df.count()))
 
         result_df = self.verification(cand_df, threshold)
         result_df.cache()
-        print ("After Verification: %d similar pairs" %(result_df.count()))
+        print("After Verification: %d similar pairs" % (result_df.count()))
 
         return result_df
+
 
 def array_to_string(my_list):
     return '[' + ','.join([str(elem) for elem in my_list]) + ']'
 
+
+def write_to_s3(result_df):
+    result_df.coalesce(1).write.option("header",True).csv("warn_jaccard.csv")
+
 if __name__ == "__main__":
-    er = SimilarityJoin("warn.csv", "nasdaq.csv")
+    er = SimilarityJoin()
     warn_cols = ["Company"]
     nasdaq_cols = ["Name"]
     result_df = er.jaccard_join(warn_cols, nasdaq_cols, 0.5)
@@ -174,10 +201,11 @@ if __name__ == "__main__":
     result = result_df.select('id1', 'id2').collect()
     array_to_string_udf = udf(array_to_string, StringType())
 
-    result_df = result_df.withColumn('joinKey1', array_to_string_udf(result_df["joinKey1"]))
-    result_df = result_df.withColumn('joinKey2', array_to_string_udf(result_df["joinKey2"]))
+    result_df = result_df.withColumn(
+        'joinKey1', array_to_string_udf(result_df["joinKey1"]))
+    result_df = result_df.withColumn(
+        'joinKey2', array_to_string_udf(result_df["joinKey2"]))
     result_df.cache()
     result_df.show()
     print(result_df.count(), len(result_df.columns))
-
-    result_df.coalesce(1).write.option("header",True).csv("warn_jaccard.csv")
+    write_to_s3(result_df)
