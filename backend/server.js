@@ -153,6 +153,66 @@ app.get("/q1_postcovid_randomforest", async (req, res) => {
   res.send(result);
 });
 
+//Q1
+//forward-elimination
+app.get("/q1_precovid_forward_elimination", async (req, res) => {
+  const result = await q1.find_all_precovid_forward_elimination(DB_NAME, req.query.limit);
+  res.header("Access-Control-Allow-Origin","*")
+  res.send(result);
+});
+
+app.get("/q1_covid_forward_elimination", async (req, res) => {
+  const result = await q1.find_all_covid_forward_elimination(DB_NAME, req.query.limit);
+  res.header("Access-Control-Allow-Origin","*")
+  res.send(result);
+});
+
+app.get("/q1_postcovid_forward_elimination", async (req, res) => {
+  const result = await q1.find_all_postcovid_forward_elimination(DB_NAME, req.query.limit);
+  res.header("Access-Control-Allow-Origin","*")
+  res.send(result);
+});
+
+//Q1
+//stepwise-elimination
+app.get("/q1_precovid_stepwise_elimination", async (req, res) => {
+  const result = await q1.find_all_precovid_stepwise_elimination(DB_NAME, req.query.limit);
+  res.header("Access-Control-Allow-Origin","*")
+  res.send(result);
+});
+
+app.get("/q1_covid_stepwise_elimination", async (req, res) => {
+  const result = await q1.find_all_covid_stepwise_elimination(DB_NAME, req.query.limit);
+  res.header("Access-Control-Allow-Origin","*")
+  res.send(result);
+});
+
+app.get("/q1_postcovid_stepwise_elimination", async (req, res) => {
+  const result = await q1.find_all_postcovid_stepwise_elimination(DB_NAME, req.query.limit);
+  res.header("Access-Control-Allow-Origin","*")
+  res.send(result);
+});
+
+//Q1
+//backward-elimination
+app.get("/q1_precovid_backward_elimination", async (req, res) => {
+  const result = await q1.find_all_precovid_backward_elimination(DB_NAME, req.query.limit);
+  res.header("Access-Control-Allow-Origin","*")
+  res.send(result);
+});
+
+app.get("/q1_covid_backward_elimination", async (req, res) => {
+  const result = await q1.find_all_covid_backward_elimination(DB_NAME, req.query.limit);
+  res.header("Access-Control-Allow-Origin","*")
+  res.send(result);
+});
+
+app.get("/q1_postcovid_backward_elimination", async (req, res) => {
+  const result = await q1.find_all_postcovid_backward_elimination(DB_NAME, req.query.limit);
+  res.header("Access-Control-Allow-Origin","*")
+  res.send(result);
+});
+
 //Q3
 app.get("/q3_titles", async (req, res) => {
   const result = await q3.find_all_titles(DB_NAME, req.query.includeUnknown, req.query.limit);
