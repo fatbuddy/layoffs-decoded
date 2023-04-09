@@ -1,18 +1,18 @@
 const base = require('./base.js')
 
 async function find_all_titles(db, includeUnknown, limit = 100) {
-    var query = "SELECT title_name, count FROM titles where title_name <> 'Unknown' limit " + limit
+    var query = "SELECT name, value FROM q3_titles_counts where name <> 'Unknown' limit " + limit
     if (parseInt(includeUnknown)) {
-        query = "SELECT title_name, count FROM titles limit " + limit
+        query = "SELECT name, value FROM q3_titles_counts limit " + limit
     }
 
     return await base.find_all(db, query);
 }
 
 async function find_all_departments(db, includeOthers, limit = 100) {
-    var query = "SELECT department, count FROM departments where department <> 'Others' limit " + limit 
+    var query = "SELECT name, value FROM q3_departments_counts where name <> 'Others' limit " + limit 
     if (parseInt(includeOthers)) {
-        query = "SELECT department, count FROM departments limit " + limit
+        query = "SELECT name, value FROM q3_departments_counts limit " + limit
     }
 
     return await base.find_all(db, query);

@@ -1,123 +1,168 @@
-import { Card, Grid, LineChart, Title, DonutChart, List, ListItem } from "@tremor/react";
+import { Toggle, ToggleItem, Card, Grid, Title, DonutChart, List, ListItem, Subtitle  } from "@tremor/react";
+import {ChartPieIcon, ChartBarIcon, ChartSquareBarIcon, PresentationChartBarIcon, PresentationChartLineIcon} from "@heroicons/react/outline";
 import ChartView from "./ChartView";
+import React, { useEffect, useState } from "react"
 
-const chartdata = [
-    {
-      year: 1951,
-      "Population growth rate": 1.74,
-    },
-    {
-      year: 1952,
-      "Population growth rate": 1.93,
-    },
-    {
-      year: 1953,
-      "Population growth rate": 1.9,
-    },
-    {
-      year: 1954,
-      "Population growth rate": 1.98,
-    },
-    {
-      year: 1955,
-      "Population growth rate": 2,
-    },
-];
-
-const cities = [
-    {
-      name: "New York",
-      sales: 9800,
-    },
-    {
-      name: "London",
-      sales: 4567,
-    },
-    {
-      name: "Hong Kong",
-      sales: 3908,
-    },
-    {
-      name: "San Francisco",
-      sales: 2400,
-    },
-    {
-      name: "Singapore",
-      sales: 1908,
-    },
-    {
-      name: "Zurich",
-      sales: 1398,
-    },
-  ];
-
-  export const performance = [
-    {
-      date: "2021-01-01",
-      Sales: 900.73,
-      Profit: 173,
-      Customers: 73,
-    },
-    {
-      date: "2021-01-02",
-      Sales: 1000.74,
-      Profit: 174.6,
-      Customers: 74,
-    },
-    // ...
-    {
-      date: "2021-03-13",
-      Sales: 882,
-      Profit: 682,
-      Customers: 682,
-    },
-  ];
-  
 const valueFormatter = (number) =>
-`$ ${Intl.NumberFormat("us").format(number).toString()}`;
-
-
-const dataFormatter = (number) =>
-`${Intl.NumberFormat("us").format(number).toString()}%`;
+`${Intl.NumberFormat("us").format(number).toString()}`;
 
 
 export default function Question1() {
+  const [precovidStatus, setPrecovidStatus] = useState('');
+  const [precovid, setPrecovid] = useState([]);
+  const [covidStatus, setCovidStatus] = useState('');
+  const [covid, setCovid] = useState([]);
+  const [postcovidStatus, setPostcovidStatus] = useState('');
+  const [postcovid, setPostcovid] = useState([]);
+
+  function callApis(technique) {
+    setPrecovidStatus('Loading');
+    fetch(process.env.REACT_APP_API_PROXY + '/q1_precovid_'+ technique + '?limit=10')
+    .then(result => result.json())
+    .then(data => setPrecovid(data.payload))
+    .then(()=>setPrecovidStatus('Success'))
+    .catch(()=>setPrecovidStatus('Error'));
+
+    setCovidStatus('Loading');
+    fetch(process.env.REACT_APP_API_PROXY + '/q1_covid_'+ technique + '?limit=10')
+    .then(result => result.json())
+    .then(data => setCovid(data.payload))
+    .then(()=>setCovidStatus('Success'))
+    .catch(()=>setCovidStatus('Error'));
+
+    setPostcovidStatus('Loading');
+    fetch(process.env.REACT_APP_API_PROXY + '/q1_postcovid_'+ technique + '?limit=10')
+    .then(result => result.json())
+    .then(data => setPostcovid(data.payload))
+    .then(()=>setPostcovidStatus('Success'))
+    .catch(()=>setPostcovidStatus('Error'));
+  }
+
+  useEffect(()=>{
+    setPrecovidStatus('Loading');
+    fetch(process.env.REACT_APP_API_PROXY + '/q1_precovid_pearson?limit=10')
+    .then(result => result.json())
+    .then(data => setPrecovid(data.payload))
+    .then(()=>setPrecovidStatus('Success'))
+    .catch(()=>setPrecovidStatus('Error'));
+
+    setCovidStatus('Loading');
+    fetch(process.env.REACT_APP_API_PROXY + '/q1_covid_pearson?limit=10')
+    .then(result => result.json())
+    .then(data => setCovid(data.payload))
+    .then(()=>setCovidStatus('Success'))
+    .catch(()=>setCovidStatus('Error'));
+
+    setPostcovidStatus('Loading');
+    fetch(process.env.REACT_APP_API_PROXY + '/q1_postcovid_pearson?limit=10')
+    .then(result => result.json())
+    .then(data => setPostcovid(data.payload))
+    .then(()=>setPostcovidStatus('Success'))
+    .catch(()=>setPostcovidStatus('Error'));
+    }, []);
+
   return (
     <>
+        <Toggle defaultValue="pearson" onValueChange={(value) => callApis(value)}>
+          <ToggleItem value="pearson" text="Pearson" icon={ChartPieIcon} />
+          <ToggleItem value="spearman" text="Spearman" icon={ChartBarIcon} />
+          <ToggleItem value="lasso" text="Lasso" icon={ChartSquareBarIcon} />
+          <ToggleItem value="ridge" text="Ridge" icon={PresentationChartBarIcon} />
+          <ToggleItem value="decisiontree" text="Decision Tree" icon={PresentationChartLineIcon} />
+          <ToggleItem value="elasticnet" text="Elastic Net" icon={ChartPieIcon} />
+          <ToggleItem value="randomforest" text="Random Forest" icon={ChartBarIcon} />
+        </Toggle>
         <Grid
         numColsLg={3}
         className="mt-6 gap-6"
         >
         <Card>
-            <Title>Population growth rate (1951 to 2021)</Title>
-            <LineChart
+            <Title>Precovid</Title>
+            {precovidStatus === 'Loading' && <DonutChart
             className="mt-6"
-            data={chartdata}
-            index="year"
-            categories={["Population growth rate"]}
-            colors={["blue"]}
-            valueFormatter={dataFormatter}
-            yAxisWidth={40}
-            />
-        </Card>
-        <Card>
-            <Title>Sales</Title>
+            showLabel={true}
+            label="Loading..."
+            />}
+            {precovidStatus === 'Success' && 
             <DonutChart
             className="mt-6"
-            data={cities}
-            category="sales"
+            variant="pie"
+            data={precovid}
+            category="value"
             index="name"
             valueFormatter={valueFormatter}
-            colors={["slate", "violet", "indigo", "rose", "cyan", "amber"]}
-            />
+            colors={["slate", "violet", "indigo", "rose", "cyan", "amber", "teal", "orange", "fuchsia", "pink"]}
+            />}
         </Card>
         <Card>
-            <Title>Tremor's Hometowns</Title>
+            <Title>Covid</Title>
+            {covidStatus === 'Loading' && <DonutChart
+            className="mt-6"
+            showLabel={true}
+            label="Loading..."
+            />}
+            {covidStatus === 'Success' &&
+            <DonutChart
+            className="mt-6"
+            data={covid}
+            category="value"
+            index="name"
+            valueFormatter={valueFormatter}
+            colors={["slate", "violet", "indigo", "rose", "cyan", "amber", "teal", "orange", "fuchsia", "pink"]}
+            />}
+        </Card>
+        <Card>
+            <Title>Postcovid</Title>
+            {postcovidStatus === 'Loading' && <DonutChart
+            className="mt-6"
+            showLabel={true}
+            label="Loading..."
+            />}
+            {postcovidStatus === 'Success' &&
+            <DonutChart
+            className="mt-6"
+            variant="pie"
+            data={postcovid}
+            category="value"
+            index="name"
+            valueFormatter={valueFormatter}
+            colors={["slate", "violet", "indigo", "rose", "cyan", "amber", "teal", "orange", "fuchsia", "pink"]}
+            />}
+        </Card>
+        </Grid>
+        <Grid
+        numColsLg={3}
+        className="mt-6 gap-6"
+        >
+        <Card>
+            <Title>Precovid</Title>
             <List>
-            {cities.map((item) => (
+            {precovid.map((item) => (
                 <ListItem key={item.name}>
                 <span>{item.name}</span>
-                <span>{item.sales}</span>
+                <span>{item.value}</span>
+                </ListItem>
+            ))}
+            </List>
+        </Card>
+        <Card>
+            <Title>Covid</Title>
+            <List>
+            {covid.map((item) => (
+                <ListItem key={item.name}>
+                <span>{item.name}</span>
+                <span>{item.value}</span>
+                </ListItem>
+            ))}
+            </List>
+        </Card>
+        <Card>
+            <Title>Postcovid</Title>
+            <List>
+            {postcovid.map((item) => (
+                <ListItem key={item.name}>
+                <span>{item.name}</span>
+                <span>{item.value}</span>
                 </ListItem>
             ))}
             </List>

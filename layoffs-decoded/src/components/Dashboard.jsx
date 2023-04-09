@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Card, Grid, Tab, TabList, Text, Title } from "@tremor/react";
+import { Metric, Tab, TabList, Text, Title } from "@tremor/react";
 import Question1 from './Question1';
 import Question2 from './Question2';
 import Question3 from './Question3';
@@ -10,7 +10,7 @@ export default function Dashboard() {
   const [selectedView, setSelectedView] = useState("1");
   return (
     <main className="bg-slate-50 p-6 sm:p-10">
-      <Title>Layoffs Decoded</Title>
+      <Metric>Layoffs Decoded</Metric>
       <Text>Key layoff metrics to answer the following questions:</Text>
       <Text>1. Covid Question</Text>
       <Text>2. ML Question</Text>
