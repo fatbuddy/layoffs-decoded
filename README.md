@@ -26,21 +26,21 @@ How to run the code for Q3:
 
 1. Install the dependencies:
 
-`pip install -r requirement.txt`
+    pip install -r requirement.txt
 
 2. Execute python files
 
 Extract the employee profile data and transform into standardized locations
 
-    `python ./data_preparation/cleaning/employee_location.py`
+    python ./data_preparation/cleaning/employee_location.py
 
 Extract the employee profile data and transform into standardized titles
 
-    `python ./data_preparation/er/1_standardize_title_employee_profile.py`
+    python ./data_preparation/er/1_standardize_title_employee_profile.py
 
 Extract the employee profile data and transform into standardized departments
 
-    `python ./data_preparation/er/2_function_token_matching.py`
+    python ./data_preparation/er/2_function_token_matching.py
 
-    `python ./data_preparation/er/3_token_department_combiner.py`
+    python ./data_preparation/er/3_token_department_combiner.py
 
