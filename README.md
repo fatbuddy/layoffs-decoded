@@ -15,9 +15,9 @@ Questions:
 2. Predicting future layoffs and identifying the most influential factors causing layoffs in Nasdaq 500 companies.
 
 3. What are the profiles of employees who were impacted by the recent layoffs in the tech industry? A profile may include:
-- Employee position 
-- Department
-- Location
+    - Employee position 
+    - Department
+    - Location
 
 
 
@@ -32,14 +32,15 @@ How to run the code for Q3:
 
 Extract the employee profile data and transform into standardized locations
 
-`python ./data_preparation/cleaning/employee_location.py`
+    `python ./data_preparation/cleaning/employee_location.py`
 
 Extract the employee profile data and transform into standardized titles
 
-`python ./data_preparation/er/1_standardize_title_employee_profile.py`
+    `python ./data_preparation/er/1_standardize_title_employee_profile.py`
 
 Extract the employee profile data and transform into standardized departments
 
-`python ./data_preparation/er/2_function_token_matching.py`
-`python ./data_preparation/er/3_token_department_combiner.py`
+    `python ./data_preparation/er/2_function_token_matching.py`
+
+    `python ./data_preparation/er/3_token_department_combiner.py`
 
