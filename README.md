@@ -26,7 +26,7 @@ How to run the code for Q3:
 
 1. Install the dependencies:
 
-    pip install -r requirement.txt
+    `pip install -r requirement.txt`
 
 2. Execute python files
 
