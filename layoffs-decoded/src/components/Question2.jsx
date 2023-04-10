@@ -44,17 +44,19 @@ export default function Question2() {
                 <Table className="mt-5">
                 <TableHead>
                     <TableRow>
-                        <TableHeaderCell>Regressor</TableHeaderCell>
                         <TableHeaderCell>Metric</TableHeaderCell>
-                        <TableHeaderCell>Value</TableHeaderCell>
+                        <TableHeaderCell>Decision Tree</TableHeaderCell>
+                        <TableHeaderCell>Random Forest</TableHeaderCell>
+                        <TableHeaderCell>Gradient Boosting Reg</TableHeaderCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
                     {modelMetrics.map((item) => (
-                    <TableRow key={item.regressor}>
-                        <TableCell>{item.regressor}</TableCell>
-                        <TableCell><Text>{item.metric}</Text></TableCell>
-                        <TableCell><Text>{item.value}</Text></TableCell>
+                    <TableRow key={item.metric}>
+                        <TableCell>{item.metric}</TableCell>
+                        <TableCell><Text>{item['decision tree']}</Text></TableCell>
+                        <TableCell><Text>{item['random forest']}</Text></TableCell>
+                        <TableCell><Text>{item['gradient boosting reg']}</Text></TableCell>
                     </TableRow>
                     ))}
                 </TableBody>
