@@ -112,6 +112,54 @@ async function find_all_postcovid_randomforest(db, limit) {
     return await base.find_all(db, query)
 }
 
+// Forward Elimination
+async function find_all_precovid_forward_elimination(db, limit) {
+    var query = "SELECT label, average_score, feature_name FROM precovid_forward_elimination limit " + limit
+    return await base.find_all(db, query)
+}
+
+async function find_all_covid_forward_elimination(db, limit) {
+    var query = "SELECT label, average_score, feature_name FROM covid_forward_elimination limit " + limit
+    return await base.find_all(db, query)
+}
+
+async function find_all_postcovid_forward_elimination(db, limit) {
+    var query = "SELECT label, average_score, feature_name FROM postcovid_forward_elimination limit " + limit
+    return await base.find_all(db, query)
+}
+
+// stepwise Elimination
+async function find_all_precovid_stepwise_elimination(db, limit) {
+    var query = "SELECT label, average_score, feature_name FROM precovid_stepwise_elimination limit " + limit
+    return await base.find_all(db, query)
+}
+
+async function find_all_covid_stepwise_elimination(db, limit) {
+    var query = "SELECT label, average_score, feature_name FROM covid_stepwise_elimination limit " + limit
+    return await base.find_all(db, query)
+}
+
+async function find_all_postcovid_stepwise_elimination(db, limit) {
+    var query = "SELECT label, average_score, feature_name FROM postcovid_stepwise_elimination limit " + limit
+    return await base.find_all(db, query)
+}
+
+// backward Elimination
+async function find_all_precovid_backward_elimination(db, limit) {
+    var query = "SELECT feature_name FROM precovid_backward_elimination limit " + limit
+    return await base.find_all(db, query)
+}
+
+async function find_all_covid_backward_elimination(db, limit) {
+    var query = "SELECT feature_name FROM covid_backward_elimination limit " + limit
+    return await base.find_all(db, query)
+}
+
+async function find_all_postcovid_backward_elimination(db, limit) {
+    var query = "SELECT feature_name FROM postcovid_backward_elimination limit " + limit
+    return await base.find_all(db, query)
+}
+
 module.exports = {
     find_all_precovid_pearson,
     find_all_covid_pearson,
@@ -133,5 +181,14 @@ module.exports = {
     find_all_postcovid_decisiontree,
     find_all_precovid_randomforest,
     find_all_covid_randomforest,
-    find_all_postcovid_randomforest
+    find_all_postcovid_randomforest,
+    find_all_precovid_forward_elimination,
+    find_all_covid_forward_elimination,
+    find_all_postcovid_forward_elimination,
+    find_all_precovid_stepwise_elimination,
+    find_all_covid_stepwise_elimination,
+    find_all_postcovid_stepwise_elimination,
+    find_all_precovid_backward_elimination,
+    find_all_covid_backward_elimination,
+    find_all_postcovid_backward_elimination
   };
