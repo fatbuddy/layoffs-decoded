@@ -9,11 +9,19 @@ const DB_NAME = "layoffs_decoded_result";
 
 //load model
 const q1 = require("./models/q1.js");
+const q2 = require("./models/q2.js");
 const q3 = require("./models/q3.js");
 
 app.use(express.json());
 
 //Q1
+//BINS
+app.get("/q1_bin_layoffs", async (req, res) => {
+  const result = await q1.find_all_bin_layoffs(DB_NAME, req.query.limit);
+  res.header("Access-Control-Allow-Origin","*")
+  res.send(result);
+});
+
 //PEARSON
 app.get("/q1_precovid_pearson", async (req, res) => {
   const result = await q1.find_all_precovid_pearson(DB_NAME, req.query.limit);
@@ -209,6 +217,13 @@ app.get("/q1_covid_backward_elimination", async (req, res) => {
 
 app.get("/q1_postcovid_backward_elimination", async (req, res) => {
   const result = await q1.find_all_postcovid_backward_elimination(DB_NAME, req.query.limit);
+  res.header("Access-Control-Allow-Origin","*")
+  res.send(result);
+});
+
+//Q2
+app.get("/q2_model_metrics", async (req, res) => {
+  const result = await q2.find_model_metrics(DB_NAME, req.query.limit);
   res.header("Access-Control-Allow-Origin","*")
   res.send(result);
 });

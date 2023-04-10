@@ -1,5 +1,11 @@
 const base = require('./base.js')
 
+//BINS
+async function find_all_bin_layoffs(db, limit) {
+    var query = "SELECT time_period, employees_laidoff FROM q1_layoffs limit " + limit
+    return await base.find_all(db, query)
+}
+
 // PEARSON
 async function find_all_precovid_pearson(db, limit) {
     var query = "SELECT name, value FROM precovid_pearson limit " + limit
@@ -161,6 +167,7 @@ async function find_all_postcovid_backward_elimination(db, limit) {
 }
 
 module.exports = {
+    find_all_bin_layoffs,
     find_all_precovid_pearson,
     find_all_covid_pearson,
     find_all_postcovid_pearson,

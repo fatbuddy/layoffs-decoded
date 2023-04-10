@@ -18,6 +18,7 @@ const valueFormatter = (number) =>
 
 
 export default function Question1() {
+  const [binLayoffs, setBinLayoffs] = useState([]);
   const [precovidStatus, setPrecovidStatus] = useState('');
   const [precovid, setPrecovid] = useState([]);
   const [covidStatus, setCovidStatus] = useState('');
@@ -53,6 +54,10 @@ export default function Question1() {
   }
 
   useEffect(() => {
+    fetch(process.env.REACT_APP_API_PROXY + '/q1_bin_layoffs?limit=10')
+      .then(result => result.json())
+      .then(data => setBinLayoffs(data.payload));
+
     setPrecovidStatus('Loading');
     fetch(process.env.REACT_APP_API_PROXY + '/q1_precovid_pearson?limit=10')
       .then(result => result.json())
@@ -223,9 +228,22 @@ export default function Question1() {
         <Question1Wrapper val={val} precovid={precovid} covid={covid} postcovid={postcovid} precovidStatus={precovidStatus} covidStatus={covidStatus} postcovidStatus={postcovidStatus}></Question1Wrapper>
       }
 
-      <div className="mt-6">
-        <ChartView />
-      </div>
+      <Grid
+          className="mt-6 gap-6"
+        >
+          <Card>
+            <Title>Number of Layoffs during each Time Period</Title>
+            <BarChart
+              className="mt-6"
+              data={binLayoffs}
+              index="time_period"
+              categories={["employees_laidoff"]}
+              colors={["rose"]}
+              valueFormatter={valueFormatter}
+              yAxisWidth={48}
+            />
+          </Card>
+      </Grid>
     </>
   );
 }

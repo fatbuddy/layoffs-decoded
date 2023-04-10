@@ -5,9 +5,9 @@ import { Card,
     BarList, 
     Bold, 
     Flex,
-    DonutChart,
-    BarChart} from "@tremor/react";
+    DonutChart} from "@tremor/react";
 import React, { useEffect, useState } from "react";
+import sunburstChart from '../public/sunburst.png';
 
 const valueFormatter = (number) =>
 `${Intl.NumberFormat("us").format(number).toString()}`;
@@ -50,23 +50,8 @@ export default function Question3() {
         className="mt-6 gap-6"
         >
         <Card>
-            <Title>Top Titles Which Laid Off</Title>
-            {titlesStatus === 'Loading' && <DonutChart
-            className="mt-6"
-            showLabel={true}
-            label="Loading..."
-            />}
-            {titlesStatus === 'Success' &&
-            <Flex className="mt-4">
-            <Text>
-                <Bold>Title</Bold>
-            </Text>
-            <Text>
-                <Bold>Number of Layoffs</Bold>
-            </Text>
-            </Flex>}
-            {titlesStatus === 'Success' &&
-            <BarList data={titles} className="mt-2" />}
+            <Title>Employee Layoffs by Department and Job Title</Title>
+            <img src={sunburstChart} alt="sunburst chart" />
         </Card>
         <Card>
             <Title>Top Departments Which Laid Off</Title>
@@ -88,28 +73,49 @@ export default function Question3() {
             <BarList data={department} className="mt-2" />}
         </Card>
         </Grid>
-
-        <div className="mt-6">
-        <Card>
-            <Title>Top Countries Which Laid Off</Title>
-            {locationStatus === 'Loading' && <DonutChart
-            className="mt-6"
-            showLabel={true}
-            label="Loading..."
-            />}
-            {locationStatus === 'Success' &&
-            <Flex className="mt-4">
-            <Text>
-                <Bold>Country</Bold>
-            </Text>
-            <Text>
-                <Bold>Number of Layoffs</Bold>
-            </Text>
-            </Flex>}
-            {locationStatus === 'Success' &&
-            <BarList data={location} className="mt-2" />}
-        </Card>
-        </div>
+        <Grid
+        numColsLg={2}
+        className="mt-6 gap-6"
+        >
+            <Card>
+                <Title>Top Titles Which Laid Off</Title>
+                {titlesStatus === 'Loading' && <DonutChart
+                className="mt-6"
+                showLabel={true}
+                label="Loading..."
+                />}
+                {titlesStatus === 'Success' &&
+                <Flex className="mt-4">
+                <Text>
+                    <Bold>Title</Bold>
+                </Text>
+                <Text>
+                    <Bold>Number of Layoffs</Bold>
+                </Text>
+                </Flex>}
+                {titlesStatus === 'Success' &&
+                <BarList data={titles} className="mt-2" />}
+            </Card>
+            <Card>
+                <Title>Top Countries Which Laid Off</Title>
+                {locationStatus === 'Loading' && <DonutChart
+                className="mt-6"
+                showLabel={true}
+                label="Loading..."
+                />}
+                {locationStatus === 'Success' &&
+                <Flex className="mt-4">
+                <Text>
+                    <Bold>Country</Bold>
+                </Text>
+                <Text>
+                    <Bold>Number of Layoffs</Bold>
+                </Text>
+                </Flex>}
+                {locationStatus === 'Success' &&
+                <BarList data={location} className="mt-2" />}
+            </Card>
+        </Grid>
     </>
   );
 }
