@@ -114,7 +114,7 @@ for index, row in tqdm(emp_df.iterrows()):
                               'function': row['function'],
                               'title': title, 
                               'jaccard_score': max_short_title_jaccard, 
-                              'matching_title': matching_title}, index=[0])
+                              'matching_title': alt_title}, index=[0])
         result_df = pd.concat([result_df.loc[:], entry]).reset_index(drop=True)
     else:
         # mark it to Unknown title if not regonize
