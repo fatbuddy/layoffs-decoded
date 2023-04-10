@@ -238,7 +238,7 @@ export default function Question1() {
               data={binLayoffs}
               index="time_period"
               categories={["employees_laidoff"]}
-              colors={["rose"]}
+              colors={["amber"]}
               valueFormatter={valueFormatter}
               yAxisWidth={48}
             />
