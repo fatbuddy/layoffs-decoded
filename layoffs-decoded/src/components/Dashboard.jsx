@@ -11,11 +11,7 @@ export default function Dashboard() {
   return (
     <main className="bg-slate-50 p-6 sm:p-10">
       <Metric>Layoffs Decoded</Metric>
-      <Text>Key layoff metrics to answer the following questions:</Text>
-      <Text>1. Covid Question</Text>
-      <Text>2. ML Question</Text>
-      <Text>3. Employee</Text>
-
+  
       <TabList
         defaultValue="1"
         onValueChange={(value) => setSelectedView(value)}
