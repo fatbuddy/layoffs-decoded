@@ -10,14 +10,14 @@ This project aimed at providing valuable insights into this recent layoffs pheno
 
 Questions:
 
-1. Does the COVID-19 pandemic affect layoffs in the US? 
+1. How did the COVID-19 pandemic affect layoffs in the US? 
+    - Were there more layoffs before, during, or after COVID-19? 
+    - Identifying the factors affecting the layoffs. Like company size, and financial data like revenue, cost of revenue, etc.
 
-2. Predicting future layoffs and identifying the most influential factors causing layoffs in Nasdaq 500 companies.
 
-3. What are the profiles of employees who were impacted by the recent layoffs in the tech industry? A profile may include:
-    - Employee position 
-    - Department
-    - Location
+2. Analyze possible factors affecting layoffs in the recent years and predicting future layoffs based on those factors.
+
+3. What are the employee profiles (title, department, location) impacted by recent layoffs in the tech industry?
 
 
 
