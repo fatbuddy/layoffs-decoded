@@ -43,7 +43,7 @@ This project aimed at providing valuable insights into this recent layoffs pheno
 
 We merged warn.csv dataset with nasdaq.csv dataset to map companies present in warn with their symbol names present in NASDAQ which was crucial to get financial data of each company through these symbol names using financial modelling prep API. In order to do that we had to do Entity Resolution as the company names were present in different manners across both these datasets. 
 
-- Run `data_preparation/scraping/er.py` use the command below:
+- Run `data_preparation/er/er.py` use the command below:
 
 `spark-submit --jars /opt/hadoop/share/hadoop/tools/lib/aws-java-sdk-bundle-1.12.262.jar,/opt/hadoop/share/hadoop/tools/lib/hadoop-aws-3.3.4.jar er.py`
 
