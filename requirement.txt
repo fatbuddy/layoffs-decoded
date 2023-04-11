@@ -3,3 +3,5 @@ spacy
 requests
 pandas
 tqdm
+shap
+mlxtend
