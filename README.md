@@ -21,10 +21,11 @@ Questions:
 
 
 The folder contains:<br>
-`airflow_dags` - This folder contains files that are used to create directed acyclic graphs (DAGs) in Airflow.<br>
-`analysis` - This folder contains Jupyter notebooks that are used to perform various analyses on the data.<br>
-`backend` - This folder contains the server-side code for the project, implemented using Node.js and Express.js. This code provides an API that can be used by the frontend code to interact with the server<br>
-`frontend` - This folder contains the client-side code for the project, implemented using React and TypeScript. This code interacts with the server-side API provided by the backend code.<br>
+
+    `airflow_dags` - This folder contains files that are used to create directed acyclic graphs (DAGs) in Airflow.<br>
+    `analysis` - This folder contains Jupyter notebooks that are used to perform various analyses on the data.<br>
+    `backend` - This folder contains the server-side code for the project, implemented using Node.js and Express.js. This code provides an API that can be used by the frontend code to interact with the server<br>
+    `frontend` - This folder contains the client-side code for the project, implemented using React and TypeScript. This code interacts with the server-side API provided by the backend code.<br>
 
 How to run the code for Q3:
 
