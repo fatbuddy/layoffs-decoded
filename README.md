@@ -19,7 +19,6 @@ This project aimed at providing valuable insights into this recent layoffs pheno
 
 3. What are the employee profiles (title, department, location) impacted by recent layoffs in the tech industry?
 
----
 
 ## Folders:<br>
 
@@ -28,6 +27,13 @@ This project aimed at providing valuable insights into this recent layoffs pheno
 - `analysis` : This folder contains Jupyter notebooks that are used to perform various analyses on the data.<br>
 
 - `backend` : This folder contains the server-side code for the project, implemented using Node.js and Express.js. This code provides an API that can be used by the frontend code to interact with the server<br>
+
+- `data_preparation` : This folder contains code and scripts for preparing and cleaning data
+
+    - `data_preparation/cleaning` : This folder contains scripts and code for cleaning and preprocessing data, such as removing duplicates, fixing formatting issues, or converting data types.
+    - `data_preparation/er` : This folder contains scripts and code for performing entity resolution, which is the process of identifying and merging records on employee
+    profile
+    - `data_preparation/scraping` : This folder contains scripts and code for web scraping, which is the process of automatically extracting data from web pages.
 
 - `frontend` : This folder contains the client-side code for the project, implemented using React and TypeScript. This code interacts with the server-side API provided by the backend code.<br>
 
