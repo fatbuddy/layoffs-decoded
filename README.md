@@ -12,7 +12,7 @@ This project aimed at providing valuable insights into this recent layoffs pheno
 
 1. How did the COVID-19 pandemic affect layoffs in the US? 
     - Were there more layoffs before, during, or after COVID-19? 
-    - Identifying the factors affecting the layoffs. Like company size, and financial data like revenue, cost of revenue, etc.
+    - Identifying the factors affecting the layoffs. Like company size, covid death cases, and financial data like revenue, cost of revenue, etc.
 
 
 2. Analyze possible factors affecting layoffs in the recent years and predicting future layoffs based on those factors.
@@ -41,7 +41,7 @@ This project aimed at providing valuable insights into this recent layoffs pheno
 
 1. How did the COVID-19 pandemic affect layoffs in the US? What are the top 10 factors that impacted layoffs during precovid, covid, and postcovid period?
 
-We merged warn.csv dataset with nasdaq.csv dataset to map companies present in warn with their symbol names present in NASDAQ which was crucial to get financial data of each company through these symbol names using financial modelling prep API. In order to do that we had to do Entity Resolution as the company names were present in different manners across both these datasets. 
+We merged warn.csv dataset with nasdaq.csv dataset to map companies present in WARN (Worker Adjustment and Retraining Notification Database) with their symbol names present in NASDAQ (National Association of Securities Dealers Automated Quotations) which was crucial to get financial data of each company through these symbol names using financial modelling prep API. In order to do that we had to do Entity Resolution as the company names were present in different manners across both these datasets. 
 
 - Run `data_preparation/er/er.py` use the command below:
 
