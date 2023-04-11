@@ -4,11 +4,11 @@ Demo website
 
 http://ec2-3-94-101-23.compute-1.amazonaws.com:3000/
 
-Introduction
+##Introduction
 
 This project aimed at providing valuable insights into this recent layoffs phenomenon and helping job seekers and public audiences navigates the uncertainty of the current job market. It utilizes a data-driven approach to analyze relevant data, such as financial data, employee data, and performance data, to deduce inferences and conclusions about the underlying reasons for the layoffs and the impacts of the layoffs on the company and its employees.
 
-Questions:
+##Questions:
 
 1. How did the COVID-19 pandemic affect layoffs in the US? 
     - Were there more layoffs before, during, or after COVID-19? 
@@ -19,8 +19,9 @@ Questions:
 
 3. What are the employee profiles (title, department, location) impacted by recent layoffs in the tech industry?
 
+---
 
-The folder contains:<br>
+##Folders:<br>
 
 - `airflow_dags` : This folder contains files that are used to create directed acyclic graphs (DAGs) in Airflow.<br>
 
@@ -30,7 +31,9 @@ The folder contains:<br>
 
 - `frontend` : This folder contains the client-side code for the project, implemented using React and TypeScript. This code interacts with the server-side API provided by the backend code.<br>
 
-How to run the code for Q3:
+---
+
+##How to run the code for Q3:
 
 1. Install the dependencies:
 
