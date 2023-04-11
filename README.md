@@ -37,7 +37,9 @@ This project aimed at providing valuable insights into this recent layoffs pheno
 
 - `frontend` : This folder contains the client-side code for the project, implemented using React and TypeScript. This code interacts with the server-side API provided by the backend code.<br>
 
----
+## How to run the code for Q1:
+
+## How to run the code for Q2:
 
 ## How to run the code for Q3:
 
