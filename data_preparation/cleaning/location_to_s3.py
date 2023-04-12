@@ -23,13 +23,9 @@ df = pd.read_csv(
 
 
 # remove blank entries and strip spaces
-# print(df)
+
 df = df.apply(lambda x: x.str.strip())
-# df = df.replace('\s\s', np.nan)
-# df = df.dropna()
-# count the occurrences of each unique country
 country_counts = df['country'].value_counts()
-# country_counts = country_counts[country_counts != 176]
 
 
 
