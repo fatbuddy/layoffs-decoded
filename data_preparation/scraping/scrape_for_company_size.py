@@ -46,11 +46,3 @@ def extract_company_data(symbols, output_dir, start_year, end_year, api_key, qua
         out_path = f'{output_dir}/company_size_data_{str(uuid.uuid4()).split("-")[0]}.csv'
     output = df.to_csv(out_path, index=False)
     return out_path
-# symbols = ['AAPL', 'GOOGL', 'MSFT']
-# start_year = 2018
-# end_year = 2020
-# api_key = ""
-# symbols = pd.read_csv("warn-155.csv")["Symbol"].to_list()
-# output_dir = './'
-# output = extract_company_data(symbols, output_dir, start_year, end_year, api_key, quarterly=True)
-# print(output)

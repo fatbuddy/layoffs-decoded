@@ -38,9 +38,3 @@ def extract_company_data(symbols, output_dir, api_key):
     out_path = f'{output_dir}/company_size_data_{str(uuid.uuid4()).split("-")[0]}.csv'
     output = df.to_csv(out_path, index=False)
     return out_path
-
-# symbols = ['AAPL', 'GOOGL', 'MSFT']
-# api_key = ""
-# symbols = pd.read_csv("warn-155.csv")["Symbol"].to_list()
-# output_dir = './'
-# extract_company_data(symbols, output_dir, api_key)
