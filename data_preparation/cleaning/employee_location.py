@@ -41,9 +41,6 @@ def get_country_from_address(address):
             return country
         except:
             return raw_address
-    # print(country)
-    # print()
-    # print()
 
 def remove_stop_words(raw_loc):
     en = spacy.load('en_core_web_sm')
@@ -89,38 +86,6 @@ df = pd.read_csv(
 
 df["country"] = df["location"]
 
-# df.head()
-# df_sample = df.sample(n=10)
-# df_sample["country"] = df_sample["country"].fillna("")
-# df_sample["country"] = df_sample["country"].apply(lambda x: x.lower())
-# df_sample["country"] = df_sample["country"].apply(lambda x: x if x in ["remote","hybrid", "anywhere"] else string_cleaning(x))
-# unique_values = df_sample["country"].drop_duplicates()
-# country_dict = {}
-# for value in unique_values:
-#     country_dict[value] = get_country_from_address(value)
-    
-# df_sample["country"] = df_sample["country"].apply(lambda x: country_dict[x] if x in country_dict else x)
-# # df["country"] = df["country"].apply(lambda x: x if x in ["remote","hybrid", "anywhere"] else get_country_from_address(x))
-# df_sample.to_csv('C:/Users/Crystal/OneDrive/Desktop/employee_location_locationiq2.csv')
-
-
-# raw_loc = "nz/"
-# raw_loc = "berlin, germany"
-# raw_loc = "Cologne, Germany. France is as well an option."
-# raw_loc = "pittsburgh"
-# raw_loc = "Anywhere"
-# raw_loc = "Remote/Seattle"
-# raw_loc = "U.S or India"
-# raw_loc = "Canada position or US position that accepts remote from Canada"
-# raw_loc = "Tempe, Arizona Available locations USA"
-# raw_loc = "Remote, Geelong/Melbourne"
-# raw_loc = "USA/ San Francisco"
-# raw_loc = "San Francisco (Bay Area)/ Remote" #4585
-# raw_loc = raw_loc.lower()
-# raw_loc = raw_loc if raw_loc in ["remote", "hybrid", "anywhere"] else string_cleaning(raw_loc)
-# raw_loc = raw_loc if raw_loc in ["remote", "hybrid", "anywhere"] else get_country_from_address(raw_loc)
-# print(raw_loc)
-
 df["country"] = df["country"].fillna("")
 df["country"] = df["country"].apply(lambda x: x.lower())
 df["country"] = df["country"].apply(lambda x: x if x in ["remote","hybrid", "anywhere"] else string_cleaning(x))
@@ -133,7 +98,6 @@ for value in unique_values:
     country_dict[value] = get_country_from_address(value)
     
 df["country"] = df["country"].apply(lambda x: country_dict[x] if x in country_dict else x)
-# df["country"] = df["country"].apply(lambda x: x if x in ["remote","hybrid", "anywhere"] else get_country_from_address(x))
 
 
 #write to s3
